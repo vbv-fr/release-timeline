@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Frinks Release Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#F5F6F4; --surface:#FFFFFF; --sunk:#ECEEEB; --ink:#1A1E1C; --muted:#5A635E;
+  --rule:#D9DEDA; --line-strong:#9AA39E;
+  --accent:#E0522A; --accent-ink:#B23D16; --accent-soft:#FCE9E1;
+  --warn:#8A5A00; --warn-soft:#F8EDD3;
+  --dev:#DDE7E1; --dev-ink:#2F5A45; --san:#F6E3D6; --san-ink:#8C3E1A;
+  --bar:#E4E8E5; --bar-ink:#2C332F; --drop:#FBD9CB;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --lane:210px; --col:196px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#121514; --surface:#1B1F1D; --sunk:#171A19; --ink:#E6E9E7; --muted:#9CA5A0;
+    --rule:#2D3431; --line-strong:#5E6863;
+    --accent:#F2693F; --accent-ink:#FF9470; --accent-soft:#35201A;
+    --warn:#E6B657; --warn-soft:#2E2613;
+    --dev:#1D2B24; --dev-ink:#8FCBAE; --san:#33231A; --san-ink:#F2A47F;
+    --bar:#242A27; --bar-ink:#D4DAD6; --drop:#4A2A1E;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121514; --surface:#1B1F1D; --sunk:#171A19; --ink:#E6E9E7; --muted:#9CA5A0;
+  --rule:#2D3431; --line-strong:#5E6863;
+  --accent:#F2693F; --accent-ink:#FF9470; --accent-soft:#35201A;
+  --warn:#E6B657; --warn-soft:#2E2613;
+  --dev:#1D2B24; --dev-ink:#8FCBAE; --san:#33231A; --san-ink:#F2A47F;
+  --bar:#242A27; --bar-ink:#D4DAD6; --drop:#4A2A1E;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font:400 15px/1.5 var(--body); padding-inline:20px; padding-block:0 48px}
+.page{max-width:1600px; margin:0 auto; display:grid; gap:22px}
+header.top{padding-block:32px 4px; display:grid; gap:10px}
+.eyebrow{font:600 12px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
+h1{font:800 clamp(30px,5vw,46px)/1.03 var(--display); letter-spacing:-.02em; margin:0; text-wrap:balance}
+.lede{margin:0; max-width:74ch; font-size:17px}
+.toolbar{display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; font-size:13.5px; color:var(--muted)}
+.toolbar .sp{flex:1}
+.legend{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center}
+.sw{display:inline-block; width:12px; height:12px; border-radius:3px; border:1px solid var(--line-strong); vertical-align:-1px; margin-right:5px}
+button{font:600 13px/1 var(--body); color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:5px; padding:8px 12px; cursor:pointer}
+button:hover{background:var(--sunk)}
+button:focus-visible, .card:focus-visible, textarea:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+button.danger{border-color:var(--accent); color:var(--accent-ink)}
+
+/* timeline */
+.scroller{overflow-x:auto; border:1px solid var(--rule); border-radius:8px; background:var(--surface)}
+.grid{display:grid; grid-template-columns:var(--lane) repeat(11, var(--col)); min-width:calc(var(--lane) + 11 * var(--col))}
+.corner, .lh{position:sticky; left:0; z-index:3; background:var(--surface); border-right:1px solid var(--rule)}
+.phase{padding:8px 12px; font:600 11px/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase; border-bottom:1px solid var(--rule); border-right:1px solid var(--rule)}
+.phase.dev{background:var(--dev); color:var(--dev-ink)}
+.phase.san{background:var(--san); color:var(--san-ink)}
+.phase.nxt{background:repeating-linear-gradient(135deg, var(--sunk) 0 6px, var(--surface) 6px 12px); color:var(--muted)}
+.dayh{padding:10px 12px; border-bottom:2px solid var(--ink); border-right:1px solid var(--rule); display:grid; gap:2px; align-content:start}
+.dayh b{font:700 18px/1.1 var(--display)}
+.dayh span{font:500 11.5px/1.3 var(--mono); color:var(--muted)}
+.dayh .mk{font:600 11px/1.35 var(--mono); color:var(--accent-ink); margin-top:4px}
+.dayh.nxt{background:repeating-linear-gradient(135deg, var(--sunk) 0 6px, var(--surface) 6px 12px)}
+.dayh.w2{box-shadow:inset 3px 0 0 var(--line-strong)}
+.corner{border-bottom:2px solid var(--ink); display:flex; align-items:flex-end; padding:10px 14px; font:600 11px/1.3 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.corner.top{border-bottom:1px solid var(--rule); align-items:center}
+
+.lane{display:contents}
+.lh{padding:14px; border-bottom:1px solid var(--rule); display:grid; gap:4px; align-content:start}
+.lh strong{font:700 18px/1.15 var(--display)}
+.lh .role{font:500 11.5px/1.3 var(--mono); color:var(--muted)}
+.lh .cover{font-size:12.5px; color:var(--muted); line-height:1.35; margin-top:4px}
+.lane-body{grid-column:2 / span 11; display:grid; grid-template-columns:repeat(11, var(--col)); border-bottom:1px solid var(--rule)}
+.bars{grid-column:1 / -1; display:grid; grid-template-columns:repeat(11, var(--col)); gap:4px 0; padding-block:10px 4px}
+.bar{margin-inline:6px; padding:4px 9px; border-radius:4px; background:var(--bar); color:var(--bar-ink); font-size:12.5px; line-height:1.35; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bar .rng{font:500 10.5px/1 var(--mono); color:var(--muted); margin-right:8px}
+.bar.san{background:var(--san); color:var(--san-ink)}
+.bar.p::after{content:"Proposed"; font:600 9.5px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; color:var(--warn); background:var(--warn-soft); padding:2px 4px; border-radius:3px; margin-left:8px; vertical-align:1px}
+.cell{border-right:1px solid var(--rule); padding:8px 6px 10px; min-height:64px; display:flex; flex-direction:column; gap:6px; transition:background .12s}
+.cell.nxt{background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--sunk) 70%, transparent) 0 6px, transparent 6px 12px)}
+.cell.over{background:var(--drop)}
+.card{position:relative; background:var(--surface); border:1px solid var(--rule); border-radius:5px; padding:7px 26px 7px 9px; font-size:13px; line-height:1.38; box-shadow:0 1px 2px color-mix(in srgb, var(--ink) 10%, transparent); cursor:grab; touch-action:none; user-select:none}
+.card.dl{background:var(--accent-soft); border-color:color-mix(in srgb, var(--accent) 55%, var(--rule))}
+.card.placeholder{opacity:.35}
+.card .tg{display:block; font:600 9.5px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; margin-bottom:4px}
+.card.dl .tg.d{color:var(--accent-ink)}
+.card .tg.p{color:var(--warn)}
+.card .x{position:absolute; top:4px; right:4px; width:20px; height:20px; padding:0; border:0; background:transparent; color:var(--muted); font:600 15px/20px var(--body); border-radius:3px; opacity:0}
+.card:hover .x, .card:focus-within .x, .card:focus .x{opacity:1}
+@media (hover:none){ .card .x{opacity:.6} }
+.ghost{position:fixed; z-index:50; pointer-events:none; width:180px; transform:rotate(2deg); box-shadow:0 10px 24px color-mix(in srgb, var(--ink) 25%, transparent); cursor:grabbing}
+.add{margin-top:auto; align-self:flex-start; border:1px dashed var(--line-strong); background:transparent; color:var(--muted); font-size:12px; padding:5px 8px; opacity:.55}
+.cell:hover .add, .add:focus-visible{opacity:1}
+textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); background:var(--surface); border:1px solid var(--accent); border-radius:5px; padding:7px 9px; resize:vertical; min-height:60px}
+
+/* notes */
+.notes{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); padding-top:8px}
+.notes h2{font:700 18px/1.2 var(--display); margin:0 0 8px}
+.notes ul{margin:0; padding-left:18px; display:grid; gap:6px; max-width:62ch}
+.notes li::marker{color:var(--line-strong)}
+.hint{font-size:13px; color:var(--muted)}
+.tagp{font:600 10px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; color:var(--warn); background:var(--warn-soft); padding:2px 5px; border-radius:3px}
+@media (prefers-reduced-motion: reduce){ .cell{transition:none} }
+
+/* ---------- Release Flow (appended) ---------- */
+.jump{display:flex; gap:8px; flex-wrap:wrap}
+.jump a{font:600 12.5px/1 var(--body); color:var(--ink); text-decoration:none; padding:7px 11px; border:1px solid var(--rule); border-radius:5px; background:var(--surface)}
+.jump a:hover, .jump a:focus-visible{border-color:var(--accent); outline:none}
+.rf{
+  --line:var(--rule); --surface-2:var(--sunk);
+  --signal:var(--accent-ink); --signal-bg:var(--accent-soft);
+  --pass:#2E6A46; --skill:#145C7E;
+  --pm:#6D4AA6; --pm-bg:#EDE6F7; --dv:#14697C; --dv-bg:#DEEFF4; --clr:#8A5A12; --clr-bg:#F7EEDA; --sg:#56661A; --sg-bg:#EDF1D8;
+  border-top:2px solid var(--ink); padding-top:32px; margin-top:24px; scroll-margin-top:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .rf{
+    --pass:#74C494; --skill:#63B6DB;
+    --pm:#B79BE8; --pm-bg:#2A2140; --dv:#6FC2D6; --dv-bg:#123039; --clr:#DCB863; --clr-bg:#33280F; --sg:#C6D68A; --sg-bg:#262B14;
+  }
+}
+:root[data-theme="dark"] .rf{
+  --pass:#74C494; --skill:#63B6DB;
+  --pm:#B79BE8; --pm-bg:#2A2140; --dv:#6FC2D6; --dv-bg:#123039; --clr:#DCB863; --clr-bg:#33280F; --sg:#C6D68A; --sg-bg:#262B14;
+}
+.rf-inner{max-width:880px}
+.rf .part{font:600 12px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
+.rf h2.big{font:800 clamp(28px,4.4vw,38px)/1.05 var(--display); letter-spacing:-.02em; margin:10px 0 0; text-wrap:balance}
+.rf .standfirst{color:var(--muted); margin:12px 0 0; max-width:66ch; font-size:16px}
+.rf h2{font:700 19px/1.2 var(--display); letter-spacing:-.01em; margin:0}
+.rf section{margin-top:40px}
+.rf .eyebrow{font:500 11px/1.3 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.rf .sec-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:20px}
+.rf .sec-head .eyebrow{margin-left:auto}
+.rf .version-spec{display:flex; align-items:flex-start; flex-wrap:wrap; font-family:var(--mono); margin:0 0 14px}
+.rf .version-spec .seg{display:flex; flex-direction:column; align-items:center}
+.rf .version-spec .num{font-size:clamp(24px,6vw,36px); font-weight:600; line-height:1.05}
+.rf .version-spec .lbl{font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:8px; white-space:nowrap}
+.rf .version-spec .dot{font-size:clamp(24px,6vw,36px); font-weight:600; line-height:1.05; color:var(--line-strong); padding:0 3px}
+.rf .version-spec .yy{color:var(--muted)}
+.rf .version-spec .r{color:var(--skill)}
+.rf .version-spec .h{color:var(--signal)}
+.rf .spec-read{max-width:66ch; margin:0 0 22px; font-size:14.5px; color:var(--muted)}
+.rf .spec-read strong{color:var(--ink); font-weight:600}
+.rf .tablewrap{overflow-x:auto}
+.rf table{width:100%; border-collapse:collapse; font-size:14px; min-width:560px}
+.rf th, .rf td{text-align:left; padding:9px 12px 9px 0; border-bottom:1px solid var(--line); vertical-align:top}
+.rf th{font:500 10.5px/1.3 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--line-strong); white-space:nowrap}
+.rf td.slot{font-family:var(--mono); font-weight:500; white-space:nowrap}
+.rf table.nomen{min-width:720px}
+.rf table.nomen td:nth-child(3){min-width:200px}
+.rf table.nomen td:nth-child(4){min-width:210px}
+.rf .no{color:var(--signal); font-weight:600}
+.rf .yes{color:var(--pass); font-weight:600}
+.rf .rules{list-style:none; padding:0; margin:20px 0 0; display:grid; gap:9px}
+.rf .rules li{padding-left:18px; position:relative; max-width:72ch}
+.rf .rules li::before{content:""; position:absolute; left:0; top:.68em; width:7px; height:2px; background:var(--skill)}
+.rf .stage{display:grid; grid-template-columns:46px 1fr; gap:16px; padding:16px 0; border-bottom:1px solid var(--line)}
+.rf .stage:first-of-type{border-top:1px solid var(--line)}
+.rf .stage-no{font:600 12px/1.6 var(--mono); color:var(--muted); font-variant-numeric:tabular-nums}
+.rf .stage h3{font:600 15.5px/1.3 var(--display); margin:0 0 8px; display:flex; align-items:center; gap:9px; flex-wrap:wrap}
+.rf .stage ul{margin:0; padding-left:17px; display:grid; gap:5px}
+.rf .stage li{max-width:68ch}
+.rf .stage li::marker{color:var(--line-strong)}
+.rf .track-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:26px 0 0; padding:10px 0 6px; border-top:2px solid var(--line-strong)}
+.rf .track-head h3{font:600 14px/1.3 var(--display); margin:0}
+.rf .track-head p{margin:0; font-size:13.5px; color:var(--muted); max-width:64ch}
+.rf .gate-tag, .rf .par-tag, .rf .day-tag{font:600 9.5px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; padding:3px 7px; border-radius:2px; white-space:nowrap}
+.rf .gate-tag{color:var(--signal); background:var(--signal-bg)}
+.rf .par-tag{color:var(--skill); background:var(--surface-2)}
+.rf .day-tag{color:var(--dev-ink); background:var(--dev); letter-spacing:.06em}
+.rf .day-tag.san{color:var(--san-ink); background:var(--san)}
+.rf .owner{font:400 10.5px/1.3 var(--mono); letter-spacing:.04em; color:var(--muted)}
+.rf .skill-tag{font:600 9.5px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--skill); border:1px solid var(--skill); padding:2px 6px; border-radius:2px; white-space:nowrap}
+.rf .flowfig{margin:0 0 26px; background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:16px}
+.rf .figscroll{overflow-x:auto}
+.rf .flowfig svg{display:block; width:100%; max-width:720px; min-width:560px; height:auto}
+.rf .flowfig .nodes rect, .rf .flowfig .gatebox{fill:var(--surface); stroke:var(--line-strong); stroke-width:1}
+.rf .flowfig .nodes rect.gatebox{stroke:var(--signal); stroke-width:1.6}
+.rf .flowfig .zone{fill:none; stroke:var(--line-strong); stroke-width:1; stroke-dasharray:4 4}
+.rf .flowfig line, .rf .flowfig polyline{stroke:var(--line-strong); stroke-width:1.4; fill:none}
+.rf .flowfig .nm{font:600 11px var(--mono); fill:var(--muted)}
+.rf .flowfig .tt{font:600 13px var(--display); fill:var(--ink)}
+.rf .flowfig .zl{font:500 9.5px var(--mono); letter-spacing:.1em; fill:var(--muted)}
+.rf .flowfig .zr{text-anchor:end}
+.rf .flowfig .nodes rect.k-pm{fill:var(--pm-bg); stroke:none}
+.rf .flowfig .nodes rect.k-dev{fill:var(--dv-bg); stroke:none}
+.rf .flowfig .nodes rect.k-cl{fill:var(--clr-bg); stroke:none}
+.rf .flowfig .nodes rect.k-sg{fill:var(--sg-bg); stroke:none}
+.rf .flowfig .kt{font:600 8px var(--mono); letter-spacing:.06em; text-anchor:middle}
+.rf .flowfig .t-pm{fill:var(--pm)}
+.rf .flowfig .t-dev{fill:var(--dv)}
+.rf .flowfig .t-cl{fill:var(--clr)}
+.rf .flowfig .t-sg{fill:var(--sg)}
+.rf .flowfig .go{stroke:var(--pass) !important}
+.rf .flowfig .lb{font:600 8px var(--mono); letter-spacing:.04em; fill:var(--muted)}
+.rf .flowfig .lb.ok{fill:var(--pass)}
+.rf .flowfig .nk{fill:var(--signal)}
+.rf .flowfig .back{stroke:var(--signal) !important; stroke-dasharray:5 3}
+.rf .flowfig figcaption{font-size:13px; color:var(--muted); margin-top:12px; max-width:72ch}
+.rf .chipkey{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12.5px; color:var(--muted); margin:0 0 10px}
+.rf .chipkey b{font:600 9px/1 var(--mono); letter-spacing:.06em; padding:3px 5px; border-radius:2px; margin-right:5px}
+.rf .callout{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--signal); padding:16px 18px; margin-top:20px}
+.rf .callout h2{margin-bottom:10px}
+.rf .callout ul{margin:0; padding-left:17px; display:grid; gap:6px}
+.rf .callout li{max-width:70ch}
+.rf code{font-family:var(--mono); font-size:.88em; background:var(--surface-2); padding:1px 4px; border-radius:2px}
+.rf .muted-p{margin-top:14px; font-size:14px; color:var(--muted); max-width:70ch}
+.rf footer{margin-top:44px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font:400 11px/1.4 var(--mono); letter-spacing:.04em}
+</style>
+
+<div class="page">
+<header class="top">
+  <div class="eyebrow">Frinks AI · Two-week release cycle</div>
+  <h1>Frinks Release Timeline</h1>
+  <p class="lede">One release, ten working days. Days 1–7 are development. PRDs are due on day 6 and code freezes on day 7. Days 8–10 are release sanity: Swayam fixes bugs with Vaibhav overseeing, while Sagar plans the next release. Bars show ongoing work. Cards show what happens on a given day, and you can drag them.</p>
+  <nav class="jump" aria-label="Sections"><a href="#scroller">Part 1 · Timeline</a><a href="#release-flow">Part 2 · Release Flow</a></nav>
+  <div class="toolbar">
+    <div class="legend">
+      <span><span class="sw" style="background:var(--dev)"></span>Development</span>
+      <span><span class="sw" style="background:var(--san)"></span>Release sanity</span>
+      <span><span class="sw" style="background:var(--accent-soft);border:1px solid var(--accent)"></span>Deadline</span>
+      <span><span class="tagp">Proposed</span> not yet agreed</span>
+    </div>
+    <span class="sp"></span>
+    <span id="saveNote">Drag, double-click to edit, + to add. Changes save in this browser only.</span>
+    <button id="reset" type="button">Reset to default</button>
+  </div>
+</header>
+
+<div class="scroller" id="scroller">
+  <div class="grid" id="grid"></div>
+</div>
+
+<section class="notes">
+  <div>
+    <h2>Rules behind the timeline</h2>
+    <ul>
+      <li>PRDs can go to Sagar on any day. Day 6 is the last day for Vaibhav and Akshat.</li>
+      <li>Days 6–7 are for finishing tickets and ticket-level tests.</li>
+      <li>Sagar's locked list has commit items, which must ship, and buffer items, picked up if a dev is free.</li>
+      <li>A release is major or minor depending on what goes into it. Vaibhav and Sagar make that call. Hotfixes go out ad hoc.</li>
+      <li>Swayam triggers Claude main testing once the test cases are vetted.</li>
+      <li>Every issue found in days 8–10 is fixed by the devs within the same window. Swayam owns the fixes, and retests run within the existing testing flow.</li>
+      <li>Vaibhav and Swayam check in daily on release sanity through days 8–10, bringing in others when needed.</li>
+      <li>Release notes are drafted while testing runs. The two tracks meet at the end, when the notes get their screenshots and Vaibhav's final tweaks.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Delays and cover</h2>
+    <ul>
+      <li>If a release slips into day 11, the next release still starts on day 11. Vaibhav and Swayam finish the delayed release while Sagar starts the next one.</li>
+      <li>Akshat joins the evening scrum so he can take charge when Sagar is out.</li>
+      <li>Sagar joins Akshat's Ops calls so he can take charge when Akshat is out.</li>
+      <li>Deb makes the release when Swayam is unavailable.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Using the board</h2>
+    <ul class="hint">
+      <li>Drag a card to any day or person. Keyboard: focus a card, then use the arrow keys (left/right changes the day, up/down changes the person).</li>
+      <li>Double-click a card to edit it. × removes it. + adds a card to that day.</li>
+      <li>Bars are recurring work and don't move.</li>
+      <li>Your changes stay in this browser. Other people see the default board.</li>
+    </ul>
+  </div>
+</section>
+<section id="release-flow" class="rf"><div class="rf-inner">
+<div class="part">Part 2</div>
+<h2 class="big">Release Flow</h2>
+<p class="standfirst">Release nomenclature and the twenty steps every release passes through. Each step is tagged with the day on the timeline above when it happens. After the internal snapshot, testing and release notes run side by side and meet at the end. Four points in the flow can send work back.</p>
+
+
+  <section>
+    <div class="sec-head">
+      <h2>Release nomenclature</h2>
+      <span class="eyebrow">Decided</span>
+    </div>
+
+    <div class="version-spec">
+      <span class="seg"><span class="num yy">26</span><span class="lbl">Year</span></span>
+      <span class="dot">.</span>
+      <span class="seg"><span class="num r">2</span><span class="lbl">Major</span></span>
+      <span class="dot">.</span>
+      <span class="seg"><span class="num">3</span><span class="lbl">Minor</span></span>
+      <span class="dot">.</span>
+      <span class="seg"><span class="num h">1</span><span class="lbl">Hotfix</span></span>
+    </div>
+
+    <p class="spec-read">Read <code>26.2.3.1</code> as: the <strong>2nd major</strong> release line cut in <strong>2026</strong>, its <strong>3rd minor</strong> release, and the <strong>1st hotfix</strong> on top of that minor. A normal release stops at three numbers: <code>26.2.3</code>. The fourth number appears only on a hotfix.</p>
+
+    <div class="tablewrap">
+      <table class="nomen">
+        <thead>
+          <tr><th>Slot</th><th>Name</th><th>What it means</th><th>Compatibility</th><th>Code tester</th><th>Migration</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="slot">26</td><td>Year</td>
+            <td>The year the major line was cut, not when a build shipped. A fix to <code>26.4</code> released in Feb 2027 is still <code>26.4.x</code>. The first release with a <code>27</code> prefix is always a major.</td>
+            <td>Informational only</td>
+            <td>&mdash;</td><td>&mdash;</td>
+          </tr>
+          <tr>
+            <td class="slot">.2</td><td>Major</td>
+            <td>Big enhancements, new modules, schema / key / config changes.</td>
+            <td>When scripts at Edge are updated across a change in this number, the user must download a new version of the instance from Vision.</td>
+            <td>Full</td><td class="yes">Yes. This is the only slot where migrations are allowed.</td>
+          </tr>
+          <tr>
+            <td class="slot">.3</td><td>Minor</td>
+            <td>Small bugs and leftovers. May be urgent, never breaking.</td>
+            <td>Always compatible within the line. Vision and Edge may differ here.</td>
+            <td>Full</td><td class="no">No</td>
+          </tr>
+          <tr>
+            <td class="slot">.1</td><td>Hotfix</td>
+            <td>Panic fix, shipped in 1&ndash;2 days. A normal release is <code>26.2.3</code>; a hotfix on it is <code>26.2.3.1</code>. Never write <code>26.2.3.0</code>.</td>
+            <td>Always compatible. Vision and Edge may differ here.</td>
+            <td>&mdash;</td><td class="no">No</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The twenty steps</h2>
+      <span class="eyebrow">2 parallel tracks &middot; 4 decision points</span>
+    </div>
+
+<figure class="flowfig">
+<div class="chipkey"><span><b style="color:var(--pm);background:var(--pm-bg)">PM</b>Vaibhav</span><span><b style="color:var(--sg);background:var(--sg-bg)">SAGAR</b>Project Manager</span><span><b style="color:var(--dv);background:var(--dv-bg)">DEV</b>Swayam or the ticket's dev</span><span><b style="color:var(--clr);background:var(--clr-bg)">CLAUDE</b>a Claude skill</span></div>
+<div class="figscroll">
+<svg viewBox="0 0 720 1184" role="img" aria-label="Flowchart of the twenty release steps. Steps 01 to 09 run in sequence up to the internal release snapshot. The flow then splits: the testing track (10 to 15) and the release notes track (16 and 17) run in parallel and converge at step 18, where screenshots and the PM's tweaks are added, before publishing and the manuals update.">
+  <defs>
+    <marker id="aN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--line-strong)"/></marker>
+    <marker id="aG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--pass)"/></marker>
+    <marker id="aR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--signal)"/></marker>
+  </defs>
+  <rect class="zone" x="24" y="586" width="672" height="394" rx="4"/><text x="36" y="602" class="zl">TESTING TRACK</text><text x="684" y="602" class="zl zr">RELEASE NOTES TRACK</text>
+  <g class="nodes">
+    <rect x="190" y="16" width="340" height="44" rx="3"/>
+    <text x="202" y="43" class="nm">01</text>
+    <text x="228" y="43" class="tt">Discussion</text>
+    <rect x="492" y="31" width="26" height="14" rx="2" class="k-pm"/><text x="505" y="41" class="kt t-pm">PM</text>
+    <rect x="190" y="78" width="340" height="44" rx="3"/>
+    <text x="202" y="105" class="nm">02</text>
+    <text x="228" y="105" class="tt">Release planning</text>
+    <rect x="474" y="93" width="44" height="14" rx="2" class="k-sg"/><text x="496" y="103" class="kt t-sg">SAGAR</text>
+    <rect x="190" y="140" width="340" height="44" rx="3"/>
+    <text x="202" y="167" class="nm">03</text>
+    <text x="228" y="167" class="tt">Ticket creation</text>
+    <rect x="466" y="155" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="165" class="kt t-cl">CLAUDE</text>
+    <rect x="417" y="155" width="44" height="14" rx="2" class="k-sg"/><text x="439" y="165" class="kt t-sg">SAGAR</text>
+    <rect x="190" y="202" width="340" height="44" rx="3"/>
+    <text x="202" y="229" class="nm">04</text>
+    <text x="228" y="229" class="tt">Development</text>
+    <rect x="488" y="217" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="227" class="kt t-dev">DEV</text>
+    <rect x="190" y="264" width="340" height="44" rx="3"/>
+    <text x="202" y="291" class="nm">05</text>
+    <text x="228" y="291" class="tt">PR created per ticket</text>
+    <rect x="488" y="279" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="289" class="kt t-dev">DEV</text>
+    <rect x="190" y="326" width="340" height="44" rx="3"/>
+    <text x="202" y="353" class="nm">06</text>
+    <text x="228" y="353" class="tt">PR vetting</text>
+    <rect x="466" y="341" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="351" class="kt t-cl">CLAUDE</text>
+    <rect x="190" y="388" width="340" height="44" rx="3" class="gatebox"/>
+    <text x="202" y="415" class="nm">07</text>
+    <text x="228" y="415" class="tt">Vetting report</text>
+    <rect x="488" y="403" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="413" class="kt t-dev">DEV</text>
+    <rect x="431" y="403" width="52" height="14" rx="2" class="k-cl"/><text x="457" y="413" class="kt t-cl">CLAUDE</text>
+    <rect x="190" y="450" width="340" height="44" rx="3"/>
+    <text x="202" y="477" class="nm">08</text>
+    <text x="228" y="477" class="tt">Merge</text>
+    <rect x="488" y="465" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="475" class="kt t-dev">DEV</text>
+    <rect x="190" y="512" width="340" height="44" rx="3"/>
+    <text x="202" y="539" class="nm">09</text>
+    <text x="228" y="539" class="tt">Internal release snapshot</text>
+    <rect x="488" y="527" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="537" class="kt t-dev">DEV</text>
+    <rect x="36" y="612" width="310" height="44" rx="3"/>
+    <text x="48" y="639" class="nm">10</text>
+    <text x="74" y="639" class="tt">Test cases created</text>
+    <rect x="282" y="627" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="637" class="kt t-cl">CLAUDE</text>
+    <rect x="36" y="674" width="310" height="44" rx="3" class="gatebox"/>
+    <text x="48" y="701" class="nm">11</text>
+    <text x="74" y="701" class="tt">Test cases vetted</text>
+    <rect x="308" y="689" width="26" height="14" rx="2" class="k-pm"/><text x="321" y="699" class="kt t-pm">PM</text>
+    <rect x="36" y="736" width="310" height="44" rx="3"/>
+    <text x="48" y="763" class="nm">12</text>
+    <text x="74" y="763" class="tt">Main testing + screenshots</text>
+    <rect x="282" y="751" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="761" class="kt t-cl">CLAUDE</text>
+    <rect x="36" y="798" width="310" height="44" rx="3"/>
+    <text x="48" y="825" class="nm">13</text>
+    <text x="74" y="825" class="tt">Test report generated</text>
+    <rect x="282" y="813" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="823" class="kt t-cl">CLAUDE</text>
+    <rect x="36" y="860" width="310" height="44" rx="3" class="gatebox"/>
+    <text x="48" y="887" class="nm">14</text>
+    <text x="74" y="887" class="tt">Test report reviewed</text>
+    <rect x="304" y="875" width="30" height="14" rx="2" class="k-dev"/><text x="319" y="885" class="kt t-dev">DEV</text>
+    <rect x="36" y="922" width="310" height="44" rx="3"/>
+    <text x="48" y="949" class="nm">15</text>
+    <text x="74" y="949" class="tt">Halt or ship</text>
+    <rect x="282" y="937" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="947" class="kt t-cl">CLAUDE</text>
+    <rect x="247" y="937" width="30" height="14" rx="2" class="k-dev"/><text x="262" y="947" class="kt t-dev">DEV</text>
+    <rect x="216" y="937" width="26" height="14" rx="2" class="k-pm"/><text x="229" y="947" class="kt t-pm">PM</text>
+    <rect x="374" y="612" width="310" height="44" rx="3"/>
+    <text x="386" y="639" class="nm">16</text>
+    <text x="412" y="639" class="tt">Release notes drafted</text>
+    <rect x="620" y="627" width="52" height="14" rx="2" class="k-cl"/><text x="646" y="637" class="kt t-cl">CLAUDE</text>
+    <rect x="374" y="674" width="310" height="44" rx="3"/>
+    <text x="386" y="701" class="nm">17</text>
+    <text x="412" y="701" class="tt">Draft read by PM</text>
+    <rect x="646" y="689" width="26" height="14" rx="2" class="k-pm"/><text x="659" y="699" class="kt t-pm">PM</text>
+    <rect x="36" y="1000" width="648" height="44" rx="3" class="gatebox"/>
+    <text x="48" y="1027" class="nm">18</text>
+    <text x="74" y="1027" class="tt">Release notes finalised: screenshots + PM tweaks</text>
+    <rect x="646" y="1015" width="26" height="14" rx="2" class="k-pm"/><text x="659" y="1025" class="kt t-pm">PM</text>
+    <rect x="589" y="1015" width="52" height="14" rx="2" class="k-cl"/><text x="615" y="1025" class="kt t-cl">CLAUDE</text>
+    <rect x="190" y="1062" width="340" height="44" rx="3"/>
+    <text x="202" y="1089" class="nm">19</text>
+    <text x="228" y="1089" class="tt">Release + notes published</text>
+    <rect x="488" y="1077" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="1087" class="kt t-dev">DEV</text>
+    <rect x="457" y="1077" width="26" height="14" rx="2" class="k-pm"/><text x="470" y="1087" class="kt t-pm">PM</text>
+    <rect x="190" y="1124" width="340" height="44" rx="3"/>
+    <text x="202" y="1151" class="nm">20</text>
+    <text x="228" y="1151" class="tt">Manuals updated</text>
+    <rect x="466" y="1139" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="1149" class="kt t-cl">CLAUDE</text>
+  </g>
+  <line x1="360" y1="60" x2="360" y2="76" marker-end="url(#aN)"/>
+  <line x1="360" y1="122" x2="360" y2="138" marker-end="url(#aN)"/>
+  <line x1="360" y1="184" x2="360" y2="200" marker-end="url(#aN)"/>
+  <line x1="360" y1="246" x2="360" y2="262" marker-end="url(#aN)"/>
+  <line x1="360" y1="308" x2="360" y2="324" marker-end="url(#aN)"/>
+  <line x1="360" y1="370" x2="360" y2="386" marker-end="url(#aN)"/>
+  <line class="go" x1="360" y1="432" x2="360" y2="448" marker-end="url(#aG)"/><text x="368" y="445" class="lb ok">OK</text>
+  <line x1="360" y1="494" x2="360" y2="510" marker-end="url(#aN)"/>
+  <polyline class="back" points="190,410 158,410 158,224 188,224" marker-end="url(#aR)"/><text x="152" y="404" class="lb nk" text-anchor="end">NOK</text>
+  <polyline points="360,556 360,574"/><polyline points="191,574 529,574"/><line x1="191" y1="574" x2="191" y2="610" marker-end="url(#aN)"/><line x1="529" y1="574" x2="529" y2="610" marker-end="url(#aN)"/>
+  <line x1="191" y1="656" x2="191" y2="672" marker-end="url(#aN)"/>
+  <line class="go" x1="191" y1="718" x2="191" y2="734" marker-end="url(#aG)"/><text x="199" y="731" class="lb ok">OK</text><text x="40" y="731" class="lb nk">NOK: TWEAK BY PROMPT</text>
+  <line x1="191" y1="780" x2="191" y2="796" marker-end="url(#aN)"/>
+  <line x1="191" y1="842" x2="191" y2="858" marker-end="url(#aN)"/>
+  <line class="back" x1="191" y1="904" x2="191" y2="920" marker-end="url(#aR)"/><text x="199" y="917" class="lb nk">NOK</text>
+  <line x1="529" y1="656" x2="529" y2="672" marker-end="url(#aN)"/>
+  <polyline class="go" points="346,882 360,882 360,998" marker-end="url(#aG)"/><text x="364" y="898" class="lb ok">OK</text>
+  <line x1="191" y1="966" x2="191" y2="998" marker-end="url(#aN)"/><text x="199" y="986" class="lb">SHIP WITH KNOWN ISSUES</text>
+  <polyline class="back" points="36,944 14,944 14,224 158,224" marker-end="url(#aR)"/><text x="20" y="470" class="lb nk">HALT: FIX</text><text x="20" y="482" class="lb nk">AND RETEST</text>
+  <line x1="529" y1="718" x2="529" y2="998" marker-end="url(#aN)"/><text x="378" y="731" class="lb nk">GAPS: TWEAK BY PROMPT</text><text x="537" y="850" class="lb">WAITS FOR THE</text><text x="537" y="862" class="lb">TEST RESULT</text>
+  <line class="go" x1="360" y1="1044" x2="360" y2="1060" marker-end="url(#aG)"/><text x="368" y="1057" class="lb ok">OK</text><text x="194" y="1057" class="lb nk">NOK: TWEAK BY PROMPT</text>
+  <line x1="360" y1="1106" x2="360" y2="1122" marker-end="url(#aN)"/>
+</svg>
+</div>
+<figcaption>Steps 01&ndash;09 run in sequence up to the internal snapshot. From there, the testing track (10&ndash;15) and the release notes track (16&ndash;17) run side by side. They converge at 18, where the notes take the screenshots from main testing and the PM's final tweaks. Green is the approved path and orange shows the ways back. Boxes outlined in orange are the four review points.</figcaption>
+</figure>
+
+    <div class="stage"><div class="stage-no">01</div><div>
+      <h3>Discussion <span class="owner">PM</span> <span class="day-tag ">till day 6</span></h3>
+      <ul>
+        <li>This is a guideline, not a gate: the PM must be clear on the work before writing the ticket.</li>
+        <li>Clarity is shared across PM, dev and ML team. Open questions get resolved first.</li>
+        <li>R&amp;D and discussion happen while the PRD is being written. Sagar books the sessions and attends every one.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">02</div><div>
+      <h3>Release planning <span class="owner">Sagar</span> <span class="day-tag san">days 8–10, release before</span></h3>
+      <ul>
+        <li>This happens during days 8&ndash;10 of the release before. Sagar assigns tickets by bandwidth and locks the list on day 9: commit items that must ship, and buffer items for when a dev is free.</li>
+        <li>On the morning of day 10, Sagar shows Vaibhav the locked list. Whether the release is major or minor sets its version, using the nomenclature above.</li>
+        <li>Scope is the set of tickets that will carry this version as their fix version.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">03</div><div>
+      <h3>Ticket creation <span class="owner">Sagar</span> <span class="skill-tag">Claude &middot; Skill &middot; ticket-creation</span> <span class="day-tag ">as PRDs arrive</span></h3>
+      <ul>
+        <li>Sagar creates the tickets from each PRD as it arrives. The PM doesn't create tickets.</li>
+        <li>Each ticket has a business use-case, and executionals written as user stories with acceptance criteria against each.</li>
+        <li><strong>Every ticket carries the fix version</strong>, which is the release version defined in step 02.</li>
+        <li><strong>Each ticket's release-note text is drafted here</strong>, along with placeholders naming the screens the notes will need images of.</li>
+        <li>Also recorded: whether migration is needed and its type(s), prototype links, creator, component, sub-component and assignee.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">04</div><div>
+      <h3>Development <span class="owner">Dev</span> <span class="day-tag ">days 1–7</span></h3>
+      <ul>
+        <li>Devs build the executionals in the ticket and write test cases on the ticket.</li>
+        <li>A migration script is maintained where migration is required. Upgrades run one version at a time until the latest version is reached.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">05</div><div>
+      <h3>PR created <span class="owner">Dev</span> <span class="day-tag ">days 1–7</span></h3>
+      <ul><li>One PR per ticket.</li></ul></div></div>
+
+    <div class="stage"><div class="stage-no">06</div><div>
+      <h3>PR vetting <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag ">days 1–7</span></h3>
+      <ul>
+        <li>Claude reads the Jira ticket and the code, vetting the PR against the dev's test cases and the PM's ticket description.</li>
+        <li>Checks for <strong>migration gaps</strong> and for <strong>gaps between Jira and the code</strong>.</li>
+        <li>R&amp;D and discussion tickets have no PR and are skipped.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">07</div><div>
+      <h3>Vetting report <span class="owner">Ticket's dev vets</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="gate-tag">Decision point</span> <span class="day-tag ">days 1–7</span></h3>
+      <ul>
+        <li>Claude creates a report for each PR, and the dev who owns the ticket vets it. The PM is brought in only when something is urgent.</li>
+        <li><strong>NOK</strong> &rarr; back to development (04). <strong>OK</strong> &rarr; proceed to merge.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">08</div><div>
+      <h3>Merge <span class="owner">Dev</span> <span class="day-tag ">days 1–7</span></h3>
+      <ul><li>The ticket's PR is merged once the vetting report is OK.</li></ul></div></div>
+
+    <div class="stage"><div class="stage-no">09</div><div>
+      <h3>Internal release snapshot <span class="owner">Dev</span> <span class="day-tag ">day 7</span></h3>
+      <ul>
+        <li>Code freezes on day 7. The dev lead cuts the release branch, and the snapshot is taken from it. Everything that follows runs against this one snapshot.</li>
+        <li>On day 8, the dev lead reviews the overall PR merge report for the release.</li>
+        <li>From here the flow splits into two tracks that run at the same time.</li>
+      </ul></div></div>
+
+    <div class="track-head"><h3>Testing track</h3><span class="par-tag">Runs in parallel</span><p>Steps 10&ndash;15. Runs alongside the release notes track.</p></div>
+
+    <div class="stage"><div class="stage-no">10</div><div>
+      <h3>Test cases created <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">day 8</span></h3>
+      <ul><li>Release-level test cases are generated from the tickets carrying this fix version.</li></ul></div></div>
+
+    <div class="stage"><div class="stage-no">11</div><div>
+      <h3>Test cases vetted <span class="owner">PM</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 8</span></h3>
+      <ul>
+        <li><strong>OK</strong> &rarr; main testing starts.</li>
+        <li><strong>NOK</strong> &rarr; the PM tweaks the set by prompt, adding, changing or removing cases, and it is vetted again. No ticket or code change is involved.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">12</div><div>
+      <h3>Main testing + screenshots <span class="owner">Triggered by the dev lead</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">days 8–9</span></h3>
+      <ul>
+        <li>Once the test cases are vetted, the dev lead triggers Claude main testing on the snapshot.</li>
+        <li><strong>The release-note screenshots are captured during this run</strong>, not in a separate pass afterwards. The run is already on each of those screens, in the required state, on this snapshot.</li>
+        <li>The captured images are kept with the run. If the report is approved, the images come from the approved snapshot. If it is not, they are discarded with that snapshot.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">13</div><div>
+      <h3>Test report generated <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">day 9</span></h3>
+      <ul><li>Main testing produces a testing report.</li></ul></div></div>
+
+    <div class="stage"><div class="stage-no">14</div><div>
+      <h3>Test report reviewed <span class="owner">Dev lead</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 9</span></h3>
+      <ul>
+        <li><strong>OK</strong> &rarr; the testing track is done and the release notes can be finalised (18).</li>
+        <li><strong>NOK</strong> &rarr; the gaps are shown, and the call is made at 15.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">15</div><div>
+      <h3>Halt or ship decision <span class="owner">PM + Dev</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">days 9–10</span></h3>
+      <ul>
+        <li><strong>Halt the release</strong> &rarr; back to development (04) for fixes. The fixes come back through the same flow and are retested on a new snapshot. The dev lead owns fixes and retests, and the PM oversees them.</li>
+        <li><strong>Ship with the bugs as known issues</strong> &rarr; the screenshots already captured go to step 18.</li>
+        <li><strong>Bugs are created automatically at this step</strong>, whichever way the call goes.</li>
+      </ul></div></div>
+
+    <div class="track-head"><h3>Release notes track</h3><span class="par-tag">Runs in parallel</span><p>Steps 16&ndash;17. Starts at the snapshot and runs while testing is under way, so the notes are ready when testing finishes.</p></div>
+
+    <div class="stage"><div class="stage-no">16</div><div>
+      <h3>Release notes drafted <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">day 8</span></h3>
+      <ul>
+        <li>Drafted as soon as the snapshot exists, from the ticket note text written at step 03.</li>
+        <li>Image placeholders from step 03 stay in the draft. They are filled at 18.</li>
+        <li>R&amp;D and discussion tickets are left out.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">17</div><div>
+      <h3>Draft read by PM <span class="owner">PM</span> <span class="day-tag san">day 9</span></h3>
+      <ul>
+        <li>The PM reads the draft while testing runs and raises any gaps in wording, ordering or coverage.</li>
+        <li>Gaps are fixed by prompt. The draft then waits for the test result.</li>
+      </ul></div></div>
+
+    <div class="track-head"><h3>Converge and ship</h3><p>Steps 18&ndash;20. The two tracks meet here.</p></div>
+
+    <div class="stage"><div class="stage-no">18</div><div>
+      <h3>Release notes finalised <span class="owner">PM reviews</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 10</span></h3>
+      <ul>
+        <li>Runs once the test report is OK (14), or once the decision is to ship with known issues (15).</li>
+        <li>The draft from 17 takes the <strong>screenshots from main testing (12)</strong> and <strong>any known-issue bugs (15)</strong>, and the PM makes the final tweaks.</li>
+        <li><strong>NOK</strong> &rarr; <strong>prompt-based tweaks only</strong>: wording, ordering, or swapping an image. The test report is already approved at this point, so nothing here goes back to a ticket or to code.</li>
+        <li><strong>OK</strong> &rarr; publish.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">19</div><div>
+      <h3>Release, files and notes published <span class="owner">PM + dev lead</span> <span class="day-tag san">day 10 EOD</span></h3>
+      <ul>
+        <li>Vaibhav and Swayam send the release on day 10 by EOD. Deb covers when Swayam is out. If it slips to day 11, they finish it while Sagar starts the next release.</li>
+        <li>Three things go out together: <strong>the release</strong>, <strong>the release files</strong> (the scripts bundle for the installer) and <strong>the release notes</strong>.</li>
+        <li>When scripts are updated at the installer, a DB backup is taken. It covers a release that goes bad and is the restore point for a rollback.</li>
+        <li>Plants update on their own schedule. Updating the bundle requires pulling the matching instance version from Vision.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">20</div><div>
+      <h3>Manuals updated <span class="owner">PM reviews</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag ">after the release</span></h3>
+      <ul>
+        <li>A separate skill updates the manuals once the release is out.</li>
+        <li>The source is the ticket executionals, so manuals and release notes describe the same change.</li>
+      </ul></div></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Claude skills this needs</h2>
+      <span class="eyebrow">1 existing &middot; 5 new</span>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Stage</th><th>Skill</th><th>Status</th><th>Reads</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="slot">03</td><td>ticket-creation</td><td>Exists</td><td>A PRD, run by Sagar &rarr; tickets, fix version, note text, image placeholders</td></tr>
+          <tr><td class="slot">06 &middot; 07</td><td>PR vetting + report</td><td>New</td><td>The Jira ticket + the code in the PR</td></tr>
+          <tr><td class="slot">10 &middot; 12 &middot; 13</td><td>Testing + screenshots</td><td>New</td><td>Tickets, the snapshot, the approved test cases</td></tr>
+          <tr><td class="slot">15</td><td>Bug creation</td><td>New</td><td>Gaps from the test report</td></tr>
+          <tr><td class="slot">16 &middot; 18</td><td>Release notes</td><td>New</td><td>Draft: ticket note text. Final: the draft plus screenshots and known-issue bugs</td></tr>
+          <tr><td class="slot">20</td><td>Manuals update</td><td>New</td><td>Ticket executionals</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:70ch;">Steps 01, 02, 04, 05, 08, 09, 11, 14, 17 and 19 involve no Claude skill.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Hotfix releases</h2>
+      <span class="eyebrow">Panic path</span>
+    </div>
+
+    <p style="margin-top:0;color:var(--muted);max-width:68ch;">A hotfix is a panic release shipped within 1&ndash;2 days, with minimal discussion, a ticket and a quick fix.</p>
+
+    <ul class="rules">
+      <li>Such tickets carry a <code>hotfix</code> tag.</li>
+      <li>Ticket type can be Story or Bug.</li>
+      <li>The version takes a fourth number on top of the current minor: <code>26.2.3</code> &rarr; <code>26.2.3.1</code>, then <code>26.2.3.2</code> and so on. Nothing else carries a fourth number.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="callout">
+      <h2>Decisions still needed</h2>
+      <ul>
+        <li><strong>Re-vetting after a NOK at 07:</strong> does the corrected PR go back through vetting, or is the dev lead's sign-off enough the second time?</li>
+        <li><strong>Migration testing against old data:</strong> PR vetting confirms the migration code exists, but nothing yet confirms it works. The release-level test cases at step 10 are the natural place for it.</li>
+        <li><strong>Four-part version tooling check:</strong> roughly an hour for a dev to confirm that package.json, image tags, installer sort order and version-comparison libraries all accept four parts.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Coding guidelines</h2>
+      <span class="eyebrow">One ticket, one merge</span>
+    </div>
+
+    <ul class="rules">
+      <li><strong>Every ticket must have something merged against it.</strong> A ticket closed with no merge behind it can't be traced.</li>
+      <li><strong>Work belonging to several tickets must not be merged under one ticket.</strong> Each ticket's changes go in that ticket's own PR.</li>
+    </ul>
+
+    <p style="margin-top:18px;max-width:70ch;color:var(--muted);">The rest of the process depends on this. PR vetting at step 06 compares one ticket against one diff. If a PR carries three tickets' worth of work, there is no single description to check it against, and vetting can't say whether the code matches the ticket. The same problem carries downstream: release notes and manuals are generated per ticket, so work merged under the wrong ticket is described as the wrong change, or not described at all.</p>
+
+    <p style="margin-top:12px;max-width:70ch;color:var(--muted);">It also keeps the fix version honest. Release scope is a Jira query on the fix version, so a ticket carrying hidden extra work makes the release larger than the query shows.</p>
+  </section>
+
+  <footer>Frinks AI &middot; Product &middot; Updated 27 September 2026 &middot; Draft for review</footer>
+</div></section>
+</div>
+
+<script>
+(function(){
+  const DAYS = [
+    {n:1, wd:'Tue', wk:'Week 1', mk:'Release starts'},
+    {n:2, wd:'Wed', wk:'Week 1'},
+    {n:3, wd:'Thu', wk:'Week 1'},
+    {n:4, wd:'Fri', wk:'Week 1'},
+    {n:5, wd:'Mon', wk:'Week 1'},
+    {n:6, wd:'Tue', wk:'Week 2', mk:'PRD deadline'},
+    {n:7, wd:'Wed', wk:'Week 2', mk:'Code freeze'},
+    {n:8, wd:'Thu', wk:'Week 2'},
+    {n:9, wd:'Fri', wk:'Week 2'},
+    {n:10, wd:'Mon', wk:'Week 2', mk:'Locked list (AM) · Release (EOD)'},
+    {n:11, wd:'Tue', wk:'If delayed', mk:'Day 1 of the next release', nxt:true}
+  ];
+  const LANES = [
+    {id:'vaibhav', name:'Vaibhav', role:'PM', cover:'',
+     bars:[[1,6,'PRD writing and research','','till day 6'],[1,10,'Daily discussion with Akshat: Ops issues and enhancements'],[1,10,'Daily release progress update from Sagar'],[1,7,'Dev discussions, booked and attended by Sagar'],[8,10,'Daily release sanity check-in with Swayam; oversee bug fixes','san']]},
+    {id:'sagar', name:'Sagar', role:'Project Manager', cover:'Akshat takes charge when Sagar is out.',
+     bars:[[1,7,'Evening scrum with devs and Akshat'],[8,10,'Finalise next release: tickets, assignment, bandwidth','san'],[1,7,'Test each merged ticket; send NOKs back'],[1,7,'Turn handed-over PRDs into tickets; shape the next release'],[1,10,'Book and attend every PM–dev discussion'],[1,10,"Attend Akshat's daily Ops calls"],[1,10,'Report daily release progress to Vaibhav']]},
+    {id:'akshat', name:'Akshat', role:'Associate PM', cover:'Sagar takes charge when Akshat is out.',
+     bars:[[1,10,'Daily Ops calls, with Sagar attending'],[1,10,'Daily discussion with Vaibhav'],[1,10,'Maintain the health tracker'],[1,6,'Enhancement PRDs','','till day 6'],[1,7,'Evening scrum']]},
+    {id:'swayam', name:'Swayam', role:'Dev lead', cover:'Deb makes the release when Swayam is out.',
+     bars:[[1,7,'Development'],[8,10,'Bug fixing and retests','san'],[8,10,'Daily release sanity check-in with Vaibhav','san']]},
+    {id:'devs', name:'Devs', role:'Software Development Team', cover:'',
+     bars:[[1,7,'Build commit tickets, then buffer tickets'],[8,10,'Fix issues found in sanity','san'],[1,7,'Evening scrum'],[8,10,'Plan the next release with Sagar','san'],[6,7,'Finish tickets; ticket-level tests'],[1,7,'Vet the PR vetting report for your own tickets']]}
+  ];
+  const DEFAULT = [
+    ['vaibhav',2,'Field team call: new POs and what to build'],
+    ['vaibhav',6,'Last day to hand PRDs to Sagar','d'],
+    ['vaibhav',7,'Field team call: new POs and what to build'],
+    ['vaibhav',8,'Vet the main testing test cases'],
+    ['vaibhav',9,'Fix-or-park calls on main testing issues, with Swayam'],
+    ['vaibhav',9,'Read the draft release notes while testing runs'],
+    ['vaibhav',10,'Review the locked list; decide major or minor with Sagar (morning)','d'],
+    ['vaibhav',10,'Finalise release notes: screenshots and PM tweaks'],
+    ['vaibhav',10,'Send the release with Swayam'],
+    ['vaibhav',11,'If delayed: finish the release with Swayam'],
+    ['sagar',1,"Kick off: confirm each dev's commit tickets"],
+    ['sagar',7,'Code freeze: last ticket-level tests','d'],
+    ['sagar',6,'Collect the last PRDs'],
+    ['sagar',8,'Planning discussions with devs'],
+    ['sagar',9,'Lock the list: commit and buffer items'],
+    ['sagar',10,'Show the locked list to Vaibhav (morning)','d'],
+    ['sagar',11,'Start the next release, even if this one is delayed'],
+    ['akshat',6,'Hand enhancement PRDs to Sagar','d'],
+    ['swayam',7,'Code freeze: cut the release branch','d'],
+    ['swayam',8,'Review the PR merge report'],
+    ['swayam',8,'Trigger Claude main testing once test cases are vetted'],
+    ['swayam',9,'Main testing report; fix-or-park calls with Vaibhav'],
+    ['swayam',10,'Retest fixes within the testing flow'],
+    ['swayam',10,'Send the release (Deb if Swayam is out)','d'],
+    ['swayam',11,'If delayed: ship with Vaibhav'],
+    ['devs',7,'Code freeze: nothing new merges after today','d'],
+    ['devs',8,'Read upcoming tickets; estimate with Sagar'],
+    ['devs',9,'Declare leave for the next release'],
+    ['devs',9,'No open bugs? Start your first locked commit ticket on main','p'],
+    ['devs',11,'Start the next release']
+  ];
+  const KEY = 'frinks-release-timeline-v3';
+  const mk = () => DEFAULT.map((c,i)=>({id:'c'+i, lane:c[0], day:c[1], text:c[2], tag:c[3]||''}));
+  let cards = mk(), seq = 1000;
+  try { const s = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(s) && s.length) cards = s; } catch(e){}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cards)); } catch(e){} };
+
+  const grid = document.getElementById('grid');
+  const scroller = document.getElementById('scroller');
+  const el = (t, cls, txt) => { const e = document.createElement(t); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+
+  function pack(bars){
+    const rows = [];
+    return bars.map(b => {
+      let r = rows.findIndex(end => end < b[0]);
+      if (r === -1){ rows.push(b[1]); r = rows.length - 1; } else rows[r] = b[1];
+      return {s:b[0], e:b[1], text:b[2], cls:b[3]||'', lbl:b[4]||'', row:r+1};
+    });
+  }
+
+  function render(focusId){
+    grid.innerHTML = '';
+    // phase row
+    const c0 = el('div','corner top','Phase'); grid.appendChild(c0);
+    const p1 = el('div','phase dev','Development · days 1–7'); p1.style.gridColumn = '2 / span 7'; grid.appendChild(p1);
+    const p2 = el('div','phase san','Release sanity + next release planning · days 8–10'); p2.style.gridColumn = '9 / span 3'; grid.appendChild(p2);
+    const p3 = el('div','phase nxt','Overlap if delayed'); p3.style.gridColumn = '12 / span 1'; grid.appendChild(p3);
+    // day row
+    grid.appendChild(el('div','corner','Person'));
+    DAYS.forEach(d => {
+      const h = el('div','dayh' + (d.nxt?' nxt':'') + (d.n===6?' w2':''));
+      h.appendChild(el('b',null, d.nxt ? 'Day 11' : 'Day ' + d.n));
+      h.appendChild(el('span',null, d.wd + ' · ' + d.wk));
+      if (d.mk) h.appendChild(el('div','mk', d.mk));
+      grid.appendChild(h);
+    });
+    // lanes
+    LANES.forEach(L => {
+      const lh = el('div','lh');
+      lh.appendChild(el('strong',null,L.name));
+      lh.appendChild(el('span','role',L.role));
+      if (L.cover) lh.appendChild(el('span','cover',L.cover));
+      grid.appendChild(lh);
+      const body = el('div','lane-body');
+      const bars = el('div','bars');
+      pack(L.bars).forEach(b => {
+        const bar = el('div','bar ' + b.cls);
+        bar.appendChild(el('span','rng', b.lbl || ('D' + b.s + '–' + b.e)));
+        bar.appendChild(document.createTextNode(b.text));
+        bar.title = b.text + (b.lbl ? ' (' + b.lbl + ')' : ' (days ' + b.s + '–' + b.e + ')');
+        bar.style.gridColumn = b.s + ' / ' + (b.e + 1);
+        bar.style.gridRow = b.row;
+        bars.appendChild(bar);
+      });
+      body.appendChild(bars);
+      DAYS.forEach(d => {
+        const cell = el('div','cell' + (d.nxt?' nxt':''));
+        cell.dataset.lane = L.id; cell.dataset.day = d.n;
+        cells(cell, L.id, d.n);
+        body.appendChild(cell);
+      });
+      grid.appendChild(body);
+    });
+    if (focusId){ const f = grid.querySelector('[data-id="'+focusId+'"]'); if (f) f.focus(); }
+  }
+
+  function cells(cell, lane, day){
+    cards.filter(c => c.lane === lane && +c.day === day).forEach(c => cell.appendChild(cardEl(c)));
+    const add = el('button','add','+ Add'); add.type = 'button';
+    add.setAttribute('aria-label','Add a card to ' + lane + ', day ' + day);
+    add.addEventListener('click', () => editor(cell, null, add));
+    cell.appendChild(add);
+  }
+
+  function cardEl(c){
+    const d = el('div','card' + (c.tag==='d' ? ' dl' : ''));
+    d.tabIndex = 0; d.dataset.id = c.id;
+    d.setAttribute('role','button');
+    d.setAttribute('aria-label', c.text + '. Arrow keys move the card.');
+    if (c.tag==='d') d.appendChild(el('span','tg d','Deadline'));
+    if (c.tag==='p') d.appendChild(el('span','tg p','Proposed'));
+    d.appendChild(el('span','txt',c.text));
+    const x = el('button','x','×'); x.type='button'; x.setAttribute('aria-label','Remove card');
+    x.addEventListener('click', e => { e.stopPropagation(); cards = cards.filter(k => k.id !== c.id); save(); render(); });
+    x.addEventListener('pointerdown', e => e.stopPropagation());
+    d.appendChild(x);
+    d.addEventListener('dblclick', () => editor(d.parentElement, c, d));
+    d.addEventListener('keydown', e => keyMove(e, c));
+    d.addEventListener('pointerdown', e => startDrag(e, d, c));
+    return d;
+  }
+
+  function editor(cell, c, anchor){
+    const ta = document.createElement('textarea');
+    ta.id = 'ed-' + (c ? c.id : 'new');
+    ta.value = c ? c.text : '';
+    ta.placeholder = 'Describe the task, then press Enter';
+    anchor.replaceWith(ta); ta.focus();
+    let done = false;
+    const commit = keep => {
+      if (done) return; done = true;
+      const v = ta.value.trim();
+      if (keep && v){
+        if (c) c.text = v;
+        else cards.push({id:'u'+(seq++)+Date.now().toString(36), lane:cell.dataset.lane, day:+cell.dataset.day, text:v, tag:''});
+        save();
+      }
+      render(c ? c.id : null);
+    };
+    ta.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); commit(true); }
+      if (e.key === 'Escape'){ e.preventDefault(); commit(false); }
+    });
+    ta.addEventListener('blur', () => commit(true));
+  }
+
+  function keyMove(e, c){
+    const li = LANES.findIndex(l => l.id === c.lane);
+    let day = +c.day, lane = li;
+    if (e.key === 'ArrowLeft') day = Math.max(1, day - 1);
+    else if (e.key === 'ArrowRight') day = Math.min(11, day + 1);
+    else if (e.key === 'ArrowUp') lane = Math.max(0, li - 1);
+    else if (e.key === 'ArrowDown') lane = Math.min(LANES.length - 1, li + 1);
+    else if (e.key === 'Enter'){ e.preventDefault(); const d = e.currentTarget; editor(d.parentElement, c, d); return; }
+    else return;
+    e.preventDefault();
+    const i = cards.indexOf(c); cards.splice(i,1);
+    c.day = day; c.lane = LANES[lane].id; cards.push(c);
+    save(); render(c.id);
+  }
+
+  let drag = null;
+  function startDrag(e, d, c){
+    if (e.button !== undefined && e.button !== 0) return;
+    drag = {c, d, x:e.clientX, y:e.clientY, on:false, ghost:null, over:null, id:e.pointerId};
+    d.setPointerCapture(e.pointerId);
+    d.addEventListener('pointermove', onMove);
+    d.addEventListener('pointerup', onUp);
+    d.addEventListener('pointercancel', onCancel);
+  }
+  function onMove(e){
+    if (!drag) return;
+    if (!drag.on){
+      if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 6) return;
+      drag.on = true;
+      const g = drag.d.cloneNode(true); g.classList.add('ghost'); g.querySelector('.x')?.remove();
+      document.body.appendChild(g); drag.ghost = g;
+      drag.d.classList.add('placeholder');
+    }
+    drag.ghost.style.left = (e.clientX - 90) + 'px';
+    drag.ghost.style.top = (e.clientY - 16) + 'px';
+    const t = document.elementFromPoint(e.clientX, e.clientY);
+    const cell = t && t.closest ? t.closest('.cell') : null;
+    if (drag.over && drag.over !== cell) drag.over.classList.remove('over');
+    if (cell) cell.classList.add('over');
+    drag.over = cell; drag.py = e.clientY;
+    const r = scroller.getBoundingClientRect();
+    if (e.clientX > r.right - 60) scroller.scrollLeft += 14;
+    else if (e.clientX < r.left + 60 + 210) scroller.scrollLeft -= 14;
+  }
+  function cleanup(){
+    const d = drag.d;
+    d.removeEventListener('pointermove', onMove);
+    d.removeEventListener('pointerup', onUp);
+    d.removeEventListener('pointercancel', onCancel);
+    if (drag.ghost) drag.ghost.remove();
+    if (drag.over) drag.over.classList.remove('over');
+    d.classList.remove('placeholder');
+  }
+  function onCancel(){ if (drag){ cleanup(); drag = null; } }
+  function onUp(){
+    if (!drag) return;
+    const {c, on, over, py} = drag;
+    cleanup(); drag = null;
+    if (!on || !over) return;
+    const siblings = [...over.querySelectorAll('.card')].filter(k => k.dataset.id !== c.id);
+    const before = siblings.find(k => { const b = k.getBoundingClientRect(); return py < b.top + b.height/2; });
+    cards.splice(cards.indexOf(c),1);
+    c.lane = over.dataset.lane; c.day = +over.dataset.day;
+    if (before){ const bi = cards.findIndex(k => k.id === before.dataset.id); cards.splice(bi,0,c); }
+    else cards.push(c);
+    save(); render();
+  }
+
+  const resetBtn = document.getElementById('reset');
+  let armed = null;
+  resetBtn.addEventListener('click', () => {
+    if (!armed){
+      resetBtn.textContent = 'Click again to reset'; resetBtn.classList.add('danger');
+      armed = setTimeout(() => { armed = null; resetBtn.textContent = 'Reset to default'; resetBtn.classList.remove('danger'); }, 3500);
+      return;
+    }
+    clearTimeout(armed); armed = null;
+    resetBtn.textContent = 'Reset to default'; resetBtn.classList.remove('danger');
+    cards = mk(); try { localStorage.removeItem(KEY); } catch(e){}
+    render();
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
