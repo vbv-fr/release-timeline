@@ -525,8 +525,8 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <div class="stage"><div class="stage-no">09</div><div>
       <h3>Internal release snapshot <span class="owner">Dev</span> <span class="day-tag ">day 7</span></h3>
       <ul>
-        <li>Code freezes on day 7. The dev lead cuts the release branch, and the snapshot is taken from it. Everything that follows runs against this one snapshot.</li>
-        <li>On day 8, the dev lead reviews the overall PR merge report for the release.</li>
+        <li>Code freezes on day 7. The release dev cuts the release branch, and the snapshot is taken from it. Everything that follows runs against this one snapshot.</li>
+        <li>On day 8, the release dev reviews the overall PR merge report for the release.</li>
         <li>From here the flow splits into two tracks that run at the same time.</li>
       </ul></div></div>
 
@@ -544,9 +544,9 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">12</div><div>
-      <h3>Main testing + screenshots <span class="owner">Triggered by the dev lead</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">days 8–9</span></h3>
+      <h3>Main testing + screenshots <span class="owner">Triggered by the release dev</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">days 8–9</span></h3>
       <ul>
-        <li>Once the test cases are vetted, the dev lead triggers Claude main testing on the snapshot.</li>
+        <li>Once the test cases are vetted, the release dev triggers Claude main testing on the snapshot.</li>
         <li><strong>The release-note screenshots are captured during this run</strong>, not in a separate pass afterwards. The run is already on each of those screens, in the required state, on this snapshot.</li>
         <li>The captured images are kept with the run. If the report is approved, the images come from the approved snapshot. If it is not, they are discarded with that snapshot.</li>
       </ul></div></div>
@@ -556,7 +556,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
       <ul><li>Main testing produces a testing report.</li></ul></div></div>
 
     <div class="stage"><div class="stage-no">14</div><div>
-      <h3>Test report reviewed <span class="owner">Dev lead</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 9</span></h3>
+      <h3>Test report reviewed <span class="owner">Release dev</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 9</span></h3>
       <ul>
         <li><strong>OK</strong> &rarr; the testing track is done and the release notes can be finalised (18).</li>
         <li><strong>NOK</strong> &rarr; the gaps are shown, and the call is made at 15.</li>
@@ -565,7 +565,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <div class="stage"><div class="stage-no">15</div><div>
       <h3>Halt or ship decision <span class="owner">PM + Dev</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">days 9–10</span></h3>
       <ul>
-        <li><strong>Halt the release</strong> &rarr; back to development (04) for fixes. The fixes come back through the same flow and are retested on a new snapshot. The dev lead owns fixes and retests, and the PM oversees them.</li>
+        <li><strong>Halt the release</strong> &rarr; back to development (04) for fixes. The fixes come back through the same flow and are retested on a new snapshot. The release dev owns fixes and retests, and the PM oversees them.</li>
         <li><strong>Ship with the bugs as known issues</strong> &rarr; the screenshots already captured go to step 18.</li>
         <li><strong>Bugs are created automatically at this step</strong>, whichever way the call goes.</li>
       </ul></div></div>
@@ -599,7 +599,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">19</div><div>
-      <h3>Release, files and notes published <span class="owner">PM + dev lead</span> <span class="day-tag san">day 10 EOD</span></h3>
+      <h3>Release, files and notes published <span class="owner">PM + release dev</span> <span class="day-tag san">day 10 EOD</span></h3>
       <ul>
         <li>Vaibhav and Swayam send the release on day 10 by EOD. Deb covers when Swayam is out. If it slips to day 11, they finish it while Sagar starts the next release.</li>
         <li>Three things go out together: <strong>the release</strong>, <strong>the release files</strong> (the scripts bundle for the installer) and <strong>the release notes</strong>.</li>
@@ -659,7 +659,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <div class="callout">
       <h2>Decisions still needed</h2>
       <ul>
-        <li><strong>Re-vetting after a NOK at 07:</strong> does the corrected PR go back through vetting, or is the dev lead's sign-off enough the second time?</li>
+        <li><strong>Re-vetting after a NOK at 07:</strong> does the corrected PR go back through vetting, or is the release dev's sign-off enough the second time?</li>
         <li><strong>Migration testing against old data:</strong> PR vetting confirms the migration code exists, but nothing yet confirms it works. The release-level test cases at step 10 are the natural place for it.</li>
         <li><strong>Four-part version tooling check:</strong> roughly an hour for a dev to confirm that package.json, image tags, installer sort order and version-comparison libraries all accept four parts.</li>
       </ul>
@@ -708,10 +708,10 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
      bars:[[1,7,'Evening scrum with devs and Akshat'],[8,10,'Finalise next release: tickets, assignment, bandwidth','san'],[1,7,'Test each merged ticket; send NOKs back'],[1,7,'Turn handed-over PRDs into tickets; shape the next release'],[1,10,'Book and attend every PM–dev discussion'],[1,10,"Attend Akshat's daily Ops calls"],[1,10,'Report daily release progress to Vaibhav']]},
     {id:'akshat', name:'Akshat', role:'Associate PM', cover:'Sagar takes charge when Akshat is out.',
      bars:[[1,10,'Daily Ops calls, with Sagar attending'],[1,10,'Daily discussion with Vaibhav'],[1,10,'Maintain the health tracker'],[1,6,'Enhancement PRDs','','till day 6'],[1,7,'Evening scrum']]},
-    {id:'swayam', name:'Swayam', role:'Dev lead', cover:'Deb makes the release when Swayam is out.',
-     bars:[[1,7,'Development'],[8,10,'Bug fixing and retests','san'],[8,10,'Daily release sanity check-in with Vaibhav','san']]},
+    {id:'swayam', name:'Swayam', role:'Release dev', cover:'Deb makes the release when Swayam is out.',
+     bars:[[1,7,'Development'],[1,7,'Discussions with Vaibhav, as booked by Sagar'],[8,10,'Bug fixing and retests','san'],[8,10,'Daily release sanity check-in with Vaibhav','san']]},
     {id:'devs', name:'Devs', role:'Software Development Team', cover:'',
-     bars:[[1,7,'Build commit tickets, then buffer tickets'],[8,10,'Fix issues found in sanity','san'],[1,7,'Evening scrum'],[8,10,'Plan the next release with Sagar','san'],[6,7,'Finish tickets; ticket-level tests'],[1,7,'Vet the PR vetting report for your own tickets']]}
+     bars:[[1,7,'Build commit tickets, then buffer tickets'],[1,7,'Discussions with Vaibhav, as booked by Sagar'],[8,10,'Fix issues found in sanity','san'],[1,7,'Evening scrum'],[8,10,'Plan the next release with Sagar','san'],[6,7,'Finish tickets; ticket-level tests'],[1,7,'Vet the PR vetting report for your own tickets']]}
   ];
   const DEFAULT = [
     ['vaibhav',2,'Field team call: new POs and what to build'],
