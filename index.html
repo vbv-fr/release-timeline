@@ -358,19 +358,19 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <rect x="190" y="16" width="340" height="44" rx="3"/>
     <text x="202" y="37" class="nm">01</text>
     <text x="228" y="37" class="tt">Discussion</text>
-    <text x="228" y="51" class="dy dev">D1–6</text>
+    <text x="228" y="51" class="dy dev">D1–6 · previous release</text>
     <rect x="492" y="31" width="26" height="14" rx="2" class="k-pm"/><text x="505" y="41" class="kt t-pm">PM</text>
     <rect x="190" y="78" width="340" height="44" rx="3"/>
     <text x="202" y="99" class="nm">02</text>
-    <text x="228" y="99" class="tt">Release planning</text>
-    <text x="228" y="113" class="dy san">D8–10 · previous release</text>
-    <rect x="474" y="93" width="44" height="14" rx="2" class="k-sg"/><text x="496" y="103" class="kt t-sg">SAGAR</text>
+    <text x="228" y="99" class="tt">Ticket creation</text>
+    <text x="228" y="113" class="dy dev">D1–7 · previous release</text>
+    <rect x="466" y="93" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="103" class="kt t-cl">CLAUDE</text>
+    <rect x="417" y="93" width="44" height="14" rx="2" class="k-sg"/><text x="439" y="103" class="kt t-sg">SAGAR</text>
     <rect x="190" y="140" width="340" height="44" rx="3"/>
     <text x="202" y="161" class="nm">03</text>
-    <text x="228" y="161" class="tt">Ticket creation</text>
-    <text x="228" y="175" class="dy dev">D1–7 · as PRDs arrive</text>
-    <rect x="466" y="155" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="165" class="kt t-cl">CLAUDE</text>
-    <rect x="417" y="155" width="44" height="14" rx="2" class="k-sg"/><text x="439" y="165" class="kt t-sg">SAGAR</text>
+    <text x="228" y="161" class="tt">Release planning</text>
+    <text x="228" y="175" class="dy san">D8–10 · previous release</text>
+    <rect x="474" y="155" width="44" height="14" rx="2" class="k-sg"/><text x="496" y="165" class="kt t-sg">SAGAR</text>
     <rect x="190" y="202" width="340" height="44" rx="3"/>
     <text x="202" y="223" class="nm">04</text>
     <text x="228" y="223" class="tt">Development</text>
@@ -490,7 +490,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
 </figure>
 
     <div class="stage"><div class="stage-no">01</div><div>
-      <h3>Discussion <span class="owner">PM</span> <span class="day-tag ">till day 6</span></h3>
+      <h3>Discussion <span class="owner">PM</span> <span class="day-tag ">days 1–6, release before</span></h3>
       <ul>
         <li>This is a guideline, not a gate: the PM must be clear on the work before writing the ticket.</li>
         <li>Clarity is shared across PM, dev and ML team. Open questions get resolved first.</li>
@@ -498,21 +498,21 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">02</div><div>
+      <h3>Ticket creation <span class="owner">Sagar</span> <span class="skill-tag">Claude &middot; Skill &middot; ticket-creation</span> <span class="day-tag ">days 1–7, release before</span></h3>
+      <ul>
+        <li>Sagar creates the tickets from each PRD as it arrives. The PM doesn't create tickets.</li>
+        <li>Each ticket has a business use-case, and executionals written as user stories with acceptance criteria against each.</li>
+        <li><strong>Every ticket carries the fix version</strong>, added once release planning (03) decides the release version.</li>
+        <li><strong>Each ticket's release-note text is drafted here</strong>, along with placeholders naming the screens the notes will need images of.</li>
+        <li>Also recorded: whether migration is needed and its type(s), prototype links, creator, component, sub-component and assignee.</li>
+      </ul></div></div>
+
+    <div class="stage"><div class="stage-no">03</div><div>
       <h3>Release planning <span class="owner">Sagar</span> <span class="day-tag san">days 8–10, release before</span></h3>
       <ul>
         <li>This happens during days 8&ndash;10 of the release before. Sagar assigns tickets by bandwidth and locks the list on day 9: commit items that must ship, and buffer items for when a dev is free.</li>
         <li>On the morning of day 10, Sagar shows Vaibhav the locked list. Whether the release is major or minor sets its version, using the nomenclature above.</li>
         <li>Scope is the set of tickets that will carry this version as their fix version.</li>
-      </ul></div></div>
-
-    <div class="stage"><div class="stage-no">03</div><div>
-      <h3>Ticket creation <span class="owner">Sagar</span> <span class="skill-tag">Claude &middot; Skill &middot; ticket-creation</span> <span class="day-tag ">as PRDs arrive</span></h3>
-      <ul>
-        <li>Sagar creates the tickets from each PRD as it arrives. The PM doesn't create tickets.</li>
-        <li>Each ticket has a business use-case, and executionals written as user stories with acceptance criteria against each.</li>
-        <li><strong>Every ticket carries the fix version</strong>, which is the release version defined in step 02.</li>
-        <li><strong>Each ticket's release-note text is drafted here</strong>, along with placeholders naming the screens the notes will need images of.</li>
-        <li>Also recorded: whether migration is needed and its type(s), prototype links, creator, component, sub-component and assignee.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">04</div><div>
@@ -598,8 +598,8 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <div class="stage"><div class="stage-no">16</div><div>
       <h3>Release notes drafted <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">day 8</span></h3>
       <ul>
-        <li>Drafted as soon as the snapshot exists, from the ticket note text written at step 03.</li>
-        <li>Image placeholders from step 03 stay in the draft. They are filled at 18.</li>
+        <li>Drafted as soon as the snapshot exists, from the ticket note text written at step 02.</li>
+        <li>Image placeholders from step 02 stay in the draft. They are filled at 18.</li>
         <li>R&amp;D and discussion tickets are left out.</li>
       </ul></div></div>
 
@@ -650,7 +650,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
           <tr><th>Stage</th><th>Skill</th><th>Status</th><th>Reads</th></tr>
         </thead>
         <tbody>
-          <tr><td class="slot">03</td><td>ticket-creation</td><td>Exists</td><td>A PRD, run by Sagar &rarr; tickets, fix version, note text, image placeholders</td></tr>
+          <tr><td class="slot">02</td><td>ticket-creation</td><td>Exists</td><td>A PRD, run by Sagar &rarr; tickets, fix version, note text, image placeholders</td></tr>
           <tr><td class="slot">06 &middot; 07</td><td>PR vetting + report</td><td>New</td><td>The Jira ticket + the code in the PR</td></tr>
           <tr><td class="slot">10 &middot; 12 &middot; 13</td><td>Testing + screenshots</td><td>New</td><td>Tickets, the snapshot, the approved test cases</td></tr>
           <tr><td class="slot">15</td><td>Bug creation</td><td>New</td><td>Gaps from the test report</td></tr>
@@ -660,7 +660,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
       </table>
     </div>
 
-    <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:70ch;">Steps 01, 02, 04, 05, 08, 09, 11, 14, 17 and 19 involve no Claude skill.</p>
+    <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:70ch;">Steps 01, 03, 04, 05, 08, 09, 11, 14, 17 and 19 involve no Claude skill.</p>
   </section>
 
   <section>
