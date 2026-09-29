@@ -273,6 +273,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
       <li>Decide with Vaibhav whether the release is major or minor.</li>
       <li>On day 7, create an instance on the QA env for main testing and screenshot grabbing.</li>
       <li>Join Akshat's Ops calls so you can take charge when Akshat is out.</li>
+      <li>On day 11, demo the release to Dharmgya, Vaibhav and the Field Team at the end of the day.</li>
       <li>If the release slips into day 11, start the next release on day 11 anyway.</li>
     </ul>
   </div>
@@ -760,11 +761,11 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
   ];
   const LANES = [
     {id:'vaibhav', name:'Vaibhav', role:'PM', cover:'',
-     bars:[[1,6,'PRD writing and research','','till day 6'],[1,10,'Daily discussion with Akshat: Ops issues and enhancements'],[1,10,'Daily release progress update from Sagar'],[1,7,'Dev discussions, booked and attended by Sagar'],[8,10,'Daily release sanity check-in with Swayam; oversee bug fixes','san']]},
+     bars:[[1,6,'PRD writing and research','','till day 6'],[1,10,'End-of-day check-in with Akshat: Ops issues and enhancements'],[1,10,'End-of-day check-in with Sagar: release progress'],[1,7,'Dev discussions, booked and attended by Sagar'],[8,10,'Daily release sanity check-in with Swayam; oversee bug fixes','san']]},
     {id:'sagar', name:'Sagar', role:'Project Manager', cover:'Akshat takes charge when Sagar is out.',
-     bars:[[1,10,'Daily evening scrum with devs and Akshat, no matter what'],[8,10,'Finalise next release: tickets, assignment, bandwidth','san'],[1,7,'Test each merged ticket; send NOKs back'],[1,7,'Turn handed-over PRDs into tickets; shape the next release'],[1,10,'Book and attend every PM–dev discussion'],[1,10,"Attend Akshat's daily Ops calls"],[1,10,'Report daily release progress to Vaibhav']]},
+     bars:[[1,10,'Daily evening scrum with devs and Akshat, no matter what'],[8,10,'Finalise next release: tickets, assignment, bandwidth','san'],[1,7,'Test each merged ticket; send NOKs back'],[1,7,'Turn handed-over PRDs into tickets; shape the next release'],[1,10,'Book and attend every PM–dev discussion'],[1,10,"Attend Akshat's daily Ops calls"],[1,10,'End-of-day check-in with Vaibhav']]},
     {id:'akshat', name:'Akshat', role:'Associate PM', cover:'Sagar takes charge when Akshat is out.',
-     bars:[[1,10,'Daily Ops calls, with Sagar attending'],[1,10,'Daily discussion with Vaibhav'],[1,10,'Maintain the health tracker'],[1,6,'Enhancement PRDs','','till day 6'],[1,10,'Daily evening scrum']]},
+     bars:[[1,10,'Daily Ops calls, with Sagar attending'],[1,10,'End-of-day check-in with Vaibhav'],[1,10,'Update the Ops tracker daily'],[1,6,'Enhancement PRDs','','till day 6'],[1,10,'Daily evening scrum']]},
     {id:'swayam', name:'Swayam', role:'Release dev', cover:'Deb makes the release when Swayam is out.',
      bars:[[1,7,'Development and PR merge as tickets close'],[1,7,'Discussions with Vaibhav, as booked by Sagar'],[8,10,'Bug fixing and retests','san'],[8,10,'Daily release sanity check-in with Vaibhav','san']]},
     {id:'devs', name:'Devs', role:'Software Development Team', cover:'',
@@ -789,6 +790,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     ['sagar',9,'Lock the list: commit and buffer items'],
     ['sagar',10,'Show the locked list to Vaibhav (morning)','d'],
     ['sagar',11,'Start the next release, even if this one is delayed'],
+    ['sagar',11,'EOD: demo the release to Dharmgya, Vaibhav and the Field Team'],
     ['akshat',6,'Hand enhancement PRDs to Sagar','d'],
     ['swayam',7,'Code freeze: cut the release branch','d'],
     ['swayam',8,'Review the PR merge report'],
