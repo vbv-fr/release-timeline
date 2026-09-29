@@ -264,7 +264,11 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <p class="hint">Project Manager</p>
     <ul>
       <li>Run the daily scrum on every day, 1–10, no matter what.</li>
+      <li>Check in with Vaibhav at the end of every day. If Vaibhav is not available, send the daily update as a message.</li>
+      <li>Be on every call that involves Vaibhav and the devs. Book these calls around the devs' availability.</li>
+      <li>Know what each dev is working on and how loaded each dev is.</li>
       <li>Take PRDs on any day. Day 6 is the last day for Vaibhav and Akshat.</li>
+      <li>In release planning, distribute tasks so that every dev is occupied.</li>
       <li>Lock the list with commit items, which must ship, and buffer items, picked up if a dev is free.</li>
       <li>Decide with Vaibhav whether the release is major or minor.</li>
       <li>On day 7, create an instance on the QA env for main testing and screenshot grabbing.</li>
@@ -276,6 +280,9 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <h2>Guidelines for Akshat</h2>
     <p class="hint">Associate PM</p>
     <ul>
+      <li>Conduct the Ops calls daily.</li>
+      <li>Update the Ops tracker every day.</li>
+      <li>Check in with Vaibhav at the end of every day. If Vaibhav is not available, send the daily update as a message.</li>
       <li>Hand enhancement PRDs to Sagar by day 6.</li>
       <li>Join the evening scrum so you can take charge when Sagar is out.</li>
     </ul>
@@ -284,6 +291,9 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <h2>Guidelines for Swayam</h2>
     <p class="hint">Release dev</p>
     <ul>
+      <li>Merge only the tasks listed in a ticket under that ticket. Never merge other tickets' tasks under a common ticket.</li>
+      <li>Close testing and the PR report review within days 6–7.</li>
+      <li>Code freeze is at day 7 EOD.</li>
       <li>Trigger Claude main testing once the test cases are vetted.</li>
       <li>Own the fixes for every issue found in days 8–10. Retests run within the existing testing flow.</li>
       <li>Check in daily with Vaibhav on release sanity through days 8–10.</li>
@@ -296,7 +306,9 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <p class="hint">Software Development Team</p>
     <ul>
       <li>Build commit items first. Pick up buffer items if you are free.</li>
-      <li>Use days 6–7 to finish tickets and ticket-level tests.</li>
+      <li>Merge only the tasks listed in a ticket under that ticket. Never merge other tickets' tasks under a common ticket.</li>
+      <li>Close testing and the PR report review within days 6–7.</li>
+      <li>Code freeze is at day 7 EOD.</li>
       <li>Fix every issue found in days 8–10 within the same window.</li>
     </ul>
   </div>
@@ -570,7 +582,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <div class="stage"><div class="stage-no">09</div><div>
       <h3>Internal release snapshot <span class="owner">Dev</span> <span class="day-tag ">day 7</span></h3>
       <ul>
-        <li>Code freezes on day 7. The release dev cuts the release branch, and the snapshot is taken from it. Everything that follows runs against this one snapshot.</li>
+        <li>Code freezes at the end of day 7. The release dev cuts the release branch, and the snapshot is taken from it. Everything that follows runs against this one snapshot.</li>
         <li>On day 8, the release dev reviews the overall PR merge report for the release.</li>
         <li>From here the flow splits into two tracks that run at the same time.</li>
       </ul></div></div>
@@ -740,7 +752,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     {n:4, wd:'Fri', wk:'Week 1'},
     {n:5, wd:'Mon', wk:'Week 1'},
     {n:6, wd:'Tue', wk:'Week 2', mk:'PRD deadline (next release)'},
-    {n:7, wd:'Wed', wk:'Week 2', mk:'Code freeze'},
+    {n:7, wd:'Wed', wk:'Week 2', mk:'Code freeze (EOD)'},
     {n:8, wd:'Thu', wk:'Week 2'},
     {n:9, wd:'Fri', wk:'Week 2'},
     {n:10, wd:'Mon', wk:'Week 2', mk:'Locked list (AM) · Release (EOD)'},
