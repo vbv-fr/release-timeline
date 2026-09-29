@@ -266,10 +266,9 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
       <li>Run the daily scrum on every day, 1–10, no matter what.</li>
       <li>Check in with Vaibhav at the end of every day. If Vaibhav is not available, send the daily update as a message.</li>
       <li>Be on every call that involves Vaibhav and the devs. Book these calls around the devs' availability.</li>
-      <li>Know what each dev is working on and how loaded each dev is.</li>
       <li>Take PRDs on any day. Day 6 is the last day for Vaibhav and Akshat.</li>
-      <li>In release planning, distribute tasks so that every dev is occupied.</li>
-      <li>Lock the list with commit items, which must ship, and buffer items, picked up if a dev is free.</li>
+      <li>Know what each dev is working on and how loaded each dev is, and in release planning distribute tasks so that every dev is occupied.</li>
+      <li>Lock the list with <strong>Commit Items</strong>, which must ship, and <strong>Buffer Items</strong>, picked up if a dev is free. A successful release means all Commit Items are released without any bugs.</li>
       <li>Decide with Vaibhav whether the release is major or minor.</li>
       <li>On day 7, create an instance on the QA env for main testing and screenshot grabbing.</li>
       <li>Join Akshat's Ops calls so you can take charge when Akshat is out.</li>
@@ -306,7 +305,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <h2>Guidelines for Devs</h2>
     <p class="hint">Software Development Team</p>
     <ul>
-      <li>Build commit items first. Pick up buffer items if you are free.</li>
+      <li>Build <strong>Commit Items</strong> first. Pick up <strong>Buffer Items</strong> if you are free.</li>
       <li>Every ticket must have its test cases written in it.</li>
       <li>Merge only the tasks listed in a ticket under that ticket. Never merge other tickets' tasks under a common ticket.</li>
       <li>Close testing and the PR report review within days 6–7.</li>
@@ -546,7 +545,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     <div class="stage"><div class="stage-no">03</div><div>
       <h3>Release planning <span class="owner">Sagar</span> <span class="day-tag san">days 8–10, release before</span></h3>
       <ul>
-        <li>This happens during days 8&ndash;10 of the release before. Sagar assigns tickets by bandwidth and locks the list on day 9: commit items that must ship, and buffer items for when a dev is free.</li>
+        <li>This happens during days 8&ndash;10 of the release before. Sagar assigns tickets by bandwidth and locks the list on day 9: Commit Items that must ship, and Buffer Items for when a dev is free.</li>
         <li>On the morning of day 10, Sagar shows Vaibhav the locked list. Whether the release is major or minor sets its version, using the nomenclature above.</li>
         <li>Scope is the set of tickets that will carry this version as their fix version.</li>
       </ul></div></div>
@@ -758,7 +757,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     {n:8, wd:'Thu', wk:'Week 2'},
     {n:9, wd:'Fri', wk:'Week 2'},
     {n:10, wd:'Mon', wk:'Week 2', mk:'Locked list (AM) · Release (EOD)'},
-    {n:11, wd:'Tue', wk:'If delayed', mk:'Day 1 of the next release', nxt:true}
+    {n:11, wd:'Tue', wk:'Week 3', mk:'Release demo (EOD)', nxt:true}
   ];
   const LANES = [
     {id:'vaibhav', name:'Vaibhav', role:'PM', cover:'',
@@ -783,12 +782,13 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     ['vaibhav',10,'Finalise release notes: screenshots and PM tweaks'],
     ['vaibhav',10,'Send the release with Swayam'],
     ['vaibhav',11,'If delayed: finish the release with Swayam'],
-    ['sagar',1,"Kick off: confirm each dev's commit tickets"],
+    ['vaibhav',11,'EOD: attend the release demo'],
+    ['sagar',1,"Kick off: confirm each dev's Commit Items"],
     ['sagar',7,'Code freeze: last ticket-level tests','d'],
     ['sagar',7,'Create an instance on the QA env for main testing and screenshot grabbing'],
     ['sagar',6,'Collect the last PRDs'],
     ['sagar',8,'Planning discussions with devs'],
-    ['sagar',9,'Lock the list: commit and buffer items'],
+    ['sagar',9,'Lock the list: Commit and Buffer Items'],
     ['sagar',10,'Show the locked list to Vaibhav (morning)','d'],
     ['sagar',11,'Start the next release, even if this one is delayed'],
     ['sagar',11,'EOD: demo the release to Dharmgya, Vaibhav and the Field Team'],
@@ -803,7 +803,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     ['devs',7,'Code freeze: nothing new merges after today','d'],
     ['devs',8,'Read upcoming tickets; estimate with Sagar'],
     ['devs',9,'Declare leave for the next release'],
-    ['devs',9,'No open bugs? Start your first locked commit ticket on main','p'],
+    ['devs',9,'No open bugs? Start your first locked Commit Item on main','p'],
     ['devs',11,'Start the next release']
   ];
   const KEY = 'frinks-release-timeline-v3';
@@ -831,7 +831,7 @@ textarea{width:100%; font:400 13px/1.38 var(--body); color:var(--ink); backgroun
     const c0 = el('div','corner top','Phase'); grid.appendChild(c0);
     const p1 = el('div','phase dev','Development · days 1–7'); p1.style.gridColumn = '2 / span 7'; grid.appendChild(p1);
     const p2 = el('div','phase san','Release sanity + next release planning · days 8–10'); p2.style.gridColumn = '9 / span 3'; grid.appendChild(p2);
-    const p3 = el('div','phase nxt','Overlap if delayed'); p3.style.gridColumn = '12 / span 1'; grid.appendChild(p3);
+    const p3 = el('div','phase nxt','Day 1 of the next release'); p3.style.gridColumn = '12 / span 1'; grid.appendChild(p3);
     // day row
     grid.appendChild(el('div','corner','Person'));
     DAYS.forEach(d => {
