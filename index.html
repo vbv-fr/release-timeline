@@ -45,7 +45,7 @@
 }
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--ink); font:400 15px/1.5 var(--body); padding-inline:20px; padding-block:0 48px}
-.page{max-width:1600px; margin:0 auto; display:grid; gap:22px}
+.page{max-width:1600px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr); gap:22px}
 header.top{padding-block:32px 4px; display:grid; gap:10px}
 .eyebrow{font:600 12px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
 h1{font:800 clamp(30px,5vw,46px)/1.03 var(--display); letter-spacing:-.02em; margin:0; text-wrap:balance}
