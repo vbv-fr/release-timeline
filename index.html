@@ -274,7 +274,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Lead the Release Sync every day (6:30–7 PM). All discussions about release planning and progress happen here; on days 1–7 it only tracks release progress.</li>
       <li>Join the Product Sync with Akshat and Vaibhav every day, 11:30 AM–12:30 PM: updates from yesterday and plan for today. If Vaibhav is not available, send the daily update as a message.</li>
       <li>Be on every call that involves Vaibhav and the devs. Book these calls around the devs' availability.</li>
-      <li>Take PRDs on any day. Day 6 is the last day for Vaibhav and Akshat.</li>
+      <li>Take PRDs on any day. Day 6 (day −4 for this release) is the deadline to take all PRDs from Vaibhav.</li>
+      <li>Send project-wise mails every day.</li>
       <li>You alone create the tickets. Start on day 7 and close on day 8, the deadline (days −3 and −2 for this release).</li>
       <li>Write every ticket clearly enough that no dev discussion is needed.</li>
       <li>Keep count of PM–dev discussions about the current release's tickets. Each one means the PRD or ticket wasn't clear enough. Discussions to scope future tickets aren't counted.</li>
@@ -284,7 +285,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Lock the list with <strong>Commit Items</strong>, which must ship, and <strong>Buffer Items</strong>, picked up if a dev is free. A successful release means all Commit Items are released without any bugs.</li>
       <li>Lock the list by day 9, the deadline (day −1 for this release). On day 10 (day 0), the Product Sync reviews it, adds items as needed, and decides whether the release is major or minor.</li>
       <li>Give your sign-off on testing by day 7, the deadline.</li>
-      <li>On days 1–6, add the enhancement additions from Akshat to the current sprint.</li>
+      <li>On days 1–6, add the enhancement tickets from Akshat to the current sprint.</li>
       <li>On day 7, create an instance on the QA env for main testing and screenshot grabbing.</li>
       <li>On day 8, do the Internal Release Check: show Vaibhav the working demo of the release.</li>
       <li>On day 9, read out the release notes draft with Vaibhav and Akshat in the Product Sync.</li>
@@ -301,7 +302,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>On day 11, demo the release to Dharmgya, Vaibhav, Sagar and the Field Team in the Ops Team Sync (7–7:30 PM).</li>
       <li>Write enhancement PRDs every day: for the current sprint on days 1–4, and for the next sprint from day 5. Enhancement requests received by day 4 are closed in the running release; later ones go into the next release.</li>
       <li>You are the only contact for Ops POCs. Vaibhav doesn't contact them, and Sagar takes the Ops Team Sync when you are on leave.</li>
-      <li>Update the Ops tracker every day.</li>
+      <li>Create the Ops report every day, including days −4 to 0.</li>
       <li>Join the Product Sync with Sagar and Vaibhav every day, 11:30 AM–12:30 PM: updates from yesterday and plan for today. If Vaibhav is not available, send the daily update as a message.</li>
       <li>On day −3, in the Product Sync, give Sagar and Vaibhav the gist of all the enhancement whitepapers you wrote. Vaibhav gives the PRD gists in the same sync.</li>
       <li>Discussions with devs about the current release's tickets shouldn't be needed. If one happens, the PRD or ticket wasn't clear enough, and Sagar counts it.</li>
@@ -313,7 +314,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <h2>Guidelines for Vaibhav</h2>
     <p class="hint">PM</p>
     <ul>
-      <li>Hand PRDs to Sagar on any day. Day 6 is the last day to finalise the PRDs for the next sprint (day −4 for this release).</li>
+      <li>Hand PRDs to Sagar on any day. Day 6 (day −4 for this release) is the deadline to finalise the PRDs for the next sprint and hand them over to Sagar.</li>
+      <li>PRD writing and research is your daily task, except on day −4.</li>
       <li>Write PRDs only. Don't create tickets; Sagar creates all of them.</li>
       <li>On day −3, in the Product Sync, explain each PRD to Akshat and Sagar. Akshat gives the gist of the enhancement whitepapers in the same sync.</li>
       <li>Lead the Product Sync with Sagar and Akshat every day, 11:30 AM–12:30 PM: updates from yesterday and plan for today.</li>
@@ -825,7 +827,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   const GIST = 'Product Sync — PRD gists from Vaibhav, enhancement whitepaper gists from Akshat';
   const REVIEW = 'Product Sync — review the locked list, add items as needed, decide major or minor';
   const READOUT = 'Product Sync — release notes readout';
-  const RS_PLAN = 'Release Sync — release planning and progress', RS_TRACK = 'Release Sync — release progress tracking';
+  const RS_PLAN = 'Release Sync — release progress and planning', RS_TRACK = 'Release Sync — release progress tracking';
   // Recurring work: [from day, to day, text, type, time, days skipped]. Type: t task, m meeting.
   const LANES = [
     {id:'sagar', name:'Sagar', bars:[
@@ -834,20 +836,21 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       [-4,11,'Ops Team Sync — Ops issues','m',OPS,[11]],
       [1,10,'Book and attend PM–dev discussions for future tickets','m','Ad hoc'],
       [1,6,'Test each merged ticket; send NOKs back','t'],
-      [1,6,'Add enhancement additions from Akshat to the current sprint','t']]},
+      [1,6,'Add enhancement tickets from Akshat to the current sprint','t'],
+      [-4,11,'Send project-wise mails','t']]},
     {id:'akshat', name:'Akshat', bars:[
       [-4,0,'Write enhancement PRDs','t'],
       [1,11,PSYNC,'m',PS,AGENDA],
       [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
       [-4,11,'Ops Team Sync — Ops issues','m',OPS,[11]],
-      [1,10,'Update the Ops tracker daily','t'],
+      [-4,10,'Create Ops report','t'],
       [1,4,'Write enhancement PRDs for current sprint','t'],
       [5,10,'Write enhancement PRDs for next sprint','t']]},
     {id:'vaibhav', name:'Vaibhav', bars:[
       [-3,11,PSYNC,'m',PS,AGENDA],
       [-4,0,RS_PLAN,'m',SCRUM],
       [-4,0,'Ops Team Sync — Ops issues','m',OPS],
-      [1,6,'PRD writing and research','t'],
+      [-3,11,'PRD writing and research','t'],
       [1,7,'Discussions with devs for future tickets, booked and attended by Sagar','m','Ad hoc'],
       [8,10,'Oversee release sanity and bug fixes','t']]},
     {id:'swayam', name:'Swayam', bars:[
@@ -870,7 +873,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['sagar',-2,'Close ticket creation','d'],
     ['sagar',-1,'Lock the list: Commit and Buffer Items','d'],
     ['sagar',0,REVIEW,'m',PS],
-    ['sagar',6,'Collect the last PRDs','t'],
+    ['sagar',-4,'Take all PRDs from Vaibhav','d'],
+    ['sagar',6,'Take all PRDs from Vaibhav (next release)','d'],
     ['sagar',7,'Code freeze: last ticket-level tests','d'],
     ['sagar',7,'Give sign-off on testing','d'],
     ['sagar',7,'Create an instance on the QA env for main testing and screenshot grabbing','t'],
@@ -888,11 +892,11 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['akshat',9,READOUT,'m',PS],
     ['akshat',10,REVIEW + ' (next release)','m',PS],
     ['akshat',11,'Ops Team Sync — Ops issues, plus your release demo to Dharmgya, Vaibhav, Sagar and the Field Team','m',OPS],
-    ['vaibhav',-4,'Finalise PRDs for the next sprint','d'],
+    ['vaibhav',-4,'Finalise PRDs for the next sprint and hand them over to Sagar','d'],
     ['vaibhav',-3,GIST,'m',PS],
     ['vaibhav',0,REVIEW,'m',PS],
     ['vaibhav',2,'Field Team Sync — new POs and what to build','m','12:30–1 PM'],
-    ['vaibhav',6,'Last day to hand PRDs to Sagar','d'],
+    ['vaibhav',6,'Finalise PRDs for the next sprint and hand them over to Sagar','d'],
     ['vaibhav',7,'Field Team Sync — new POs and what to build','m','12:30–1 PM'],
     ['vaibhav',7,GIST + ' (next release)','m',PS],
     ['vaibhav',8,'Vet the main testing test cases','t'],
@@ -918,7 +922,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['devs',9,'Declare leave for the next release','t'],
     ['devs',11,'Start the next release','t']
   ];
-  const KEY = 'frinks-release-timeline-v12';
+  const KEY = 'frinks-release-timeline-v13';
   const PHASES = [
     {cls:'pre', label:'Before the release', range:'Days −4 to 0 · days 6–10 of the previous release', days:[-4,-3,-2,-1,0]},
     {cls:'dev', label:'Development', range:'Days 1–7', days:[1,2,3,4,5,6,7]},
