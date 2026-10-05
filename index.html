@@ -89,6 +89,7 @@ button.danger{border-color:var(--accent); color:var(--accent-ink)}
 .it:hover{background:var(--sunk)}
 .it.rec{color:var(--muted)}
 .it .txt b{font-weight:700; color:var(--ink)}
+.it .txt .lead{font:500 11px/1 var(--mono); color:var(--muted); white-space:nowrap}
 .it.rec::before{background:var(--line-strong)}
 .it.dl{background:var(--accent-soft)}
 .it.dl::before{background:var(--accent)}
@@ -270,7 +271,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <h2>Guidelines for Sagar</h2>
     <p class="hint">Project Manager</p>
     <ul>
-      <li>Run the Release Sync every day (6:30–7 PM). All discussions about release planning and progress happen here; on days 1–7 it only tracks release progress.</li>
+      <li>Lead the Release Sync every day (6:30–7 PM). All discussions about release planning and progress happen here; on days 1–7 it only tracks release progress.</li>
       <li>Join the Product Sync with Akshat and Vaibhav every day, 11:30 AM–12:30 PM: updates from yesterday and plan for today. If Vaibhav is not available, send the daily update as a message.</li>
       <li>Be on every call that involves Vaibhav and the devs. Book these calls around the devs' availability.</li>
       <li>Take PRDs on any day. Day 6 is the last day for Vaibhav and Akshat.</li>
@@ -287,7 +288,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>On day 7, create an instance on the QA env for main testing and screenshot grabbing.</li>
       <li>On day 8, do the Internal Release Check: show Vaibhav the working demo of the release.</li>
       <li>On day 9, read out the release notes draft with Vaibhav and Akshat in the Product Sync.</li>
-      <li>Join Akshat's Ops Team Sync (7–7:30 PM) every day, and take it yourself when Akshat is on leave.</li>
+      <li>Join Akshat's Ops Team Sync (7–7:30 PM) every day, including days −4 to 0, and take it yourself when Akshat is on leave.</li>
       <li>On day 11, the release demo happens in the Ops Team Sync.</li>
       <li>If the release slips into day 11, start the next release on day 11 anyway.</li>
     </ul>
@@ -296,7 +297,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <h2>Guidelines for Akshat</h2>
     <p class="hint">Associate PM</p>
     <ul>
-      <li>Run the Ops Team Sync (7–7:30 PM) every day, with Sagar.</li>
+      <li>Lead the Ops Team Sync (7–7:30 PM) every day, with Sagar, including days −4 to 0.</li>
       <li>On day 11, demo the release to Dharmgya, Vaibhav, Sagar and the Field Team in the Ops Team Sync (7–7:30 PM).</li>
       <li>Write enhancement PRDs every day: for the current sprint on days 1–4, and for the next sprint from day 5. Enhancement requests received by day 4 are closed in the running release; later ones go into the next release.</li>
       <li>You are the only contact for Ops POCs. Vaibhav doesn't contact them, and Sagar takes the Ops Team Sync when you are on leave.</li>
@@ -305,7 +306,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>On day −3, in the Product Sync, give Sagar and Vaibhav the gist of all the enhancement whitepapers you wrote. Vaibhav gives the PRD gists in the same sync.</li>
       <li>Discussions with devs about the current release's tickets shouldn't be needed. If one happens, the PRD or ticket wasn't clear enough, and Sagar counts it.</li>
       <li>On day 9, read out the release notes draft with Vaibhav and Sagar in the Product Sync.</li>
-      <li>Join the Release Sync (6:30–7 PM) every day so you can take charge when Sagar is out.</li>
+      <li>Join the Release Sync (6:30–7 PM) every day, including days −4 to 0, so you can take charge when Sagar is out.</li>
     </ul>
   </div>
   <div>
@@ -315,7 +316,9 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Hand PRDs to Sagar on any day. Day 6 is the last day to finalise the PRDs for the next sprint (day −4 for this release).</li>
       <li>Write PRDs only. Don't create tickets; Sagar creates all of them.</li>
       <li>On day −3, in the Product Sync, explain each PRD to Akshat and Sagar. Akshat gives the gist of the enhancement whitepapers in the same sync.</li>
-      <li>Hold the Product Sync with Sagar and Akshat every day, 11:30 AM–12:30 PM: updates from yesterday and plan for today.</li>
+      <li>Lead the Product Sync with Sagar and Akshat every day, 11:30 AM–12:30 PM: updates from yesterday and plan for today.</li>
+      <li>Lead the Field Team Sync (12:30–1 PM).</li>
+      <li>On days −4 to 0, also attend the Release Sync (6:30–7 PM) and the Ops Team Sync (7–7:30 PM).</li>
       <li>Discussions with devs about the current release's tickets shouldn't be needed. If one happens, the PRD or ticket wasn't clear enough, and Sagar counts it. Discussions to scope future tickets are fine.</li>
       <li>Don't discuss anything with a dev unless Sagar is also on the call.</li>
       <li>Don't contact Ops POCs. They go only through Akshat, or Sagar when Akshat is on leave.</li>
@@ -826,31 +829,33 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   const LANES = [
     {id:'sagar', name:'Sagar', bars:[
       [-3,11,PSYNC,'m',PS,AGENDA],
-      [-3,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
-      [1,11,'Ops Team Sync — Ops issues, with Akshat','m',OPS,[11]],
+      [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
+      [-4,11,'Ops Team Sync — Ops issues','m',OPS,[11]],
       [1,10,'Book and attend PM–dev discussions for future tickets','m','Ad hoc'],
       [1,6,'Test each merged ticket; send NOKs back','t'],
       [1,6,'Add enhancement additions from Akshat to the current sprint','t']]},
     {id:'akshat', name:'Akshat', bars:[
       [-4,0,'Write enhancement PRDs','t'],
       [1,11,PSYNC,'m',PS,AGENDA],
-      [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
-      [1,11,'Ops Team Sync — Ops issues, with Sagar','m',OPS,[11]],
+      [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
+      [-4,11,'Ops Team Sync — Ops issues','m',OPS,[11]],
       [1,10,'Update the Ops tracker daily','t'],
       [1,4,'Write enhancement PRDs for current sprint','t'],
       [5,10,'Write enhancement PRDs for next sprint','t']]},
     {id:'vaibhav', name:'Vaibhav', bars:[
       [-3,11,PSYNC,'m',PS,AGENDA],
+      [-4,0,RS_PLAN,'m',SCRUM],
+      [-4,0,'Ops Team Sync — Ops issues','m',OPS],
       [1,6,'PRD writing and research','t'],
       [1,7,'Discussions with devs for future tickets, booked and attended by Sagar','m','Ad hoc'],
       [8,10,'Oversee release sanity and bug fixes','t']]},
     {id:'swayam', name:'Swayam', bars:[
-      [-3,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
+      [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
       [1,7,'Development and PR merge as tickets close','t'],
       [1,7,'Discussions with Vaibhav for future tickets, booked by Sagar','m','Ad hoc'],
       [8,10,'Bug fixing and retests','t']]},
     {id:'devs', name:'Devs', bars:[
-      [-3,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
+      [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
       [1,7,'Development and PR merge as tickets close','t'],
       [1,7,'Discussions with Vaibhav for future tickets, booked by Sagar','m','Ad hoc'],
       [6,7,'Finish tickets; ticket-level tests','t'],
@@ -912,7 +917,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['devs',9,'Declare leave for the next release','t'],
     ['devs',11,'Start the next release','t']
   ];
-  const KEY = 'frinks-release-timeline-v11';
+  const KEY = 'frinks-release-timeline-v12';
   const PHASES = [
     {cls:'pre', label:'Before the release', range:'Days −4 to 0 · days 6–10 of the previous release', days:[-4,-3,-2,-1,0]},
     {cls:'dev', label:'Development', range:'Days 1–7', days:[1,2,3,4,5,6,7]},
@@ -946,6 +951,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     return h * 60 + (+m[2] || 0);
   };
   const byOrder = (a, b) => (RANK[a.type] ?? 1) - (RANK[b.type] ?? 1) || (a.type === 'm' && b.type === 'm' ? startMin(a.time) - startMin(b.time) : 0);
+  const LEAD = {'Product Sync':'vaibhav', 'Release Sync':'sagar', 'Ops Team Sync':'akshat', 'Field Team Sync':'vaibhav'};
   const SYNC = /^(Product Sync|Release Sync|Ops Team Sync|Field Team Sync|Internal Release Check)(\s*—\s*)?/;
   const tagText = c => c.type === 'd' ? 'Deadline' : c.type === 'm' ? 'Meeting · ' + (c.time || 'Ad hoc') : c.type === 'r' ? 'Release' + (c.time ? ' · ' + c.time : '') : 'Task';
 
@@ -998,7 +1004,9 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     li.appendChild(el('span','tg ' + (c.type||'t'), tagText(c)));
     if (c.prop) li.appendChild(el('span','tg p','Proposed'));
     const txt = el('span','txt'), m = c.text.match(SYNC);
-    if (m){ txt.appendChild(el('b',null,m[1])); const rest = c.text.slice(m[0].length); if (rest) txt.appendChild(document.createTextNode(' — ' + rest)); }
+    if (m){ txt.appendChild(el('b',null,m[1]));
+      const ld = LEAD[m[1]]; if (ld) txt.appendChild(el('span','lead', ld === c.lane ? ' · you lead' : ' · led by ' + LANES.find(l => l.id === ld).name));
+      const rest = c.text.slice(m[0].length); if (rest) txt.appendChild(document.createTextNode(' — ' + rest)); }
     else txt.textContent = c.text;
     li.appendChild(txt);
     const x = el('button','x','×'); x.type = 'button'; x.setAttribute('aria-label','Remove');
