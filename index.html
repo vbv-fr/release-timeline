@@ -1006,7 +1006,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     if (c.prop) li.appendChild(el('span','tg p','Proposed'));
     const txt = el('span','txt'), m = c.text.match(SYNC);
     if (m){ txt.appendChild(el('b',null,m[1]));
-      const ld = LEAD[m[1]]; if (ld) txt.appendChild(el('span','lead', ld === c.lane ? ' · you lead' : ' · led by ' + LANES.find(l => l.id === ld).name));
+      const ld = LEAD[m[1]]; if (ld) txt.appendChild(el('span','lead', ' · led by ' + LANES.find(l => l.id === ld).name));
       const rest = c.text.slice(m[0].length); if (rest) txt.appendChild(document.createTextNode(' — ' + rest)); }
     else txt.textContent = c.text;
     li.appendChild(txt);
