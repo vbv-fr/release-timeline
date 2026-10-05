@@ -840,7 +840,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       [-4,11,'Send project-wise mails','t']]},
     {id:'akshat', name:'Akshat', bars:[
       [-4,0,'Write enhancement PRDs','t'],
-      [1,11,PSYNC,'m',PS,AGENDA],
+      [-4,11,PSYNC,'m',PS,AGENDA],
       [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
       [-4,11,'Ops Team Sync — Ops issues','m',OPS,[11]],
       [-4,10,'Create Ops report','t'],
@@ -889,6 +889,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['sagar',10,REVIEW + ' (next release)','m',PS],
     ['sagar',11,'Start the next release, even if this one is delayed','t'],
     ['sagar',11,'Ops Team Sync — Ops issues, plus the release demo to Dharmgya, Vaibhav and the Field Team','m',OPS],
+    ['akshat',-3,GIST,'m',PS],
+    ['akshat',0,REVIEW,'m',PS],
     ['akshat',4,'Last day for enhancement requests to make this release','d'],
     ['akshat',7,GIST + ' (next release)','m',PS],
     ['akshat',9,READOUT,'m',PS],
@@ -924,7 +926,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['devs',9,'Declare leave for the next release','t'],
     ['devs',11,'Start the next release','t']
   ];
-  const KEY = 'frinks-release-timeline-v14';
+  const KEY = 'frinks-release-timeline-v15';
   const PHASES = [
     {cls:'pre', label:'Before the release', range:'Days −4 to 0 · days 6–10 of the previous release', days:[-4,-3,-2,-1,0]},
     {cls:'dev', label:'Development', range:'Days 1–7', days:[1,2,3,4,5,6,7]},
