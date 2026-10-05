@@ -304,6 +304,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Write enhancement PRDs every day: for the current sprint on days 1–4, and for the next sprint from day 5. Enhancement requests received by day 4 are closed in the running release; later ones go into the next release.</li>
       <li>You are the only contact for Ops POCs. Vaibhav doesn't contact them, and Sagar takes the Ops Team Sync when you are on leave.</li>
       <li>Create the Ops report every day, including days −4 to 0.</li>
+      <li>Attend Ops issues calls every day, as they come up.</li>
       <li>Join the Product Sync with Sagar and Vaibhav every day, 11:30 AM–12:30 PM: updates from yesterday and plan for today. If Vaibhav is not available, send the daily update as a message.</li>
       <li>On day −3, in the Product Sync, give Sagar and Vaibhav the gist of all the enhancement whitepapers you wrote. Vaibhav gives the PRD gists in the same sync.</li>
       <li>Discussions with devs about the current release's tickets shouldn't be needed. If one happens, the PRD or ticket wasn't clear enough, and Sagar counts it.</li>
@@ -846,6 +847,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
       [-4,11,'Ops Team Sync — Ops issues','m',OPS,[11]],
       [-4,10,'Create Ops report','t'],
+      [-4,11,'Attend Ops issues calls','m','Ad hoc'],
       [1,4,'Write enhancement PRDs for current sprint','t'],
       [5,10,'Write enhancement PRDs for next sprint','t']]},
     {id:'vaibhav', name:'Vaibhav', bars:[
@@ -928,7 +930,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['devs',9,'Declare leave for the next release','t'],
     ['devs',11,'Start the next release','t']
   ];
-  const KEY = 'frinks-release-timeline-v15';
+  const KEY = 'frinks-release-timeline-v16';
   const PHASES = [
     {cls:'pre', label:'Before the release', range:'Days −4 to 0 · days 6–10 of the previous release', days:[-4,-3,-2,-1,0]},
     {cls:'dev', label:'Development', range:'Days 1–7', days:[1,2,3,4,5,6,7]},
