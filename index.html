@@ -433,7 +433,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 <figure class="flowfig">
 <div class="chipkey"><span><b style="color:var(--pm);background:var(--pm-bg)">PM</b>Vaibhav</span><span><b style="color:var(--sg);background:var(--sg-bg)">SAGAR</b>Project Manager</span><span><b style="color:var(--dv);background:var(--dv-bg)">DEV</b>Swayam or the ticket's dev</span><span><b style="color:var(--clr);background:var(--clr-bg)">CLAUDE</b>a Claude skill</span></div>
 <div class="figscroll">
-<svg viewBox="0 0 720 1174" role="img" aria-label="Flowchart of the nineteen release steps. Steps 01 to 10 run in sequence up to the internal release snapshot on day 8. The flow then splits: the test case branch (11a, then main testing, test report and the halt or ship call, 12 to 15) and the release notes branch (11b). Right after main testing, Claude adds screenshots to the release notes (16). The notes are finalised (17) once the test result is in, then published and the manuals updated.">
+<svg viewBox="0 0 720 1188" role="img" aria-label="Flowchart of the nineteen release steps. Steps 01 to 10 run in sequence up to the internal release snapshot on day 8. The flow then splits: the test case branch (11a, then main testing, test report and the halt or ship call, 12 to 15) and the release notes branch (11b). Right after main testing, Claude adds screenshots to the release notes (16). The notes are finalised (17) once the test result is in, then published and the manuals updated.">
   <defs>
     <marker id="aN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--line-strong)"/></marker>
     <marker id="aG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--pass)"/></marker>
@@ -531,23 +531,24 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <rect x="282" y="931" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="941" class="kt t-cl">CLAUDE</text>
     <rect x="247" y="931" width="30" height="14" rx="2" class="k-dev"/><text x="262" y="941" class="kt t-dev">DEV</text>
     <rect x="216" y="931" width="26" height="14" rx="2" class="k-pm"/><text x="229" y="941" class="kt t-pm">PM</text>
-    <rect x="190" y="990" width="340" height="44" rx="3" class="gatebox"/>
+    <rect x="190" y="990" width="340" height="58" rx="3" class="gatebox"/>
     <text x="202" y="1011" class="nm">17</text>
     <text x="228" y="1011" class="tt">Release notes finalised</text>
     <text x="228" y="1025" class="dy san">D10</text>
+    <text x="228" y="1040" class="lb nk">NOK &#8594; TWEAK BY PROMPT</text>
     <rect x="492" y="1005" width="26" height="14" rx="2" class="k-pm"/><text x="505" y="1015" class="kt t-pm">PM</text>
     <rect x="435" y="1005" width="52" height="14" rx="2" class="k-cl"/><text x="461" y="1015" class="kt t-cl">CLAUDE</text>
-    <rect x="190" y="1052" width="340" height="44" rx="3"/>
-    <text x="202" y="1073" class="nm">18</text>
-    <text x="228" y="1073" class="tt">Release + notes published</text>
-    <text x="228" y="1087" class="dy san">D10 EOD</text>
-    <rect x="488" y="1067" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="1077" class="kt t-dev">DEV</text>
-    <rect x="457" y="1067" width="26" height="14" rx="2" class="k-pm"/><text x="470" y="1077" class="kt t-pm">PM</text>
-    <rect x="190" y="1114" width="340" height="44" rx="3"/>
-    <text x="202" y="1135" class="nm">19</text>
-    <text x="228" y="1135" class="tt">Manuals updated</text>
-    <text x="228" y="1149" class="dy ">After D10</text>
-    <rect x="466" y="1129" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="1139" class="kt t-cl">CLAUDE</text>
+    <rect x="190" y="1066" width="340" height="44" rx="3"/>
+    <text x="202" y="1087" class="nm">18</text>
+    <text x="228" y="1087" class="tt">Release + notes published</text>
+    <text x="228" y="1101" class="dy san">D10 EOD</text>
+    <rect x="488" y="1081" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="1091" class="kt t-dev">DEV</text>
+    <rect x="457" y="1081" width="26" height="14" rx="2" class="k-pm"/><text x="470" y="1091" class="kt t-pm">PM</text>
+    <rect x="190" y="1128" width="340" height="44" rx="3"/>
+    <text x="202" y="1149" class="nm">19</text>
+    <text x="228" y="1149" class="tt">Manuals updated</text>
+    <text x="228" y="1163" class="dy ">After D10</text>
+    <rect x="466" y="1143" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="1153" class="kt t-cl">CLAUDE</text>
   </g>
   <line x1="360" y1="60" x2="360" y2="76" marker-end="url(#aN)"/>
   <line x1="360" y1="122" x2="360" y2="138" marker-end="url(#aN)"/>
@@ -571,8 +572,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   <line x1="250" y1="960" x2="250" y2="988" marker-end="url(#aN)"/><text x="258" y="978" class="lb">SHIP WITH KNOWN ISSUES</text>
   <polyline class="back" points="36,938 14,938 14,224 158,224" marker-end="url(#aR)"/><text x="20" y="470" class="lb nk">HALT: FIX</text><text x="20" y="482" class="lb nk">AND RETEST</text>
   <line x1="500" y1="774" x2="500" y2="988" marker-end="url(#aN)"/><text x="508" y="870" class="lb">WAITS FOR THE</text><text x="508" y="882" class="lb">TEST RESULT</text>
-  <line class="go" x1="360" y1="1034" x2="360" y2="1050" marker-end="url(#aG)"/><text x="368" y="1047" class="lb ok">OK</text><text x="194" y="1047" class="lb nk">NOK: TWEAK BY PROMPT</text>
-  <line x1="360" y1="1096" x2="360" y2="1112" marker-end="url(#aN)"/>
+  <line class="go" x1="360" y1="1048" x2="360" y2="1064" marker-end="url(#aG)"/><text x="368" y="1061" class="lb ok">OK</text>
+  <line x1="360" y1="1110" x2="360" y2="1126" marker-end="url(#aN)"/>
 </svg>
 </div>
 <figcaption>Steps 01&ndash;10 run in sequence up to the internal snapshot on day 8. The flow then splits into the test case branch (11a, 12&ndash;15) and the release notes branch (11b). Right after main testing (12), Claude adds screenshots to the notes (16), so 12 and 16 sit side by side. The notes are finalised at 17 once the test result is in. Green is the approved path and orange shows the ways back. Boxes outlined in orange are the review points. The small line under each step is the day it happens on, matching the timeline above.</figcaption>
