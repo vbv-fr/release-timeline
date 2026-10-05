@@ -288,7 +288,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>On days 1–6, add the enhancement tickets from Akshat to the current sprint.</li>
       <li>On day 7, create an instance on the QA env for main testing and screenshot grabbing.</li>
       <li>On day 8, do the Internal Release Check: show Vaibhav the working demo of the release.</li>
-      <li>On day 9, read out the release notes draft with Vaibhav and Akshat in the Product Sync.</li>
+      <li>On day 9, read out the release notes draft with Vaibhav and Akshat in the Product Sync, and note the devs' leaves before the next release starts.</li>
       <li>Join Akshat's Ops Team Sync (7–7:30 PM) every day, including days −4 to 0, and take it yourself when Akshat is on leave.</li>
       <li>On day 11, the release demo happens in the Ops Team Sync.</li>
       <li>If the release slips into day 11, start the next release on day 11 anyway.</li>
@@ -831,7 +831,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   // Recurring work: [from day, to day, text, type, time, days skipped]. Type: t task, m meeting.
   const LANES = [
     {id:'sagar', name:'Sagar', bars:[
-      [-3,11,PSYNC,'m',PS,AGENDA],
+      [-4,11,PSYNC,'m',PS,AGENDA],
       [-4,0,RS_PLAN,'m',SCRUM], [1,7,RS_TRACK,'m',SCRUM], [8,11,RS_PLAN,'m',SCRUM],
       [-4,11,'Ops Team Sync — Ops issues','m',OPS,[11]],
       [1,10,'Book and attend PM–dev discussions for future tickets','m','Ad hoc'],
@@ -847,7 +847,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       [1,4,'Write enhancement PRDs for current sprint','t'],
       [5,10,'Write enhancement PRDs for next sprint','t']]},
     {id:'vaibhav', name:'Vaibhav', bars:[
-      [-3,11,PSYNC,'m',PS,AGENDA],
+      [-4,11,PSYNC,'m',PS,AGENDA],
       [-4,0,RS_PLAN,'m',SCRUM],
       [-4,0,'Ops Team Sync — Ops issues','m',OPS],
       [-3,11,'PRD writing and research','t'],
@@ -883,6 +883,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['sagar',8,'Close ticket creation (next release)','d'],
     ['sagar',8,'Internal Release Check — show Vaibhav the working demo of the release','t'],
     ['sagar',9,'Lock the list: Commit and Buffer Items','d'],
+    ['sagar',9,"Note the devs' leaves before the next release starts",'t'],
+    ['sagar',-1,"Note the devs' leaves before this release starts",'t'],
     ['sagar',9,READOUT,'m',PS],
     ['sagar',10,REVIEW + ' (next release)','m',PS],
     ['sagar',11,'Start the next release, even if this one is delayed','t'],
@@ -922,7 +924,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['devs',9,'Declare leave for the next release','t'],
     ['devs',11,'Start the next release','t']
   ];
-  const KEY = 'frinks-release-timeline-v13';
+  const KEY = 'frinks-release-timeline-v14';
   const PHASES = [
     {cls:'pre', label:'Before the release', range:'Days −4 to 0 · days 6–10 of the previous release', days:[-4,-3,-2,-1,0]},
     {cls:'dev', label:'Development', range:'Days 1–7', days:[1,2,3,4,5,6,7]},
