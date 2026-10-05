@@ -18,6 +18,7 @@
   --warn:#8A5A00; --warn-soft:#F8EDD3;
   --dev:#DDE7E1; --dev-ink:#2F5A45; --san:#F6E3D6; --san-ink:#8C3E1A;
   --bar:#E4E8E5; --bar-ink:#2C332F; --drop:#FBD9CB;
+  --mtg:#1F7A45; --mtg-soft:#DDF1E4; --task:#2B59C3; --task-soft:#E1E9FA; --rel:#6D3FC0; --rel-soft:#ECE4FA;
   --display:"Archivo","Arial Narrow",Arial,sans-serif;
   --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -32,6 +33,7 @@
     --warn:#E6B657; --warn-soft:#2E2613;
     --dev:#1D2B24; --dev-ink:#8FCBAE; --san:#33231A; --san-ink:#F2A47F;
     --bar:#242A27; --bar-ink:#D4DAD6; --drop:#4A2A1E;
+    --mtg:#74C494; --mtg-soft:#173323; --task:#8DB0F5; --task-soft:#1A2540; --rel:#C3A6F5; --rel-soft:#2A2140;
   }
 }
 :root[data-theme="dark"]{
@@ -42,6 +44,7 @@
   --warn:#E6B657; --warn-soft:#2E2613;
   --dev:#1D2B24; --dev-ink:#8FCBAE; --san:#33231A; --san-ink:#F2A47F;
   --bar:#242A27; --bar-ink:#D4DAD6; --drop:#4A2A1E;
+    --mtg:#74C494; --mtg-soft:#173323; --task:#8DB0F5; --task-soft:#1A2540; --rel:#C3A6F5; --rel-soft:#2A2140;
 }
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--ink); font:400 15px/1.5 var(--body); padding-inline:20px; padding-block:0 48px}
@@ -74,7 +77,7 @@ button.danger{border-color:var(--accent); color:var(--accent-ink)}
 .day.nxt .day-h{background:repeating-linear-gradient(135deg, var(--sunk) 0 6px, var(--surface) 6px 12px)}
 .day-h b{font:700 19px/1.1 var(--display)}
 .day-h span{font:500 11.5px/1.3 var(--mono); color:var(--muted)}
-.day-h .mk{flex-basis:100%; font:600 11px/1.35 var(--mono); color:var(--accent-ink)}
+.day-h .mk{flex-basis:100%; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font:600 11px/1.35 var(--mono); color:var(--accent-ink)}
 .pg{padding:10px 12px 9px 14px; border-bottom:1px solid var(--rule); transition:background .12s}
 .pg:last-child{border-bottom:0}
 .pg.over{background:var(--drop)}
@@ -88,9 +91,15 @@ button.danger{border-color:var(--accent); color:var(--accent-ink)}
 .it.rec::before{background:var(--line-strong)}
 .it.dl{background:var(--accent-soft)}
 .it.dl::before{background:var(--accent)}
-.it .tg{font:600 9.5px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; margin-right:6px; vertical-align:1px}
-.it .tg.d{color:var(--accent-ink)}
-.it .tg.p{color:var(--warn); background:var(--warn-soft); padding:2px 4px; border-radius:3px}
+.tg{display:inline-block; font:600 9.5px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; padding:3px 5px; border-radius:3px; margin-right:6px; vertical-align:1px; white-space:nowrap}
+.tg.t{color:var(--task); background:var(--task-soft)}
+.tg.d{color:var(--accent-ink); background:var(--accent-soft)}
+.tg.m{color:var(--mtg); background:var(--mtg-soft)}
+.tg.r{color:var(--rel); background:var(--rel-soft)}
+.tg.p{color:var(--warn); background:var(--warn-soft)}
+.it.dl .tg.d, .it.rl .tg.r{background:var(--surface)}
+.it.rl{background:var(--rel-soft)}
+.it.rl::before{background:var(--rel)}
 .it .x{position:absolute; top:2px; right:2px; width:20px; height:20px; padding:0; border:0; background:transparent; color:var(--muted); font:600 15px/20px var(--body); border-radius:3px; opacity:0}
 .it:hover .x, .it:focus-within .x, .it:focus .x{opacity:1}
 .it.placeholder{opacity:.35}
@@ -100,6 +109,14 @@ button.danger{border-color:var(--accent); color:var(--accent-ink)}
 @media (hover:none){ .it .x{opacity:.6} .add{opacity:.6} }
 textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--body); color:var(--ink); background:var(--surface); border:1px solid var(--accent); border-radius:5px; padding:6px 8px; resize:vertical; min-height:54px}
 .lg-rec{color:var(--muted)}
+.ed{margin-top:4px; border:1px solid var(--accent); border-radius:6px; padding:8px; background:var(--surface); display:grid; gap:6px}
+.ed-types{display:flex; gap:4px; flex-wrap:wrap}
+.ed-types button{padding:5px 9px; font-size:12px}
+.ed-types button[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+.ed input{font:400 13px/1.3 var(--body); padding:6px 8px; border:1px solid var(--line-strong); border-radius:4px; background:var(--surface); color:var(--ink)}
+.ed input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.ed textarea{margin:0; border-color:var(--line-strong)}
+.ed-act{display:flex; gap:6px; justify-content:flex-end}
 
 /* notes */
 .notes{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); padding-top:8px}
@@ -233,12 +250,15 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <div class="legend">
       <span><span class="sw" style="background:var(--dev)"></span>Development</span>
       <span><span class="sw" style="background:var(--san)"></span>Release sanity</span>
-      <span><span class="sw" style="background:var(--accent-soft);border:1px solid var(--accent)"></span>Deadline</span>
-      <span><span class="tagp">Proposed</span> not yet agreed</span>
+      <span><span class="tg d">Deadline</span></span>
+      <span><span class="tg m">Meeting · time</span></span>
+      <span><span class="tg t">Task</span></span>
+      <span><span class="tg r">Release</span></span>
+      <span><span class="tg p">Proposed</span>not yet agreed</span>
       <span><span class="lg-rec">Grey</span> repeats across days</span>
     </div>
     <span class="sp"></span>
-    <span id="saveNote">Drag, double-click to edit, + to add. Changes save in this browser only.</span>
+    <span id="saveNote">Drag, double-click to edit or change type, + to add. Changes save in this browser only.</span>
     <button id="reset" type="button">Reset to default</button>
   </div>
 </header>
@@ -250,23 +270,25 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <h2>Guidelines for Sagar</h2>
     <p class="hint">Project Manager</p>
     <ul>
-      <li>Run the daily scrum on every day, 1–10, no matter what.</li>
-      <li>Check in with Vaibhav at the end of every day. If Vaibhav is not available, send the daily update as a message.</li>
+      <li>Kick off the release on day 1.</li>
+      <li>Run the release scrum (6:30–7 PM) every day, 1–10.</li>
+      <li>Join the end-of-day check-in with Akshat and Vaibhav every day. If Vaibhav is not available, send the daily update as a message.</li>
       <li>Be on every call that involves Vaibhav and the devs. Book these calls around the devs' availability.</li>
       <li>Take PRDs on any day. Day 6 is the last day for Vaibhav and Akshat.</li>
-      <li>You alone create the tickets. Days 8 and 9 are dedicated to ticket creation for the next release, and day 9 is the deadline.</li>
+      <li>You alone create the tickets. Start on day 8 and end on day 9, which is the deadline (days −2 and −1 for this release). Close all planning discussions with devs on day 9 too.</li>
       <li>Write every ticket clearly enough that no dev discussion is needed.</li>
-      <li>Keep dev–PM discussions to a minimum, and keep count of how many happen in each release.</li>
-      <li>Attend the PRD gist meetings, where Vaibhav explains each PRD to you and Akshat.</li>
+      <li>Keep count of PM–dev discussions about the current release's tickets. Each one means the PRD or ticket wasn't clear enough. Discussions to scope future tickets aren't counted.</li>
+      <li>Attend the PRD gist meetings, where Vaibhav explains each PRD to you and Akshat, and the enhancements gist, where Akshat walks you and Vaibhav through the enhancement whitepapers.</li>
       <li>Devs bring their doubts on tickets to you, not to Vaibhav.</li>
       <li>Know what each dev is working on and how loaded each dev is, and in release planning distribute tasks so that every dev is occupied.</li>
       <li>Lock the list with <strong>Commit Items</strong>, which must ship, and <strong>Buffer Items</strong>, picked up if a dev is free. A successful release means all Commit Items are released without any bugs.</li>
-      <li>Decide with Vaibhav whether the release is major or minor.</li>
+      <li>Finish planning by day 9. Day 10 (day 0 for this release) is only for the release review with Vaibhav: the locked list, and whether the release is major or minor.</li>
       <li>On days 6 and 7, give your sign-off on testing.</li>
       <li>On day 7, create an instance on the QA env for main testing and screenshot grabbing.</li>
-      <li>On day 8, show Vaibhav the release items to be sent.</li>
+      <li>On day 8, show Vaibhav the working demo of the release.</li>
       <li>On day 9, read out the release notes draft with Vaibhav and Akshat in one meeting.</li>
       <li>Join Akshat's Ops calls, and take them yourself when Akshat is on leave.</li>
+      <li>Attend the release demo on day 11.</li>
       <li>If the release slips into day 11, start the next release on day 11 anyway.</li>
     </ul>
   </div>
@@ -275,15 +297,18 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <p class="hint">Associate PM</p>
     <ul>
       <li>Conduct the Ops calls daily.</li>
-      <li>On day 11, demo the release to Dharmgya, Vaibhav and the Field Team at the end of the day.</li>
+      <li>On day 11, demo the release to Dharmgya, Vaibhav, Sagar and the Field Team at the end of the day.</li>
       <li>Write enhancement PRDs every day. Enhancement requests received by day 4 are closed in the running release; later ones go into the next release.</li>
       <li>You are the only contact for Ops POCs. Vaibhav doesn't contact them, and Sagar takes the Ops calls when you are on leave.</li>
       <li>Update the Ops tracker every day.</li>
-      <li>Check in with Vaibhav at the end of every day. If Vaibhav is not available, send the daily update as a message.</li>
+      <li>Run the Ops check-in (7–7:30 PM) every day.</li>
+      <li>Join the end-of-day check-in with Sagar and Vaibhav every day. If Vaibhav is not available, send the daily update as a message.</li>
       <li>Hand enhancement PRDs to Sagar by day 6.</li>
+      <li>On day −3, give Sagar and Vaibhav the gist of all the enhancement whitepapers you wrote.</li>
       <li>Attend the PRD gist meetings with Vaibhav and Sagar.</li>
+      <li>Discussions with devs about the current release's tickets shouldn't be needed. If one happens, the PRD or ticket wasn't clear enough, and Sagar counts it.</li>
       <li>On day 9, read out the release notes draft with Vaibhav and Sagar in one meeting.</li>
-      <li>Join the evening scrum so you can take charge when Sagar is out.</li>
+      <li>Join the release scrum so you can take charge when Sagar is out.</li>
     </ul>
   </div>
   <div>
@@ -292,15 +317,17 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <ul>
       <li>Hand PRDs to Sagar on any day. Day 6 is the last day.</li>
       <li>Write PRDs only. Don't create tickets; Sagar creates all of them.</li>
-      <li>Explain each PRD to Akshat and Sagar in a PRD gist meeting.</li>
-      <li>Keep dev–PM discussions to a minimum. PRDs should be clear enough that none are needed.</li>
+      <li>Explain each PRD to Akshat and Sagar in a PRD gist meeting. On day −3, Akshat gives you and Sagar the gist of the enhancement whitepapers.</li>
+      <li>Join the end-of-day check-in with Sagar and Akshat every day.</li>
+      <li>Discussions with devs about the current release's tickets shouldn't be needed. If one happens, the PRD or ticket wasn't clear enough, and Sagar counts it. Discussions to scope future tickets are fine.</li>
       <li>Don't discuss anything with a dev unless Sagar is also on the call.</li>
       <li>Don't contact Ops POCs. They go only through Akshat, or Sagar when Akshat is on leave.</li>
       <li>Devs bring ticket doubts to Sagar. They come to you directly only when Sagar is on leave.</li>
-      <li>Decide with Sagar whether the release is major or minor. Hotfixes go out ad hoc.</li>
-      <li>Check in daily with Swayam on release sanity through days 8–10, bringing in others when needed.</li>
-      <li>On day 8, go through the release items to be sent with Sagar.</li>
+      <li>Hold the release review with Sagar on day 10 (day 0 for this release): the locked list, and whether the release is major or minor. Hotfixes go out ad hoc.</li>
+      <li>Check in daily with Swayam on release sanity through days 8–10 (11:30 AM–12 PM), bringing in others when needed.</li>
+      <li>On day 8, review the working demo of the release with Sagar.</li>
       <li>On day 9, read out the release notes draft with Akshat and Sagar in one meeting. Finalise the notes on day 10 with the screenshots and your tweaks.</li>
+      <li>Send the release with Swayam on day 10 by EOD.</li>
       <li>If the release slips into day 11, finish it with Swayam while Sagar starts the next one.</li>
     </ul>
   </div>
@@ -312,9 +339,10 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Close testing and the PR report review within days 6–7.</li>
       <li>Day 7 is the merge deadline. Code freeze is at day 7 EOD.</li>
       <li>Take any doubt on a ticket to Sagar, not Vaibhav. Contact Vaibhav directly only when Sagar is on leave.</li>
+      <li>Discussions with Vaibhav are only for scoping future tickets, and Sagar books them.</li>
       <li>Trigger Claude main testing once the test cases are vetted.</li>
       <li>Own the fixes for every issue found in days 8–10. Retests run within the existing testing flow.</li>
-      <li>Check in daily with Vaibhav on release sanity through days 8–10.</li>
+      <li>Check in daily with Vaibhav on release sanity through days 8–10 (11:30 AM–12 PM).</li>
       <li>If the release slips into day 11, finish it with Vaibhav.</li>
       <li>Deb makes the release when you are unavailable.</li>
     </ul>
@@ -329,7 +357,10 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Close testing and the PR report review within days 6–7.</li>
       <li>Day 7 is the merge deadline. Code freeze is at day 7 EOD.</li>
       <li>Fix every issue found in days 8–10 within the same window.</li>
+      <li>On days 8–10, work on the tickets that missed the day 7 merge.</li>
+      <li>Join the release scrum (6:30–7 PM) every day.</li>
       <li>Take any doubt on a ticket to Sagar, not Vaibhav. Contact Vaibhav directly only when Sagar is on leave.</li>
+      <li>Discussions with Vaibhav are only for scoping future tickets, and Sagar books them.</li>
     </ul>
   </div>
 </section>
@@ -541,13 +572,13 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
         <li>This is a guideline, not a gate: the PM must be clear on the work before writing the ticket.</li>
         <li>Clarity is shared across PM, dev and ML team. Open questions get resolved first.</li>
         <li>R&amp;D and discussion happen while the PRD is being written. Sagar books the sessions and attends every one. Dev&ndash;PM discussions are kept to a minimum.</li>
-        <li>Once PRDs are in, Vaibhav explains each one to Akshat and Sagar in a PRD gist meeting (day &minus;3, which is day 7 of the previous release).</li>
+        <li>Once PRDs are in, Vaibhav explains each one to Akshat and Sagar in a PRD gist meeting, and Akshat gives Sagar and Vaibhav the gist of the enhancement whitepapers (day &minus;3, which is day 7 of the previous release).</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">02</div><div>
       <h3>Ticket creation <span class="owner">Sagar</span> <span class="skill-tag">Claude &middot; Skill &middot; ticket-creation</span> <span class="day-tag ">days &minus;2 and &minus;1</span></h3>
       <ul>
-        <li>Sagar creates the tickets on two dedicated days, &minus;2 and &minus;1 (days 8 and 9 of the previous release). Day &minus;1 is the deadline. The PM doesn't create tickets.</li>
+        <li>Sagar starts ticket creation on day &minus;2 and ends it on day &minus;1 (days 8 and 9 of the previous release), the deadline. All planning discussions with devs close on day &minus;1 too. The PM doesn't create tickets.</li>
         <li>Every ticket is written clearly enough that no dev discussion is needed.</li>
         <li>Each ticket has a business use-case, and executionals written as user stories with acceptance criteria against each.</li>
         <li><strong>Every ticket carries the fix version</strong>, added once release planning (03) decides the release version.</li>
@@ -559,7 +590,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <h3>Release planning <span class="owner">Sagar</span> <span class="day-tag san">days &minus;2 to 0</span></h3>
       <ul>
         <li>This happens on days &minus;2 to 0, which are days 8&ndash;10 of the release before. Sagar assigns tickets by bandwidth and locks the list on day &minus;1: Commit Items that must ship, and Buffer Items for when a dev is free.</li>
-        <li>On the morning of day 0, Sagar shows Vaibhav the locked list. Whether the release is major or minor sets its version, using the nomenclature above.</li>
+        <li>Day 0 is only for the release review: Sagar takes Vaibhav through the locked list, and they decide whether the release is major or minor, which sets its version using the nomenclature above.</li>
         <li>Scope is the set of tickets that will carry this version as their fix version.</li>
       </ul></div></div>
 
@@ -728,10 +759,10 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 <script>
 (function(){
   const DAYS = [
-    {n:-3, wd:'Wed', wk:'Prev. release day 7', mk:'PRD gist meetings', pre:true},
-    {n:-2, wd:'Thu', wk:'Prev. release day 8', mk:'Ticket creation', pre:true},
-    {n:-1, wd:'Fri', wk:'Prev. release day 9', mk:'Ticket deadline', pre:true},
-    {n:0, wd:'Mon', wk:'Prev. release day 10', mk:'Locked list (AM)', pre:true},
+    {n:-3, wd:'Wed', wk:'Prev. release day 7', mk:'PRD + enhancement gist meetings', pre:true},
+    {n:-2, wd:'Thu', wk:'Prev. release day 8', mk:'Ticket creation starts', pre:true},
+    {n:-1, wd:'Fri', wk:'Prev. release day 9', mk:'Ticket creation ends · Planning closes', pre:true},
+    {n:0, wd:'Mon', wk:'Prev. release day 10', mk:'Release review with Vaibhav', pre:true},
     {n:1, wd:'Tue', wk:'Week 1', mk:'Release starts'},
     {n:2, wd:'Wed', wk:'Week 1'},
     {n:3, wd:'Thu', wk:'Week 1'},
@@ -739,90 +770,124 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     {n:5, wd:'Mon', wk:'Week 1'},
     {n:6, wd:'Tue', wk:'Week 2', mk:'PRD deadline (next release)'},
     {n:7, wd:'Wed', wk:'Week 2', mk:'Merge deadline · Code freeze (EOD)'},
-    {n:8, wd:'Thu', wk:'Week 2', mk:'Ticket creation (next release)'},
-    {n:9, wd:'Fri', wk:'Week 2', mk:'Ticket deadline · Release notes readout'},
-    {n:10, wd:'Mon', wk:'Week 2', mk:'Locked list (AM) · Release (EOD)'},
+    {n:8, wd:'Thu', wk:'Week 2', mk:'Ticket creation starts (next release)'},
+    {n:9, wd:'Fri', wk:'Week 2', mk:'Ticket creation ends · Notes readout'},
+    {n:10, wd:'Mon', wk:'Week 2', mk:'Release review (AM) · Release (EOD)'},
     {n:11, wd:'Tue', wk:'Week 3', mk:'Release demo (EOD)', nxt:true}
   ];
+  // Recurring work: [from day, to day, text, type, time]. Type: t task, m meeting.
   const LANES = [
-    {id:'sagar', name:'Sagar', role:'Project Manager', cover:'Akshat takes charge when Sagar is out.',
-     bars:[[1,10,'Daily evening scrum with devs and Akshat, no matter what'],[8,10,'Finalise next release: tickets, assignment, bandwidth','san'],[1,7,'Test each merged ticket; send NOKs back'],[8,9,'Ticket creation for the next release (dedicated day)'],[-2,-1,'Ticket creation for this release (dedicated day)'],[-2,0,'Finalise this release: tickets, assignment, bandwidth'],[1,10,'Book and attend PM–dev discussions only if needed; keep count'],[1,10,"Attend Akshat's daily Ops calls"],[1,10,'End-of-day check-in with Vaibhav']]},
-    {id:'akshat', name:'Akshat', role:'Associate PM', cover:'Sagar takes charge when Akshat is out.',
-     bars:[[1,10,'Daily Ops calls, with Sagar attending'],[1,10,'End-of-day check-in with Vaibhav'],[1,10,'Update the Ops tracker daily'],[1,10,'Write enhancement PRDs'],[1,10,'Daily evening scrum']]},
-    {id:'vaibhav', name:'Vaibhav', role:'PM', cover:'',
-     bars:[[1,6,'PRD writing and research','','till day 6'],[1,10,'End-of-day check-in with Akshat: Ops issues and enhancements'],[1,10,'End-of-day check-in with Sagar: release progress'],[1,7,'Dev discussions only if needed, booked and attended by Sagar'],[8,10,'Daily release sanity check-in with Swayam; oversee bug fixes','san']]},
-    {id:'swayam', name:'Swayam', role:'Release dev', cover:'Deb makes the release when Swayam is out.',
-     bars:[[1,7,'Development and PR merge as tickets close'],[1,7,'Discussions with Vaibhav only if needed, booked by Sagar'],[8,10,'Bug fixing and retests','san'],[8,10,'Daily release sanity check-in with Vaibhav','san']]},
-    {id:'devs', name:'Devs', role:'Software Development Team', cover:'',
-     bars:[[1,7,'Development and PR merge as tickets close'],[1,7,'Discussions with Vaibhav only if needed, booked by Sagar'],[8,10,'Fix issues found in sanity','san'],[1,10,'Daily evening scrum'],[8,10,'Plan the next release with Sagar','san'],[-2,0,'Plan this release with Sagar'],[6,7,'Finish tickets; ticket-level tests']]}
+    {id:'sagar', name:'Sagar', bars:[
+      [1,10,'Release scrum with devs','m','6:30–7 PM'],
+      [1,10,'Daily check-in with Akshat and Vaibhav','m','EOD'],
+      [1,10,"Attend Akshat's daily Ops calls",'m','Ad hoc'],
+      [1,10,'Book and attend PM–dev discussions for future tickets','m','Ad hoc'],
+      [1,7,'Test each merged ticket; send NOKs back','t']]},
+    {id:'akshat', name:'Akshat', bars:[
+      [1,10,'Daily Ops calls, with Sagar attending','m','Ad hoc'],
+      [1,10,'Ops check-in','m','7–7:30 PM'],
+      [1,10,'Daily check-in with Sagar and Vaibhav','m','EOD'],
+      [1,10,'Update the Ops tracker daily','t'],
+      [1,10,'Write enhancement PRDs','t']]},
+    {id:'vaibhav', name:'Vaibhav', bars:[
+      [1,6,'PRD writing and research','t'],
+      [1,10,'Daily check-in with Sagar and Akshat','m','EOD'],
+      [1,7,'Discussions with devs for future tickets, booked and attended by Sagar','m','Ad hoc'],
+      [8,10,'Daily release sanity check-in with Swayam; oversee bug fixes','m','11:30 AM–12 PM']]},
+    {id:'swayam', name:'Swayam', bars:[
+      [1,7,'Development and PR merge as tickets close','t'],
+      [1,7,'Discussions with Vaibhav for future tickets, booked by Sagar','m','Ad hoc'],
+      [8,10,'Bug fixing and retests','t'],
+      [8,10,'Daily release sanity check-in with Vaibhav','m','11:30 AM–12 PM']]},
+    {id:'devs', name:'Devs', bars:[
+      [1,7,'Development and PR merge as tickets close','t'],
+      [1,7,'Discussions with Vaibhav for future tickets, booked by Sagar','m','Ad hoc'],
+      [1,10,'Release scrum','m','6:30–7 PM'],
+      [6,7,'Finish tickets; ticket-level tests','t'],
+      [8,10,'Work on tickets that missed the day 7 merge','t'],
+      [8,10,'Fix issues found in sanity','t'],
+      [8,9,'Plan the next release with Sagar','m','Ad hoc'],
+      [-2,-1,'Plan this release with Sagar','m','Ad hoc']]}
   ];
+  // One-off work: [person, day, text, type, time, proposed]. Type: t task, d deadline, m meeting, r release.
   const DEFAULT = [
-    ['vaibhav',2,'Field team call: new POs and what to build'],
-    ['vaibhav',6,'Last day to hand PRDs to Sagar','d'],
-    ['vaibhav',7,'Field team call: new POs and what to build'],
-    ['vaibhav',-3,"PRD gist meeting: explain this release's PRDs to Akshat and Sagar"],
-    ['vaibhav',0,'Review the locked list; decide major or minor with Sagar (morning)','d'],
-    ['vaibhav',7,"PRD gist meeting: explain the next release's PRDs to Akshat and Sagar"],
-    ['vaibhav',8,'Vet the main testing test cases'],
-    ['vaibhav',8,'See the release items to be sent (Sagar shows them)'],
-    ['vaibhav',9,'Fix-or-park calls on main testing issues, with Swayam'],
-    ['vaibhav',9,'Release notes readout with Akshat and Sagar'],
-    ['vaibhav',10,'Review the locked list; decide major or minor with Sagar (morning)','d'],
-    ['vaibhav',10,'Finalise release notes: screenshots and PM tweaks'],
-    ['vaibhav',10,'Send the release with Swayam'],
-    ['vaibhav',11,'If delayed: finish the release with Swayam'],
-    ['vaibhav',11,'EOD: attend the release demo'],
-    ['sagar',-3,'PRD gist meeting with Vaibhav'],
-    ['sagar',-2,'Planning discussions with devs'],
-    ['sagar',-1,'Last day to create tickets','d'],
-    ['sagar',-1,'Lock the list: Commit and Buffer Items'],
-    ['sagar',0,'Show the locked list to Vaibhav (morning)','d'],
-    ['sagar',1,"Kick off: confirm each dev's Commit Items"],
+    ['sagar',-3,'Enhancements gist from Akshat','m','Ad hoc'],
+    ['sagar',-3,'PRD gist meeting with Vaibhav','m','Ad hoc'],
+    ['sagar',-2,'Start ticket creation','t'],
+    ['sagar',-2,'Planning discussions with devs','m','Ad hoc'],
+    ['sagar',-1,'End ticket creation','d'],
+    ['sagar',-1,'Close all planning discussions with devs','t'],
+    ['sagar',-1,'Lock the list: Commit and Buffer Items','t'],
+    ['sagar',0,'Release review with Vaibhav: locked list, major or minor','m','Morning'],
+    ['sagar',1,'Kick off the release','m','Ad hoc'],
+    ['sagar',6,'Collect the last PRDs','t'],
+    ['sagar',6,'Give sign-off on testing','t'],
     ['sagar',7,'Code freeze: last ticket-level tests','d'],
-    ['sagar',7,'Give sign-off on testing'],
-    ['sagar',7,'PRD gist meeting with Vaibhav (next release)'],
-    ['sagar',7,'Create an instance on the QA env for main testing and screenshot grabbing'],
-    ['sagar',6,'Collect the last PRDs'],
-    ['sagar',6,'Give sign-off on testing'],
-    ['sagar',8,'Planning discussions with devs'],
-    ['sagar',8,'Show Vaibhav the release items to be sent'],
-    ['sagar',9,'Last day to create tickets','d'],
-    ['sagar',9,'Lock the list: Commit and Buffer Items'],
-    ['sagar',9,'Release notes readout with Vaibhav and Akshat'],
-    ['sagar',10,'Show the locked list to Vaibhav (morning)','d'],
-    ['sagar',11,'Start the next release, even if this one is delayed'],
-    ['akshat',-3,'PRD gist meeting with Vaibhav'],
+    ['sagar',7,'Give sign-off on testing','t'],
+    ['sagar',7,'Create an instance on the QA env for main testing and screenshot grabbing','t'],
+    ['sagar',7,'Enhancements gist from Akshat (next release)','m','Ad hoc'],
+    ['sagar',7,'PRD gist meeting with Vaibhav (next release)','m','Ad hoc'],
+    ['sagar',8,'Start ticket creation (next release)','t'],
+    ['sagar',8,'Planning discussions with devs','m','Ad hoc'],
+    ['sagar',8,'Show Vaibhav the working demo of the release','m','Ad hoc'],
+    ['sagar',9,'End ticket creation (next release)','d'],
+    ['sagar',9,'Close all planning discussions with devs','t'],
+    ['sagar',9,'Lock the list: Commit and Buffer Items','t'],
+    ['sagar',9,'Release notes readout with Vaibhav and Akshat','m','Ad hoc'],
+    ['sagar',10,'Release review with Vaibhav: locked list, major or minor (next release)','m','Morning'],
+    ['sagar',11,'Start the next release, even if this one is delayed','t'],
+    ['sagar',11,'Attend the release demo','m','EOD'],
+    ['akshat',-3,'Enhancements gist: walk Sagar and Vaibhav through all the enhancement whitepapers you wrote','m','Ad hoc'],
+    ['akshat',-3,'PRD gist meeting with Vaibhav','m','Ad hoc'],
     ['akshat',4,'Last day for enhancement requests to make this release','d'],
     ['akshat',6,'Hand enhancement PRDs to Sagar','d'],
-    ['akshat',7,'PRD gist meeting with Vaibhav (next release)'],
-    ['akshat',9,'Release notes readout with Vaibhav and Sagar'],
+    ['akshat',7,'Enhancements gist (next release): walk Sagar and Vaibhav through your whitepapers','m','Ad hoc'],
+    ['akshat',7,'PRD gist meeting with Vaibhav (next release)','m','Ad hoc'],
+    ['akshat',9,'Release notes readout with Vaibhav and Sagar','m','Ad hoc'],
+    ['akshat',11,'Demo the release to Dharmgya, Vaibhav, Sagar and the Field Team','m','EOD'],
+    ['vaibhav',-3,"PRD gist meeting: explain this release's PRDs to Akshat and Sagar",'m','Ad hoc'],
+    ['vaibhav',-3,'Enhancements gist from Akshat','m','Ad hoc'],
+    ['vaibhav',0,'Release review with Sagar: locked list, major or minor','m','Morning'],
+    ['vaibhav',2,'Field team call: new POs and what to build','m','12:30–1 PM'],
+    ['vaibhav',6,'Last day to hand PRDs to Sagar','d'],
+    ['vaibhav',7,'Field team call: new POs and what to build','m','12:30–1 PM'],
+    ['vaibhav',7,"PRD gist meeting: explain the next release's PRDs to Akshat and Sagar",'m','Ad hoc'],
+    ['vaibhav',7,'Enhancements gist from Akshat (next release)','m','Ad hoc'],
+    ['vaibhav',8,'Vet the main testing test cases','t'],
+    ['vaibhav',8,'Review the working demo of the release with Sagar','m','Ad hoc'],
+    ['vaibhav',9,'Fix-or-park calls on main testing issues, with Swayam','m','Ad hoc'],
+    ['vaibhav',9,'Release notes readout with Akshat and Sagar','m','Ad hoc'],
+    ['vaibhav',10,'Release review with Sagar: locked list, major or minor (next release)','m','Morning'],
+    ['vaibhav',10,'Finalise release notes: screenshots and PM tweaks','t'],
+    ['vaibhav',10,'Send the release with Swayam (Deb if Swayam is out)','r','EOD'],
+    ['vaibhav',11,'If delayed: finish the release with Swayam','t'],
+    ['vaibhav',11,'Attend the release demo','m','EOD'],
     ['swayam',7,'Code freeze: cut the release branch','d'],
-    ['swayam',8,'Review the PR merge report'],
-    ['swayam',8,'Trigger Claude main testing once test cases are vetted'],
-    ['swayam',9,'Main testing report; fix-or-park calls with Vaibhav'],
-    ['swayam',10,'Retest fixes within the testing flow'],
-    ['swayam',10,'Send the release (Deb if Swayam is out)','d'],
-    ['swayam',11,'If delayed: ship with Vaibhav'],
-    ['devs',-2,'Read upcoming tickets; estimate with Sagar'],
-    ['devs',-1,'Declare leave for this release'],
+    ['swayam',8,'Review the PR merge report','t'],
+    ['swayam',8,'Trigger Claude main testing once test cases are vetted','t'],
+    ['swayam',9,'Main testing report; fix-or-park calls with Vaibhav','m','Ad hoc'],
+    ['swayam',10,'Retest fixes within the testing flow','t'],
+    ['swayam',11,'If delayed: ship with Vaibhav','t'],
+    ['devs',-2,'Read upcoming tickets; estimate with Sagar','t'],
+    ['devs',-1,'Declare leave for this release','t'],
     ['devs',7,'Merge deadline: nothing new merges after today','d'],
-    ['devs',8,'Read upcoming tickets; estimate with Sagar'],
-    ['devs',9,'Declare leave for the next release'],
-    ['devs',9,'No open bugs? Start your first locked Commit Item on main','p'],
-    ['akshat',11,'EOD: demo the release to Dharmgya, Vaibhav and the Field Team'],
-    ['devs',11,'Start the next release']
+    ['devs',8,'Read upcoming tickets; estimate with Sagar','t'],
+    ['devs',9,'Declare leave for the next release','t'],
+    ['devs',9,'No open bugs? Start your first locked Commit Item on main','t','',1],
+    ['devs',11,'Start the next release','t']
   ];
-  const KEY = 'frinks-release-timeline-v6';
+  const KEY = 'frinks-release-timeline-v7';
   const PHASES = [
     {cls:'pre', label:'Before the release', range:'Days −3 to 0 · days 7–10 of the previous release', days:[-3,-2,-1,0]},
     {cls:'dev', label:'Development', range:'Days 1–7', days:[1,2,3,4,5,6,7]},
     {cls:'san', label:'Release sanity + next release planning', range:'Days 8–10', days:[8,9,10]},
     {cls:'nxt', label:'Day 1 of the next release', range:'Day 11', days:[11]}
   ];
+  const TYPES = [['t','Task'],['d','Deadline'],['m','Meeting']];
   const mk = () => {
-    const out = DEFAULT.map((c,i)=>({id:'c'+i, lane:c[0], day:c[1], text:c[2], tag:c[3]||''}));
+    const out = DEFAULT.map((c,i)=>({id:'c'+i, lane:c[0], day:c[1], text:c[2], type:c[3]||'t', time:c[4]||'', prop:c[5]?1:0}));
     LANES.forEach((L,li) => L.bars.forEach((b,bi) => {
-      for (let d = b[0]; d <= b[1]; d++) out.push({id:'b'+li+'_'+bi+'_'+d, lane:L.id, day:d, text:b[2], tag:'', rec:1});
+      for (let d = b[0]; d <= b[1]; d++) out.push({id:'b'+li+'_'+bi+'_'+d, lane:L.id, day:d, text:b[2], type:b[3]||'t', time:b[4]||'', rec:1});
     }));
     return out;
   };
@@ -834,6 +899,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   const el = (t, cls, txt) => { const e = document.createElement(t); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
   const dayOf = n => DAYS.find(d => d.n === n);
   const lbl = n => n < 0 ? '−' + (-n) : String(n);
+  const tagText = c => c.type === 'd' ? 'Deadline' : c.type === 'm' ? 'Meeting · ' + (c.time || 'Ad hoc') : c.type === 'r' ? 'Release' + (c.time ? ' · ' + c.time : '') : 'Task';
 
   function render(focusId){
     tl.innerHTML = '';
@@ -842,9 +908,9 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       const h = el('div','ph-h ' + P.cls);
       h.appendChild(el('span',null,P.label)); h.appendChild(el('span',null,'· ' + P.range));
       sec.appendChild(h);
-      const grid = el('div','days');
-      P.days.forEach(n => grid.appendChild(dayBox(dayOf(n))));
-      sec.appendChild(grid);
+      const row = el('div','days');
+      P.days.forEach(n => row.appendChild(dayBox(dayOf(n))));
+      sec.appendChild(row);
       tl.appendChild(sec);
     });
     if (focusId){ const f = tl.querySelector('[data-id="'+focusId+'"]'); if (f) f.focus(); }
@@ -855,14 +921,15 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     const h = el('header','day-h');
     h.appendChild(el('b',null,'Day ' + lbl(d.n)));
     h.appendChild(el('span',null,d.wd + ' · ' + d.wk));
-    if (d.mk) h.appendChild(el('div','mk',d.mk));
+    const m = el('div','mk', d.mk || ' '); if (d.mk) m.title = d.mk;
+    h.appendChild(m);
     box.appendChild(h);
     LANES.forEach(L => {
       const pg = el('div','pg');
       pg.dataset.lane = L.id; pg.dataset.day = d.n;
       const t = el('h3',null,L.name);
       const add = el('button','add','+ Add'); add.type = 'button';
-      add.setAttribute('aria-label','Add a task for ' + L.name + ', day ' + lbl(d.n));
+      add.setAttribute('aria-label','Add an item for ' + L.name + ', day ' + lbl(d.n));
       add.addEventListener('click', () => editor(pg, null));
       t.appendChild(add);
       pg.appendChild(t);
@@ -877,13 +944,13 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   }
 
   function itemEl(c){
-    const li = el('li','it' + (c.tag==='d' ? ' dl' : '') + (c.rec ? ' rec' : ''));
+    const li = el('li','it' + (c.type==='d' ? ' dl' : '') + (c.type==='r' ? ' rl' : '') + (c.rec ? ' rec' : ''));
     li.tabIndex = 0; li.dataset.id = c.id;
-    li.setAttribute('aria-label', c.text + '. Arrow keys move the task, Enter edits it.');
-    if (c.tag==='d') li.appendChild(el('span','tg d','Deadline'));
-    if (c.tag==='p') li.appendChild(el('span','tg p','Proposed'));
+    li.setAttribute('aria-label', tagText(c) + ': ' + c.text + '. Arrow keys move it, Enter edits it.');
+    li.appendChild(el('span','tg ' + (c.type||'t'), tagText(c)));
+    if (c.prop) li.appendChild(el('span','tg p','Proposed'));
     li.appendChild(el('span','txt',c.text));
-    const x = el('button','x','×'); x.type = 'button'; x.setAttribute('aria-label','Remove task');
+    const x = el('button','x','×'); x.type = 'button'; x.setAttribute('aria-label','Remove');
     x.addEventListener('click', e => { e.stopPropagation(); items = items.filter(k => k.id !== c.id); save(); render(); });
     x.addEventListener('pointerdown', e => e.stopPropagation());
     li.appendChild(x);
@@ -894,28 +961,47 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   }
 
   function editor(pg, c, li){
+    let type = c ? (c.type || 't') : 't';
+    const f = el('div','ed');
+    const types = el('div','ed-types'); types.setAttribute('role','group'); types.setAttribute('aria-label','Item type');
+    const time = el('input','ed-time'); time.type = 'text'; time.placeholder = 'Time, e.g. 6:30–7 PM (blank = Ad hoc)'; time.value = c ? (c.time || '') : '';
+    time.setAttribute('aria-label','Meeting time');
+    const btns = TYPES.map(([k,name]) => {
+      const b = el('button','ed-t ' + k, name); b.type = 'button';
+      b.addEventListener('click', () => { type = k; sync(); ta.focus(); });
+      types.appendChild(b); return [k,b];
+    });
+    const sync = () => { btns.forEach(([k,b]) => b.setAttribute('aria-pressed', String(k === type))); time.hidden = type !== 'm'; };
     const ta = document.createElement('textarea');
-    ta.id = 'ed-' + (c ? c.id : 'new');
-    ta.value = c ? c.text : '';
-    ta.placeholder = 'Describe the task, then press Enter';
-    if (li) li.replaceWith(ta); else { const n = pg.querySelector('.none'); if (n) n.remove(); pg.appendChild(ta); }
+    ta.value = c ? c.text : ''; ta.placeholder = 'Describe it, then press Enter';
+    ta.setAttribute('aria-label','Text');
+    const act = el('div','ed-act');
+    const ok = el('button',null,'Save'); ok.type = 'button';
+    const no = el('button',null,'Cancel'); no.type = 'button';
+    act.appendChild(no); act.appendChild(ok);
+    f.appendChild(types); f.appendChild(time); f.appendChild(ta); f.appendChild(act);
+    sync();
+    if (li) li.replaceWith(f); else { const n = pg.querySelector('.none'); if (n) n.remove(); pg.appendChild(f); }
     ta.focus();
     let done = false;
     const commit = keep => {
       if (done) return; done = true;
       const v = ta.value.trim();
       if (keep && v){
-        if (c) c.text = v;
-        else items.push({id:'u'+(seq++)+Date.now().toString(36), lane:pg.dataset.lane, day:+pg.dataset.day, text:v, tag:''});
+        const t = type === 'm' ? time.value.trim() : (c && c.type === 'r' && type === 'r' ? c.time : '');
+        if (c){ c.text = v; c.type = type; c.time = t; }
+        else items.push({id:'u'+(seq++)+Date.now().toString(36), lane:pg.dataset.lane, day:+pg.dataset.day, text:v, type, time:t});
         save();
       }
       render(c ? c.id : null);
     };
-    ta.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); commit(true); }
+    ok.addEventListener('click', () => commit(true));
+    no.addEventListener('click', () => commit(false));
+    f.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey && e.target !== ok && e.target !== no && !e.target.classList.contains('ed-t')){ e.preventDefault(); commit(true); }
       if (e.key === 'Escape'){ e.preventDefault(); commit(false); }
     });
-    ta.addEventListener('blur', () => commit(true));
+    f.addEventListener('focusout', e => { if (!f.contains(e.relatedTarget)) setTimeout(() => { if (!f.contains(document.activeElement)) commit(true); }, 0); });
   }
 
   function keyMove(e, c){
