@@ -247,24 +247,6 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 
 <section class="notes">
   <div>
-    <h2>Guidelines for Vaibhav</h2>
-    <p class="hint">PM</p>
-    <ul>
-      <li>Hand PRDs to Sagar on any day. Day 6 is the last day.</li>
-      <li>Write PRDs only. Don't create tickets; Sagar creates all of them.</li>
-      <li>Explain each PRD to Akshat and Sagar in a PRD gist meeting.</li>
-      <li>Keep dev–PM discussions to a minimum. PRDs should be clear enough that none are needed.</li>
-      <li>Don't discuss anything with a dev unless Sagar is also on the call.</li>
-      <li>Don't contact Ops POCs. They go only through Akshat, or Sagar when Akshat is on leave.</li>
-      <li>Devs bring ticket doubts to Sagar. They come to you directly only when Sagar is on leave.</li>
-      <li>Decide with Sagar whether the release is major or minor. Hotfixes go out ad hoc.</li>
-      <li>Check in daily with Swayam on release sanity through days 8–10, bringing in others when needed.</li>
-      <li>On day 8, go through the release items to be sent with Sagar.</li>
-      <li>On day 9, read out the release notes draft with Akshat and Sagar in one meeting. Finalise the notes on day 10 with the screenshots and your tweaks.</li>
-      <li>If the release slips into day 11, finish it with Swayam while Sagar starts the next one.</li>
-    </ul>
-  </div>
-  <div>
     <h2>Guidelines for Sagar</h2>
     <p class="hint">Project Manager</p>
     <ul>
@@ -285,7 +267,6 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>On day 8, show Vaibhav the release items to be sent.</li>
       <li>On day 9, read out the release notes draft with Vaibhav and Akshat in one meeting.</li>
       <li>Join Akshat's Ops calls, and take them yourself when Akshat is on leave.</li>
-      <li>On day 11, demo the release to Dharmgya, Vaibhav and the Field Team at the end of the day.</li>
       <li>If the release slips into day 11, start the next release on day 11 anyway.</li>
     </ul>
   </div>
@@ -294,6 +275,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <p class="hint">Associate PM</p>
     <ul>
       <li>Conduct the Ops calls daily.</li>
+      <li>On day 11, demo the release to Dharmgya, Vaibhav and the Field Team at the end of the day.</li>
       <li>Write enhancement PRDs every day. Enhancement requests received by day 4 are closed in the running release; later ones go into the next release.</li>
       <li>You are the only contact for Ops POCs. Vaibhav doesn't contact them, and Sagar takes the Ops calls when you are on leave.</li>
       <li>Update the Ops tracker every day.</li>
@@ -302,6 +284,24 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Attend the PRD gist meetings with Vaibhav and Sagar.</li>
       <li>On day 9, read out the release notes draft with Vaibhav and Sagar in one meeting.</li>
       <li>Join the evening scrum so you can take charge when Sagar is out.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Guidelines for Vaibhav</h2>
+    <p class="hint">PM</p>
+    <ul>
+      <li>Hand PRDs to Sagar on any day. Day 6 is the last day.</li>
+      <li>Write PRDs only. Don't create tickets; Sagar creates all of them.</li>
+      <li>Explain each PRD to Akshat and Sagar in a PRD gist meeting.</li>
+      <li>Keep dev–PM discussions to a minimum. PRDs should be clear enough that none are needed.</li>
+      <li>Don't discuss anything with a dev unless Sagar is also on the call.</li>
+      <li>Don't contact Ops POCs. They go only through Akshat, or Sagar when Akshat is on leave.</li>
+      <li>Devs bring ticket doubts to Sagar. They come to you directly only when Sagar is on leave.</li>
+      <li>Decide with Sagar whether the release is major or minor. Hotfixes go out ad hoc.</li>
+      <li>Check in daily with Swayam on release sanity through days 8–10, bringing in others when needed.</li>
+      <li>On day 8, go through the release items to be sent with Sagar.</li>
+      <li>On day 9, read out the release notes draft with Akshat and Sagar in one meeting. Finalise the notes on day 10 with the screenshots and your tweaks.</li>
+      <li>If the release slips into day 11, finish it with Swayam while Sagar starts the next one.</li>
     </ul>
   </div>
   <div>
@@ -745,12 +745,12 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     {n:11, wd:'Tue', wk:'Week 3', mk:'Release demo (EOD)', nxt:true}
   ];
   const LANES = [
-    {id:'vaibhav', name:'Vaibhav', role:'PM', cover:'',
-     bars:[[1,6,'PRD writing and research','','till day 6'],[1,10,'End-of-day check-in with Akshat: Ops issues and enhancements'],[1,10,'End-of-day check-in with Sagar: release progress'],[1,7,'Dev discussions only if needed, booked and attended by Sagar'],[8,10,'Daily release sanity check-in with Swayam; oversee bug fixes','san']]},
     {id:'sagar', name:'Sagar', role:'Project Manager', cover:'Akshat takes charge when Sagar is out.',
      bars:[[1,10,'Daily evening scrum with devs and Akshat, no matter what'],[8,10,'Finalise next release: tickets, assignment, bandwidth','san'],[1,7,'Test each merged ticket; send NOKs back'],[8,9,'Ticket creation for the next release (dedicated day)'],[-2,-1,'Ticket creation for this release (dedicated day)'],[-2,0,'Finalise this release: tickets, assignment, bandwidth'],[1,10,'Book and attend PM–dev discussions only if needed; keep count'],[1,10,"Attend Akshat's daily Ops calls"],[1,10,'End-of-day check-in with Vaibhav']]},
     {id:'akshat', name:'Akshat', role:'Associate PM', cover:'Sagar takes charge when Akshat is out.',
      bars:[[1,10,'Daily Ops calls, with Sagar attending'],[1,10,'End-of-day check-in with Vaibhav'],[1,10,'Update the Ops tracker daily'],[1,10,'Write enhancement PRDs'],[1,10,'Daily evening scrum']]},
+    {id:'vaibhav', name:'Vaibhav', role:'PM', cover:'',
+     bars:[[1,6,'PRD writing and research','','till day 6'],[1,10,'End-of-day check-in with Akshat: Ops issues and enhancements'],[1,10,'End-of-day check-in with Sagar: release progress'],[1,7,'Dev discussions only if needed, booked and attended by Sagar'],[8,10,'Daily release sanity check-in with Swayam; oversee bug fixes','san']]},
     {id:'swayam', name:'Swayam', role:'Release dev', cover:'Deb makes the release when Swayam is out.',
      bars:[[1,7,'Development and PR merge as tickets close'],[1,7,'Discussions with Vaibhav only if needed, booked by Sagar'],[8,10,'Bug fixing and retests','san'],[8,10,'Daily release sanity check-in with Vaibhav','san']]},
     {id:'devs', name:'Devs', role:'Software Development Team', cover:'',
@@ -791,7 +791,6 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['sagar',9,'Release notes readout with Vaibhav and Akshat'],
     ['sagar',10,'Show the locked list to Vaibhav (morning)','d'],
     ['sagar',11,'Start the next release, even if this one is delayed'],
-    ['sagar',11,'EOD: demo the release to Dharmgya, Vaibhav and the Field Team'],
     ['akshat',-3,'PRD gist meeting with Vaibhav'],
     ['akshat',4,'Last day for enhancement requests to make this release','d'],
     ['akshat',6,'Hand enhancement PRDs to Sagar','d'],
@@ -810,9 +809,10 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     ['devs',8,'Read upcoming tickets; estimate with Sagar'],
     ['devs',9,'Declare leave for the next release'],
     ['devs',9,'No open bugs? Start your first locked Commit Item on main','p'],
+    ['akshat',11,'EOD: demo the release to Dharmgya, Vaibhav and the Field Team'],
     ['devs',11,'Start the next release']
   ];
-  const KEY = 'frinks-release-timeline-v5';
+  const KEY = 'frinks-release-timeline-v6';
   const PHASES = [
     {cls:'pre', label:'Before the release', range:'Days −3 to 0 · days 7–10 of the previous release', days:[-3,-2,-1,0]},
     {cls:'dev', label:'Development', range:'Days 1–7', days:[1,2,3,4,5,6,7]},
