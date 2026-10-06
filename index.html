@@ -674,17 +674,27 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 
     <div class="stage"><div class="stage-no">09</div><div>
       <h3>Test cases + release notes created <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag ">day 7</span></h3>
+      <p class="sub">Test cases</p>
       <ul>
-        <li>Claude generates release-level test cases from the tickets carrying this fix version.</li>
-        <li>Claude drafts the release notes from the ticket note text written at step 02, with the image placeholders left in. R&amp;D and discussion tickets are left out.</li>
+        <li>The tickets' acceptance criteria are used to make the test cases. The PM vets them (11a).</li>
+        <li>Claude's skill dedups similar test cases and creates new ones from its understanding of the ticket and the code.</li>
+      </ul>
+      <p class="sub">Release notes</p>
+      <ul>
+        <li>The tickets' release notes sections are used to create them.</li>
+        <li>Claude's skill dedups similar release notes and creates new ones from its understanding of the ticket and the code.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">10</div><div>
       <h3>Internal release snapshot <span class="owner">Release dev</span> <span class="day-tag san">day 8</span></h3>
       <ul>
-        <li>Code freezes at the end of day 7. On day 8, the release dev cuts the release branch and the snapshot is taken from it. Everything that follows runs against this one snapshot.</li>
-        <li>The release dev also reviews the overall PR merge report on day 8.</li>
-        <li>From here the flow splits into two branches: test cases and release notes.</li>
+        <li>Code freezes at the end of day 7. The release dev cuts the branch and takes the snapshot in the Release Manager:
+          <ol class="steps">
+            <li><strong>Create Release, step 1:</strong> repo releases. &ldquo;Fill from latest notes&rdquo; fills them from the technical notes.</li>
+            <li><strong>Create Release, step 2:</strong> the release candidate, for example <code>26.2.3-rc1</code>.</li>
+          </ol>
+        </li>
+        <li>Everything that follows runs against this one snapshot.</li>
       </ul></div></div>
 
     <div class="track-head"><h3>Test case branch</h3><p>Steps 11a and 12&ndash;15.</p></div>
