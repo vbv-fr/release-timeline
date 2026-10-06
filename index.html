@@ -62,6 +62,29 @@ button:hover{background:var(--sunk)}
 button:focus-visible, .it:focus-visible, textarea:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 button.danger{border-color:var(--accent); color:var(--accent-ink)}
 
+/* checkpoints strip */
+.cp{display:grid; gap:10px}
+.cp-title{margin:0; font:700 19px/1.2 var(--display); display:flex; align-items:baseline; gap:10px}
+.cp-title span{font:500 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.cp-scroll{overflow-x:auto; background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:0 0 12px}
+.cp-line{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(16, minmax(132px, 1fr)); position:relative; min-width:calc(16 * 132px)}
+.cp-line::before{content:""; position:absolute; left:0; right:0; top:27px; height:2px; background:var(--line-strong)}
+.cp-day{position:relative; padding:0 10px; border-right:1px dashed var(--rule)}
+.cp-day:last-child{border-right:0}
+.cp-day::before{content:""; position:absolute; left:0; right:0; top:0; height:6px; background:var(--dev)}
+.cp-day.san::before{background:var(--san)}
+.cp-day.pre::before{background:var(--line-strong)}
+.cp-day.nxt::before{background:repeating-linear-gradient(135deg, var(--line-strong) 0 4px, transparent 4px 8px)}
+.cp-dot{position:relative; z-index:1; display:block; width:12px; height:12px; margin:22px 0 8px; border-radius:50%; background:var(--surface); border:2px solid var(--line-strong)}
+.cp-day.has .cp-dot{background:var(--accent); border-color:var(--accent)}
+.cp-d{font:700 15px/1.1 var(--display)}
+.cp-wd{display:block; font:500 10.5px/1.3 var(--mono); color:var(--muted); margin-top:2px}
+.cp-mk{margin-top:6px; font:600 12px/1.35 var(--body); color:var(--accent-ink)}
+.cp-items{list-style:none; margin:8px 0 0; padding:0; display:grid; gap:6px}
+.cp-items li{font-size:12px; line-height:1.35; padding-left:7px; border-left:2px solid var(--accent)}
+.cp-items li.r{border-left-color:var(--rel)}
+.cp-items li b{display:block; font:600 10px/1.3 var(--mono); letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+
 /* timeline: one box per day, tasks grouped by person */
 .tl{display:flex; gap:18px; overflow:auto; max-height:82vh; padding:0 2px 12px; scroll-margin-top:16px; overscroll-behavior-x:contain; border-radius:8px}
 .ph{display:flex; flex-direction:column; gap:10px; flex:none}
@@ -252,7 +275,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   <div class="eyebrow">Frinks AI · Two-week release cycle</div>
   <h1>Frinks Release Timeline</h1>
   <p class="lede">One release, ten working days. Days 1–7 are development. PRDs are due on day 6 and code freezes on day 7. Days 8–10 are release sanity: Swayam fixes bugs with Vaibhav overseeing, while Sagar plans the next release. Days −4 to 0 are planning for this release, held during days 6–10 of the previous one. Each day lists every person's tasks for that day.</p>
-  <nav class="jump" aria-label="Sections"><a href="#timeline">Part 1 · Timeline</a><a href="#release-flow">Part 2 · Release Flow</a></nav>
+  <nav class="jump" aria-label="Sections"><a href="#checkpoints">Part 1 · Timeline</a><a href="#release-flow">Part 2 · Release Flow</a></nav>
   <div class="toolbar">
     <div class="legend">
       <span><span class="sw" style="background:var(--dev)"></span>Development</span>
@@ -268,6 +291,11 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <button id="reset" type="button">Reset to default</button>
   </div>
 </header>
+
+<section class="cp" id="checkpoints" aria-label="Checkpoints, day −4 to day 11">
+  <h2 class="cp-title">Checkpoints <span>Day −4 to day 11</span></h2>
+  <div class="cp-scroll"><ol class="cp-line" id="cpLine"></ol></div>
+</section>
 
 <div class="tl" id="timeline"></div>
 
@@ -1009,7 +1037,38 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
   const SYNC = /^(Product Sync|Release Sync|Ops Team Sync|Field Team Sync|Internal Release Check)(\s*—\s*)?/;
   const tagText = c => c.type === 'd' ? 'Deadline' : c.type === 'm' ? 'Meeting · ' + (c.time || 'Ad hoc') : c.type === 'r' ? 'Release' + (c.time ? ' · ' + c.time : '') : 'Task';
 
+  function renderCheckpoints(){
+    const line = document.getElementById('cpLine'); if (!line) return;
+    line.innerHTML = '';
+    const phaseOf = n => (PHASES.find(P => P.days.includes(n)) || {}).cls || 'dev';
+    DAYS.forEach(d => {
+      const seen = new Map();
+      items.filter(c => +c.day === d.n && (c.type === 'd' || c.type === 'r')).forEach(c => {
+        const k = c.type + '|' + c.text;
+        if (!seen.has(k)) seen.set(k, {c, who:[]});
+        const name = (LANES.find(l => l.id === c.lane) || {}).name; if (name) seen.get(k).who.push(name);
+      });
+      const li = el('li', 'cp-day ' + phaseOf(d.n) + (seen.size ? ' has' : ''));
+      li.appendChild(el('span','cp-dot'));
+      li.appendChild(el('span','cp-d','Day ' + lbl(d.n)));
+      li.appendChild(el('span','cp-wd', d.wd + ' · ' + d.wk));
+      if (d.mk) li.appendChild(el('div','cp-mk', d.mk));
+      if (seen.size){
+        const ul = el('ul','cp-items');
+        seen.forEach(({c, who}) => {
+          const it = el('li', c.type === 'r' ? 'r' : '');
+          it.appendChild(el('b', null, (c.type === 'r' ? 'Release · ' : '') + who.join(', ')));
+          it.appendChild(document.createTextNode(c.text));
+          ul.appendChild(it);
+        });
+        li.appendChild(ul);
+      }
+      line.appendChild(li);
+    });
+  }
+
   function render(focusId){
+    renderCheckpoints();
     tl.innerHTML = '';
     PHASES.forEach(P => {
       const sec = el('section','ph');
