@@ -81,6 +81,7 @@ button.danger{border-color:var(--accent); color:var(--accent-ink)}
 .cp-d{font:700 15px/1.1 var(--display)}
 .cp-wd{display:block; font:500 10.5px/1.3 var(--mono); color:var(--muted); margin-top:2px}
 .cp-mk{margin-top:6px; font:600 12px/1.35 var(--body); color:var(--accent-ink)}
+.cp-tst{display:inline-block; margin-top:6px; padding:3px 6px; border-radius:3px; font:600 10px/1 var(--mono); letter-spacing:.05em; text-transform:uppercase; color:var(--san-ink); background:var(--san)}
 .cp-cell{padding:10px; border-top:1px solid var(--rule); border-right:1px dashed var(--rule)}
 .cp-grid > :nth-child(11n){border-right:0}
 .cp-items{list-style:none; margin:0; padding:0; display:grid; gap:7px}
@@ -868,8 +869,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     {n:5, wd:'Mon', wk:'Week 1'},
     {n:6, wd:'Tue', wk:'Week 2', mk:'PRD deadline (next release)'},
     {n:7, wd:'Wed', wk:'Week 2', mk:'Merge deadline · Testing sign-off · Code freeze'},
-    {n:8, wd:'Thu', wk:'Week 2', mk:'Ticket creation closes (next release)'},
-    {n:9, wd:'Fri', wk:'Week 2', mk:'List locked · Notes readout'},
+    {n:8, wd:'Thu', wk:'Week 2', mk:'Ticket creation closes (next release)', cp:'Release testing'},
+    {n:9, wd:'Fri', wk:'Week 2', mk:'List locked · Notes readout', cp:'Release testing'},
     {n:10, wd:'Mon', wk:'Week 2', mk:'List review (AM) · Release (EOD)'},
     {n:11, wd:'Tue', wk:'Week 3', mk:'Release demo in Ops Team Sync', nxt:true}
   ];
@@ -1040,27 +1041,9 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       cell.appendChild(el('span','cp-dot'));
       cell.appendChild(el('span','cp-d','Day ' + lbl(d.n)));
       cell.appendChild(el('span','cp-wd', d.wd + ' · ' + d.wk));
+      if (d.cp) cell.appendChild(el('div','cp-tst', d.cp));
       if (d.mk) cell.appendChild(el('div','cp-mk', d.mk));
       grid.appendChild(cell);
-    });
-    [['Current release', false, 'cur'], ['Next release', true, 'nx']].forEach(([label, wantNext, cls]) => {
-      grid.appendChild(el('div','cp-lab row ' + cls, label));
-      CP_DAYS.forEach(d => {
-        const cell = el('div','cp-cell');
-        const list = oneOffs(d.n, wantNext);
-        if (!list.length) cell.appendChild(el('div','cp-none','—'));
-        else {
-          const ul = el('ul','cp-items');
-          list.forEach(({c, who}) => {
-            const it = el('li', c.type || 't');
-            it.appendChild(el('b', null, TAG[c.type || 't'] + ' · ' + who.join(', ')));
-            it.appendChild(document.createTextNode(c.text.replace(/ \(next release\)$/, '')));
-            ul.appendChild(it);
-          });
-          cell.appendChild(ul);
-        }
-        grid.appendChild(cell);
-      });
     });
   }
 
