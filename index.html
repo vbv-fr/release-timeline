@@ -190,6 +190,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 .rf .stage ul{margin:0; padding-left:17px; display:grid; gap:5px}
 .rf .stage li{max-width:68ch}
 .rf .stage li::marker{color:var(--line-strong)}
+.rf .stage ol.steps{margin:8px 0 4px; padding-left:20px; display:grid; gap:6px}
+.rf .stage ol.steps li::marker{color:var(--muted); font:600 12px var(--mono)}
 .rf .track-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:26px 0 0; padding:10px 0 6px; border-top:2px solid var(--line-strong)}
 .rf .track-head h3{font:600 14px/1.3 var(--display); margin:0}
 .rf .track-head p{margin:0; font-size:13.5px; color:var(--muted); max-width:64ch}
@@ -586,38 +588,45 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 </figure>
 
     <div class="stage"><div class="stage-no">01</div><div>
-      <h3>Discussion <span class="owner">PM</span> <span class="day-tag ">days 1–6, release before</span></h3>
+      <h3>Discussion <span class="owner">PM + Dev</span> <span class="day-tag ">days 1–6, release before</span></h3>
       <ul>
-        <li>This is a guideline, not a gate: the PM must be clear on the work before writing the ticket.</li>
-        <li>Clarity is shared across PM, dev and ML team. Open questions get resolved first.</li>
-        <li>R&amp;D and discussion happen while the PRD is being written. Sagar books the sessions and attends every one. Dev&ndash;PM discussions are kept to a minimum.</li>
-        <li>On day &minus;3 (day 7 of the previous release), the morning Product Sync covers the gists: Vaibhav explains each PRD to Akshat and Sagar, and Akshat gives the gist of the enhancement whitepapers.</li>
+        <li>All PM&ndash;dev discussion about the tickets for the next release happens here.</li>
+        <li>All dev clarity is set in these discussions.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">02</div><div>
       <h3>Ticket creation <span class="owner">Sagar</span> <span class="skill-tag">Claude &middot; Skill &middot; ticket-creation</span> <span class="day-tag ">days &minus;3 and &minus;2</span></h3>
       <ul>
-        <li>Sagar starts ticket creation on day &minus;3 and closes it on day &minus;2 (days 7 and 8 of the previous release), the deadline. The PM doesn't create tickets.</li>
-        <li>Every ticket is written clearly enough that no dev discussion is needed.</li>
-        <li>Each ticket has a business use-case, and executionals written as user stories with acceptance criteria against each.</li>
-        <li><strong>Every ticket carries the fix version</strong>, added once release planning (03) decides the release version.</li>
-        <li><strong>Each ticket's release-note text is drafted here</strong>, along with placeholders naming the screens the notes will need images of.</li>
-        <li>Also recorded: whether migration is needed and its type(s), prototype links, creator, component, sub-component and assignee.</li>
+        <li>Only Sagar creates tickets, based on the PRDs sent by Vaibhav and Akshat.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">03</div><div>
       <h3>Release planning <span class="owner">Sagar</span> <span class="day-tag san">days &minus;3 to 0</span></h3>
       <ul>
-        <li>This happens on days &minus;3 to 0, which are days 7&ndash;10 of the release before. Sagar assigns tickets by bandwidth and locks the list on day &minus;1: Commit Items that must ship, and Buffer Items for when a dev is free.</li>
-        <li>The list is locked on day &minus;1. On day 0, the Product Sync reviews it, adds items as needed, and decides whether the release is major or minor, which sets its version using the nomenclature above.</li>
-        <li>Scope is the set of tickets that will carry this version as their fix version.</li>
+        <li>Sagar discusses with the devs which tickets to assign to whom, and in what priority.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">04</div><div>
       <h3>Development <span class="owner">Dev</span> <span class="day-tag ">days 1–5</span></h3>
       <ul>
-        <li>Devs build the executionals in the ticket and write test cases on the ticket.</li>
-        <li>A migration script is maintained where migration is required. Upgrades run one version at a time until the latest version is reached.</li>
+        <li>Devs start work on the stories and sub-tasks.</li>
+        <li>PM interaction is kept to a minimum in this period. To make that possible, tickets are written with the utmost clarity.</li>
+        <li><strong>Development is test-driven:</strong> the tests are written before the code, and the code is written to pass them. Work in this order, in every repo the ticket touches:
+          <ol class="steps">
+            <li><strong>Understand and map.</strong> Read the requirement, then map it onto the repo: which modules, APIs, screens and data each executional touches.</li>
+            <li><strong>Write the tests.</strong> With the help of AI agents, write complete automated test code in the repo, covering every executional and every acceptance criterion. Move on only when you are satisfied that the tests describe the whole requirement. At this point the tests fail, because the feature does not exist yet.</li>
+            <li><strong>Write the code.</strong> Use Claude to write the code against those tests. Making every test pass is your responsibility, not Claude's.</li>
+            <li><strong>Add technical tests.</strong> Once the code is written, add tests that are about the code rather than the user journey: error handling, invalid input, a failing dependency, and code-level issues.</li>
+            <li><strong>Run everything.</strong> The whole test suite of each repo passes.</li>
+          </ol>
+        </li>
+        <li>If a test turns out to be wrong, fix it on purpose and say why in the PR. Never change a test only to make it pass.</li>
+        <li>In the ticket's <strong>Dev test cases</strong> section, note where the tests live and which executional (E1, E2) each one covers.</li>
+        <li>Build <strong>Commit Items</strong> first; pick <strong>Buffer Items</strong> only when free.</li>
+        <li>Where a migration is needed, maintain a migration script, with tests for it. Upgrades run one version at a time until the latest is reached.</li>
+        <li>One branch per ticket, named with the ticket key first, for example <code>FP-3535-sector-python</code>, with the same name in every repo the ticket touches. Never delete a branch.</li>
+        <li>If you need something the ticket does not say, or cannot write a test because the requirement is unclear, ask the project manager to update the ticket first.</li>
+        <li><strong>Done when:</strong> all five steps are done in every repo the ticket touches. Do not raise a PR or open the PR review page before this.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">05</div><div>
