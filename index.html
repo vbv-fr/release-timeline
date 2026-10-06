@@ -340,7 +340,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <p class="hint">Release dev</p>
     <ul>
       <li>Merge only the tasks listed in a ticket under that ticket. Never merge other tickets' tasks under a common ticket.</li>
-      <li>Close testing and the PR report review within days 6–7.</li>
+      <li>Close testing and the PR review within days 6–7.</li>
       <li>Day 7 is the merge deadline. Code freeze is at day 7 EOD.</li>
       <li>Take any doubt on a ticket to Sagar, not Vaibhav. Contact Vaibhav directly only when Sagar is on leave.</li>
       <li>Discussions with Vaibhav are only for scoping future tickets, and Sagar books them.</li>
@@ -359,7 +359,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li>Build <strong>Commit Items</strong> first. Pick up <strong>Buffer Items</strong> if you are free.</li>
       <li>Every ticket must have its test cases written in it.</li>
       <li>Merge only the tasks listed in a ticket under that ticket. Never merge other tickets' tasks under a common ticket.</li>
-      <li>Close testing and the PR report review within days 6–7.</li>
+      <li>Close testing and the PR review within days 6–7.</li>
       <li>Day 7 is the merge deadline. Code freeze is at day 7 EOD.</li>
       <li>Fix every issue found in days 8–10 within the same window.</li>
       <li>On days 8–10, work on the tickets that missed the day 7 merge.</li>
@@ -372,7 +372,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 <section id="release-flow" class="rf"><div class="rf-inner">
 <div class="part">Part 2</div>
 <h2 class="big">Release Flow</h2>
-<p class="standfirst">Release nomenclature and the nineteen steps every release passes through. Each step is tagged with the day on the timeline above when it happens. After merge, the test cases and release notes are created and the internal snapshot is taken. The flow then splits into a test case branch and a release notes branch, which meet when the release notes are finalised.</p>
+<p class="standfirst">Release nomenclature and the eighteen steps every release passes through. Each step is tagged with the day on the timeline above when it happens. After merge, the test cases and release notes are created and the internal snapshot is taken. The flow then splits into a test case branch and a release notes branch, which meet when the release notes are finalised.</p>
 
 
   <section>
@@ -430,14 +430,14 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
 
   <section>
     <div class="sec-head">
-      <h2>The nineteen steps</h2>
+      <h2>The eighteen steps</h2>
       <span class="eyebrow">2 branches &middot; 5 decision points</span>
     </div>
 
 <figure class="flowfig">
 <div class="chipkey"><span><b style="color:var(--pm);background:var(--pm-bg)">PM</b>Vaibhav</span><span><b style="color:var(--sg);background:var(--sg-bg)">SAGAR</b>Project Manager</span><span><b style="color:var(--dv);background:var(--dv-bg)">DEV</b>Swayam or the ticket's dev</span><span><b style="color:var(--clr);background:var(--clr-bg)">CLAUDE</b>a Claude skill</span></div>
 <div class="figscroll">
-<svg viewBox="0 0 720 1188" role="img" aria-label="Flowchart of the nineteen release steps. Steps 01 to 10 run in sequence up to the internal release snapshot on day 8. The flow then splits: the test case branch (11a, then main testing, test report and the halt or ship call, 12 to 15) and the release notes branch (11b). Right after main testing, Claude adds screenshots to the release notes (16). The notes are finalised (17) once the test result is in, then published and the manuals updated.">
+<svg viewBox="0 0 720 1126" role="img" aria-label="Flowchart of the eighteen release steps. Development and PRs run on days 1 to 5, PR review on days 6 and 7 and merge on day 7. Step 08 creates the test cases and release notes, and step 09 takes the internal release snapshot on day 8. The flow then splits: the test case branch (10a, then main testing, test report and the halt or ship call, 11 to 14) and the release notes branch (10b). Right after main testing, Claude adds screenshots to the release notes (15). The notes are finalised (16) once the test result is in, then published and the manuals updated.">
   <defs>
     <marker id="aN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--line-strong)"/></marker>
     <marker id="aG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--pass)"/></marker>
@@ -452,135 +452,129 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <rect x="190" y="78" width="340" height="44" rx="3"/>
     <text x="202" y="99" class="nm">02</text>
     <text x="228" y="99" class="tt">Ticket creation</text>
-    <text x="228" y="113" class="dy">D−3 to D−2</text>
+    <text x="228" y="113" class="dy ">D−3 to D−2</text>
     <rect x="466" y="93" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="103" class="kt t-cl">CLAUDE</text>
     <rect x="417" y="93" width="44" height="14" rx="2" class="k-sg"/><text x="439" y="103" class="kt t-sg">SAGAR</text>
     <rect x="190" y="140" width="340" height="44" rx="3"/>
     <text x="202" y="161" class="nm">03</text>
     <text x="228" y="161" class="tt">Release planning</text>
-    <text x="228" y="175" class="dy">D−3 to D0</text>
+    <text x="228" y="175" class="dy ">D−3 to D0</text>
     <rect x="474" y="155" width="44" height="14" rx="2" class="k-sg"/><text x="496" y="165" class="kt t-sg">SAGAR</text>
     <rect x="190" y="202" width="340" height="44" rx="3"/>
     <text x="202" y="223" class="nm">04</text>
     <text x="228" y="223" class="tt">Development</text>
-    <text x="228" y="237" class="dy dev">D1–7</text>
+    <text x="228" y="237" class="dy dev">D1–5</text>
     <rect x="488" y="217" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="227" class="kt t-dev">DEV</text>
     <rect x="190" y="264" width="340" height="44" rx="3"/>
     <text x="202" y="285" class="nm">05</text>
-    <text x="228" y="285" class="tt">PR created per ticket</text>
-    <text x="228" y="299" class="dy dev">D1–7</text>
+    <text x="228" y="285" class="tt">PR raised per ticket</text>
+    <text x="228" y="299" class="dy dev">D1–5</text>
     <rect x="488" y="279" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="289" class="kt t-dev">DEV</text>
-    <rect x="190" y="326" width="340" height="44" rx="3"/>
+    <rect x="190" y="326" width="340" height="44" rx="3" class="gatebox"/>
     <text x="202" y="347" class="nm">06</text>
-    <text x="228" y="347" class="tt">PR vetting</text>
+    <text x="228" y="347" class="tt">PR review (incl. code vs ticket check)</text>
     <text x="228" y="361" class="dy dev">D6–7</text>
-    <rect x="466" y="341" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="351" class="kt t-cl">CLAUDE</text>
-    <rect x="190" y="388" width="340" height="44" rx="3" class="gatebox"/>
+    <rect x="466" y="352" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="362" class="kt t-cl">CLAUDE</text>
+    <rect x="431" y="352" width="30" height="14" rx="2" class="k-dev"/><text x="446" y="362" class="kt t-dev">DEV</text>
+    <rect x="190" y="388" width="340" height="44" rx="3"/>
     <text x="202" y="409" class="nm">07</text>
-    <text x="228" y="409" class="tt">Vetting report</text>
-    <text x="228" y="423" class="dy dev">D6–7</text>
+    <text x="228" y="409" class="tt">Merge</text>
+    <text x="228" y="423" class="dy dev">D7</text>
     <rect x="488" y="403" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="413" class="kt t-dev">DEV</text>
-    <rect x="431" y="403" width="52" height="14" rx="2" class="k-cl"/><text x="457" y="413" class="kt t-cl">CLAUDE</text>
     <rect x="190" y="450" width="340" height="44" rx="3"/>
     <text x="202" y="471" class="nm">08</text>
-    <text x="228" y="471" class="tt">Merge</text>
-    <text x="228" y="485" class="dy dev">D6–7</text>
-    <rect x="488" y="465" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="475" class="kt t-dev">DEV</text>
+    <text x="228" y="471" class="tt">Test cases + release notes created</text>
+    <text x="228" y="485" class="dy dev">D7</text>
+    <rect x="466" y="476" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="486" class="kt t-cl">CLAUDE</text>
     <rect x="190" y="512" width="340" height="44" rx="3"/>
     <text x="202" y="533" class="nm">09</text>
-    <text x="228" y="533" class="tt">Test cases + release notes created</text>
-    <text x="228" y="547" class="dy dev">D7</text>
-    <rect x="466" y="538" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="548" class="kt t-cl">CLAUDE</text>
-    <rect x="190" y="574" width="340" height="44" rx="3"/>
-    <text x="202" y="595" class="nm">10</text>
-    <text x="228" y="595" class="tt">Internal release snapshot</text>
-    <text x="228" y="609" class="dy san">D8</text>
-    <rect x="488" y="589" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="599" class="kt t-dev">DEV</text>
-    <rect x="36" y="654" width="310" height="58" rx="3" class="gatebox"/>
-    <text x="48" y="675" class="nm">11a</text>
-    <text x="74" y="675" class="tt">Test cases reviewed</text>
-    <text x="74" y="689" class="dy san">D8</text>
-    <text x="74" y="704" class="lb nk">NOK &#8594; TWEAK BY PROMPT</text>
-    <rect x="308" y="669" width="26" height="14" rx="2" class="k-pm"/><text x="321" y="679" class="kt t-pm">PM</text>
-    <rect x="374" y="654" width="310" height="58" rx="3" class="gatebox"/>
-    <text x="386" y="675" class="nm">11b</text>
-    <text x="412" y="675" class="tt">Release notes reviewed</text>
-    <text x="412" y="689" class="dy san">D9 · Product Sync</text>
-    <text x="412" y="704" class="lb nk">NOK &#8594; TWEAK BY PROMPT</text>
-    <rect x="646" y="669" width="26" height="14" rx="2" class="k-pm"/><text x="659" y="679" class="kt t-pm">PM</text>
+    <text x="228" y="533" class="tt">Internal release snapshot</text>
+    <text x="228" y="547" class="dy san">D8</text>
+    <rect x="488" y="527" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="537" class="kt t-dev">DEV</text>
+    <rect x="36" y="592" width="310" height="58" rx="3" class="gatebox"/>
+    <text x="48" y="613" class="nm">10a</text>
+    <text x="74" y="613" class="tt">Test cases reviewed</text>
+    <text x="74" y="627" class="dy san">D8</text>
+    <text x="74" y="642" class="lb nk">NOK &#8594; TWEAK BY PROMPT</text>
+    <rect x="308" y="607" width="26" height="14" rx="2" class="k-pm"/><text x="321" y="617" class="kt t-pm">PM</text>
+    <rect x="374" y="592" width="310" height="58" rx="3" class="gatebox"/>
+    <text x="386" y="613" class="nm">10b</text>
+    <text x="412" y="613" class="tt">Release notes reviewed</text>
+    <text x="412" y="627" class="dy san">D9 · Product Sync</text>
+    <text x="412" y="642" class="lb nk">NOK &#8594; TWEAK BY PROMPT</text>
+    <rect x="646" y="607" width="26" height="14" rx="2" class="k-pm"/><text x="659" y="617" class="kt t-pm">PM</text>
+    <rect x="36" y="668" width="310" height="44" rx="3"/>
+    <text x="48" y="689" class="nm">11</text>
+    <text x="74" y="689" class="tt">Main testing</text>
+    <text x="74" y="703" class="dy san">D8–9</text>
+    <rect x="282" y="683" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="693" class="kt t-cl">CLAUDE</text>
+    <rect x="374" y="668" width="310" height="44" rx="3"/>
+    <text x="386" y="689" class="nm">15</text>
+    <text x="412" y="689" class="tt">Add screenshots to release notes</text>
+    <text x="412" y="703" class="dy san">D9</text>
+    <rect x="620" y="694" width="52" height="14" rx="2" class="k-cl"/><text x="646" y="704" class="kt t-cl">CLAUDE</text>
     <rect x="36" y="730" width="310" height="44" rx="3"/>
     <text x="48" y="751" class="nm">12</text>
-    <text x="74" y="751" class="tt">Main testing</text>
-    <text x="74" y="765" class="dy san">D8–9</text>
+    <text x="74" y="751" class="tt">Test report generated</text>
+    <text x="74" y="765" class="dy san">D9</text>
     <rect x="282" y="745" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="755" class="kt t-cl">CLAUDE</text>
-    <rect x="374" y="730" width="310" height="44" rx="3"/>
-    <text x="386" y="751" class="nm">16</text>
-    <text x="412" y="751" class="tt">Add screenshots to release notes</text>
-    <text x="412" y="765" class="dy san">D9</text>
-    <rect x="620" y="756" width="52" height="14" rx="2" class="k-cl"/><text x="646" y="766" class="kt t-cl">CLAUDE</text>
-    <rect x="36" y="792" width="310" height="44" rx="3"/>
+    <rect x="36" y="792" width="310" height="44" rx="3" class="gatebox"/>
     <text x="48" y="813" class="nm">13</text>
-    <text x="74" y="813" class="tt">Test report generated</text>
+    <text x="74" y="813" class="tt">Test report reviewed</text>
     <text x="74" y="827" class="dy san">D9</text>
-    <rect x="282" y="807" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="817" class="kt t-cl">CLAUDE</text>
-    <rect x="36" y="854" width="310" height="44" rx="3" class="gatebox"/>
+    <rect x="304" y="807" width="30" height="14" rx="2" class="k-dev"/><text x="319" y="817" class="kt t-dev">DEV</text>
+    <rect x="36" y="854" width="310" height="44" rx="3"/>
     <text x="48" y="875" class="nm">14</text>
-    <text x="74" y="875" class="tt">Test report reviewed</text>
-    <text x="74" y="889" class="dy san">D9</text>
-    <rect x="304" y="869" width="30" height="14" rx="2" class="k-dev"/><text x="319" y="879" class="kt t-dev">DEV</text>
-    <rect x="36" y="916" width="310" height="44" rx="3"/>
-    <text x="48" y="937" class="nm">15</text>
-    <text x="74" y="937" class="tt">Halt or ship</text>
-    <text x="74" y="951" class="dy san">D9–10</text>
-    <rect x="282" y="931" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="941" class="kt t-cl">CLAUDE</text>
-    <rect x="247" y="931" width="30" height="14" rx="2" class="k-dev"/><text x="262" y="941" class="kt t-dev">DEV</text>
-    <rect x="216" y="931" width="26" height="14" rx="2" class="k-pm"/><text x="229" y="941" class="kt t-pm">PM</text>
-    <rect x="190" y="990" width="340" height="58" rx="3" class="gatebox"/>
-    <text x="202" y="1011" class="nm">17</text>
-    <text x="228" y="1011" class="tt">Release notes finalised</text>
-    <text x="228" y="1025" class="dy san">D10</text>
-    <text x="228" y="1040" class="lb nk">NOK &#8594; TWEAK BY PROMPT</text>
-    <rect x="492" y="1005" width="26" height="14" rx="2" class="k-pm"/><text x="505" y="1015" class="kt t-pm">PM</text>
-    <rect x="435" y="1005" width="52" height="14" rx="2" class="k-cl"/><text x="461" y="1015" class="kt t-cl">CLAUDE</text>
+    <text x="74" y="875" class="tt">Halt or ship</text>
+    <text x="74" y="889" class="dy san">D9–10</text>
+    <rect x="282" y="869" width="52" height="14" rx="2" class="k-cl"/><text x="308" y="879" class="kt t-cl">CLAUDE</text>
+    <rect x="247" y="869" width="30" height="14" rx="2" class="k-dev"/><text x="262" y="879" class="kt t-dev">DEV</text>
+    <rect x="216" y="869" width="26" height="14" rx="2" class="k-pm"/><text x="229" y="879" class="kt t-pm">PM</text>
+    <rect x="190" y="928" width="340" height="58" rx="3" class="gatebox"/>
+    <text x="202" y="949" class="nm">16</text>
+    <text x="228" y="949" class="tt">Release notes finalised</text>
+    <text x="228" y="963" class="dy san">D10</text>
+    <text x="228" y="978" class="lb nk">NOK &#8594; TWEAK BY PROMPT</text>
+    <rect x="492" y="943" width="26" height="14" rx="2" class="k-pm"/><text x="505" y="953" class="kt t-pm">PM</text>
+    <rect x="435" y="943" width="52" height="14" rx="2" class="k-cl"/><text x="461" y="953" class="kt t-cl">CLAUDE</text>
+    <rect x="190" y="1004" width="340" height="44" rx="3"/>
+    <text x="202" y="1025" class="nm">17</text>
+    <text x="228" y="1025" class="tt">Release + notes published</text>
+    <text x="228" y="1039" class="dy san">D10 EOD</text>
+    <rect x="488" y="1019" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="1029" class="kt t-dev">DEV</text>
+    <rect x="457" y="1019" width="26" height="14" rx="2" class="k-pm"/><text x="470" y="1029" class="kt t-pm">PM</text>
     <rect x="190" y="1066" width="340" height="44" rx="3"/>
     <text x="202" y="1087" class="nm">18</text>
-    <text x="228" y="1087" class="tt">Release + notes published</text>
-    <text x="228" y="1101" class="dy san">D10 EOD</text>
-    <rect x="488" y="1081" width="30" height="14" rx="2" class="k-dev"/><text x="503" y="1091" class="kt t-dev">DEV</text>
-    <rect x="457" y="1081" width="26" height="14" rx="2" class="k-pm"/><text x="470" y="1091" class="kt t-pm">PM</text>
-    <rect x="190" y="1128" width="340" height="44" rx="3"/>
-    <text x="202" y="1149" class="nm">19</text>
-    <text x="228" y="1149" class="tt">Manuals updated</text>
-    <text x="228" y="1163" class="dy ">After D10</text>
-    <rect x="466" y="1143" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="1153" class="kt t-cl">CLAUDE</text>
+    <text x="228" y="1087" class="tt">Manuals updated</text>
+    <text x="228" y="1101" class="dy ">After D10</text>
+    <rect x="466" y="1081" width="52" height="14" rx="2" class="k-cl"/><text x="492" y="1091" class="kt t-cl">CLAUDE</text>
   </g>
   <line x1="360" y1="60" x2="360" y2="76" marker-end="url(#aN)"/>
   <line x1="360" y1="122" x2="360" y2="138" marker-end="url(#aN)"/>
   <line x1="360" y1="184" x2="360" y2="200" marker-end="url(#aN)"/>
   <line x1="360" y1="246" x2="360" y2="262" marker-end="url(#aN)"/>
   <line x1="360" y1="308" x2="360" y2="324" marker-end="url(#aN)"/>
-  <line x1="360" y1="370" x2="360" y2="386" marker-end="url(#aN)"/>
-  <line class="go" x1="360" y1="432" x2="360" y2="448" marker-end="url(#aG)"/><text x="368" y="445" class="lb ok">OK</text>
+  <line class="go" x1="360" y1="370" x2="360" y2="386" marker-end="url(#aG)"/><text x="368" y="383" class="lb ok">OK</text>
+  <polyline class="back" points="190,348 158,348 158,224 188,224" marker-end="url(#aR)"/><text x="152" y="342" class="lb nk" text-anchor="end">NOK</text>
+  <line x1="360" y1="432" x2="360" y2="448" marker-end="url(#aN)"/>
   <line x1="360" y1="494" x2="360" y2="510" marker-end="url(#aN)"/>
-  <polyline class="back" points="190,410 158,410 158,224 188,224" marker-end="url(#aR)"/><text x="152" y="404" class="lb nk" text-anchor="end">NOK</text>
-  <line x1="360" y1="556" x2="360" y2="572" marker-end="url(#aN)"/>
-  <polyline points="360,618 360,636"/><polyline points="191,636 529,636"/><line x1="191" y1="636" x2="191" y2="652" marker-end="url(#aN)"/><line x1="529" y1="636" x2="529" y2="652" marker-end="url(#aN)"/>
-  <text x="36" y="648" class="zl">TEST CASE BRANCH</text><text x="684" y="648" class="zl zr">RELEASE NOTES BRANCH</text>
-  <line class="go" x1="191" y1="712" x2="191" y2="728" marker-end="url(#aG)"/><text x="199" y="724" class="lb ok">OK</text>
-  <line class="go" x1="529" y1="712" x2="529" y2="728" marker-end="url(#aG)"/><text x="537" y="724" class="lb ok">OK</text>
-  <line x1="346" y1="752" x2="372" y2="752" marker-end="url(#aN)"/>
+  <polyline points="360,556 360,574"/><polyline points="191,574 529,574"/><line x1="191" y1="574" x2="191" y2="590" marker-end="url(#aN)"/><line x1="529" y1="574" x2="529" y2="590" marker-end="url(#aN)"/>
+  <text x="36" y="586" class="zl">TEST CASE BRANCH</text><text x="684" y="586" class="zl zr">RELEASE NOTES BRANCH</text>
+  <line class="go" x1="191" y1="650" x2="191" y2="666" marker-end="url(#aG)"/><text x="199" y="662" class="lb ok">OK</text>
+  <line class="go" x1="529" y1="650" x2="529" y2="666" marker-end="url(#aG)"/><text x="537" y="662" class="lb ok">OK</text>
+  <line x1="346" y1="690" x2="372" y2="690" marker-end="url(#aN)"/>
+  <line x1="191" y1="712" x2="191" y2="728" marker-end="url(#aN)"/>
   <line x1="191" y1="774" x2="191" y2="790" marker-end="url(#aN)"/>
-  <line x1="191" y1="836" x2="191" y2="852" marker-end="url(#aN)"/>
-  <line class="back" x1="191" y1="898" x2="191" y2="914" marker-end="url(#aR)"/><text x="199" y="910" class="lb nk">NOK</text>
-  <polyline class="go" points="346,876 420,876 420,988" marker-end="url(#aG)"/><text x="354" y="870" class="lb ok">OK</text>
-  <line x1="250" y1="960" x2="250" y2="988" marker-end="url(#aN)"/><text x="258" y="978" class="lb">SHIP WITH KNOWN ISSUES</text>
-  <polyline class="back" points="36,938 14,938 14,224 158,224" marker-end="url(#aR)"/><text x="20" y="470" class="lb nk">HALT: FIX</text><text x="20" y="482" class="lb nk">AND RETEST</text>
-  <line x1="500" y1="774" x2="500" y2="988" marker-end="url(#aN)"/><text x="508" y="870" class="lb">WAITS FOR THE</text><text x="508" y="882" class="lb">TEST RESULT</text>
-  <line class="go" x1="360" y1="1048" x2="360" y2="1064" marker-end="url(#aG)"/><text x="368" y="1061" class="lb ok">OK</text>
-  <line x1="360" y1="1110" x2="360" y2="1126" marker-end="url(#aN)"/>
+  <line class="back" x1="191" y1="836" x2="191" y2="852" marker-end="url(#aR)"/><text x="199" y="848" class="lb nk">NOK</text>
+  <polyline class="go" points="346,814 420,814 420,926" marker-end="url(#aG)"/><text x="354" y="808" class="lb ok">OK</text>
+  <line x1="250" y1="898" x2="250" y2="926" marker-end="url(#aN)"/><text x="258" y="916" class="lb">SHIP WITH KNOWN ISSUES</text>
+  <polyline class="back" points="36,876 14,876 14,224 158,224" marker-end="url(#aR)"/><text x="20" y="470" class="lb nk">HALT: FIX</text><text x="20" y="482" class="lb nk">AND RETEST</text>
+  <line x1="500" y1="712" x2="500" y2="926" marker-end="url(#aN)"/><text x="508" y="808" class="lb">WAITS FOR THE</text><text x="508" y="820" class="lb">TEST RESULT</text>
+  <line class="go" x1="360" y1="986" x2="360" y2="1002" marker-end="url(#aG)"/><text x="368" y="999" class="lb ok">OK</text>
+  <line x1="360" y1="1048" x2="360" y2="1064" marker-end="url(#aN)"/>
 </svg>
 </div>
-<figcaption>Steps 01&ndash;10 run in sequence up to the internal snapshot on day 8. The flow then splits into the test case branch (11a, 12&ndash;15) and the release notes branch (11b). Right after main testing (12), Claude adds screenshots to the notes (16), so 12 and 16 sit side by side. The notes are finalised at 17 once the test result is in. Green is the approved path and orange shows the ways back. Boxes outlined in orange are the review points. The small line under each step is the day it happens on, matching the timeline above.</figcaption>
+<figcaption>Development and PRs run on days 1&ndash;5, PR review on days 6&ndash;7 and merge on day 7. Steps 01&ndash;09 run in sequence up to the internal snapshot on day 8. The flow then splits into the test case branch (10a, 11&ndash;14) and the release notes branch (10b). Right after main testing (11), Claude adds screenshots to the notes (15), so 11 and 15 sit side by side. The notes are finalised at 16 once the test result is in. Green is the approved path and orange shows the ways back. Boxes outlined in orange are the review points. The small line under each step is the day it happens on, matching the timeline above.</figcaption>
 </figure>
 
     <div class="stage"><div class="stage-no">01</div><div>
@@ -612,43 +606,38 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">04</div><div>
-      <h3>Development <span class="owner">Dev</span> <span class="day-tag ">days 1–7</span></h3>
+      <h3>Development <span class="owner">Dev</span> <span class="day-tag ">days 1–5</span></h3>
       <ul>
         <li>Devs build the executionals in the ticket and write test cases on the ticket.</li>
         <li>A migration script is maintained where migration is required. Upgrades run one version at a time until the latest version is reached.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">05</div><div>
-      <h3>PR created <span class="owner">Dev</span> <span class="day-tag ">days 1–7</span></h3>
+      <h3>PR raised per ticket <span class="owner">Dev</span> <span class="day-tag ">days 1–5</span></h3>
       <ul><li>One PR per ticket.</li></ul></div></div>
 
     <div class="stage"><div class="stage-no">06</div><div>
-      <h3>PR vetting <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag ">days 6–7</span></h3>
+      <h3>PR review <span class="owner">Ticket's dev reviews</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="gate-tag">Decision point</span> <span class="day-tag ">days 6–7</span></h3>
       <ul>
-        <li>Claude reads the Jira ticket and the code, vetting the PR against the dev's test cases and the PM's ticket description.</li>
+        <li>Includes the <strong>code vs ticket check</strong>: Claude reads the Jira ticket and the code, and reviews the PR against the dev's test cases and the ticket description.</li>
         <li>Checks for <strong>migration gaps</strong> and for <strong>gaps between Jira and the code</strong>.</li>
+        <li>Claude's report goes to the dev who owns the ticket. The PM is brought in only when something is urgent.</li>
+        <li><strong>NOK</strong> &rarr; back to development (04). <strong>OK</strong> &rarr; merge (07).</li>
         <li>R&amp;D and discussion tickets have no PR and are skipped.</li>
       </ul></div></div>
 
     <div class="stage"><div class="stage-no">07</div><div>
-      <h3>Vetting report <span class="owner">Ticket's dev vets</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="gate-tag">Decision point</span> <span class="day-tag ">days 6–7</span></h3>
-      <ul>
-        <li>Claude creates a report for each PR, and the dev who owns the ticket vets it. The PM is brought in only when something is urgent.</li>
-        <li><strong>NOK</strong> &rarr; back to development (04). <strong>OK</strong> &rarr; proceed to merge.</li>
-      </ul></div></div>
+      <h3>Merge <span class="owner">Dev</span> <span class="day-tag ">day 7</span></h3>
+      <ul><li>The ticket's PR is merged on day 7 once its review is OK. Day 7 is the merge deadline.</li></ul></div></div>
 
     <div class="stage"><div class="stage-no">08</div><div>
-      <h3>Merge <span class="owner">Dev</span> <span class="day-tag ">days 6–7</span></h3>
-      <ul><li>The ticket's PR is merged once the vetting report is OK.</li></ul></div></div>
-
-    <div class="stage"><div class="stage-no">09</div><div>
       <h3>Test cases + release notes created <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag ">day 7</span></h3>
       <ul>
         <li>Claude generates release-level test cases from the tickets carrying this fix version.</li>
         <li>Claude drafts the release notes from the ticket note text written at step 02, with the image placeholders left in. R&amp;D and discussion tickets are left out.</li>
       </ul></div></div>
 
-    <div class="stage"><div class="stage-no">10</div><div>
+    <div class="stage"><div class="stage-no">09</div><div>
       <h3>Internal release snapshot <span class="owner">Release dev</span> <span class="day-tag san">day 8</span></h3>
       <ul>
         <li>Code freezes at the end of day 7. On day 8, the release dev cuts the release branch and the snapshot is taken from it. Everything that follows runs against this one snapshot.</li>
@@ -656,67 +645,67 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
         <li>From here the flow splits into two branches: test cases and release notes.</li>
       </ul></div></div>
 
-    <div class="track-head"><h3>Test case branch</h3><p>Steps 11a and 12&ndash;15.</p></div>
+    <div class="track-head"><h3>Test case branch</h3><p>Steps 10a and 11&ndash;14.</p></div>
 
-    <div class="stage"><div class="stage-no">11a</div><div>
+    <div class="stage"><div class="stage-no">10a</div><div>
       <h3>Test cases reviewed <span class="owner">PM</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 8</span></h3>
       <ul>
         <li><strong>NOK</strong> &rarr; tweak by prompt: the PM adds, changes or removes cases and the set is reviewed again. No ticket or code change is involved.</li>
         <li><strong>OK</strong> &rarr; main testing starts.</li>
       </ul></div></div>
 
-    <div class="stage"><div class="stage-no">12</div><div>
+    <div class="stage"><div class="stage-no">11</div><div>
       <h3>Main testing <span class="owner">Triggered by the release dev</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">days 8–9</span></h3>
       <ul><li>Once the test cases are reviewed, the release dev triggers Claude main testing on the snapshot.</li></ul></div></div>
 
-    <div class="stage"><div class="stage-no">13</div><div>
+    <div class="stage"><div class="stage-no">12</div><div>
       <h3>Test report generated <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">day 9</span></h3>
       <ul><li>Main testing produces a testing report.</li></ul></div></div>
 
-    <div class="stage"><div class="stage-no">14</div><div>
+    <div class="stage"><div class="stage-no">13</div><div>
       <h3>Test report reviewed <span class="owner">Release dev</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 9</span></h3>
       <ul>
-        <li><strong>OK</strong> &rarr; the release notes can be finalised (17).</li>
-        <li><strong>NOK</strong> &rarr; the gaps are shown, and the call is made at 15.</li>
+        <li><strong>OK</strong> &rarr; the release notes can be finalised (16).</li>
+        <li><strong>NOK</strong> &rarr; the gaps are shown, and the call is made at 14.</li>
       </ul></div></div>
 
-    <div class="stage"><div class="stage-no">15</div><div>
+    <div class="stage"><div class="stage-no">14</div><div>
       <h3>Halt or ship decision <span class="owner">PM + Dev</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">days 9–10</span></h3>
       <ul>
         <li><strong>Halt the release</strong> &rarr; back to development (04) for fixes. The fixes come back through the same flow and are retested on a new snapshot. The release dev owns fixes and retests, and the PM oversees them.</li>
-        <li><strong>Ship with the bugs as known issues</strong> &rarr; on to step 17.</li>
+        <li><strong>Ship with the bugs as known issues</strong> &rarr; on to step 16.</li>
         <li><strong>Bugs are created automatically at this step</strong>, whichever way the call goes.</li>
       </ul></div></div>
 
-    <div class="track-head"><h3>Release notes branch</h3><p>Steps 11b and 16. Screenshots are added right after main testing; the notes then wait for the test result.</p></div>
+    <div class="track-head"><h3>Release notes branch</h3><p>Steps 10b and 15. Screenshots are added right after main testing; the notes then wait for the test result.</p></div>
 
-    <div class="stage"><div class="stage-no">11b</div><div>
+    <div class="stage"><div class="stage-no">10b</div><div>
       <h3>Release notes reviewed <span class="owner">PM, Akshat, Sagar</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 9</span></h3>
       <ul>
         <li>Vaibhav, Akshat and Sagar read the draft out in the day 9 Product Sync.</li>
         <li><strong>NOK</strong> &rarr; tweak by prompt: wording, ordering or coverage. <strong>OK</strong> &rarr; the draft waits for the test result.</li>
       </ul></div></div>
 
-    <div class="stage"><div class="stage-no">16</div><div>
+    <div class="stage"><div class="stage-no">15</div><div>
       <h3>Add screenshots to release notes <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag san">day 9</span></h3>
       <ul>
-        <li>Runs right after main testing (12), not after the test report.</li>
-        <li>Claude captures the screens named in the image placeholders from step 02, on the snapshot, and adds them to the draft reviewed at 11b.</li>
+        <li>Runs right after main testing (11), not after the test report.</li>
+        <li>Claude captures the screens named in the image placeholders from step 02, on the snapshot, and adds them to the draft reviewed at 10b.</li>
         <li>The screens come from the QA env instance Sagar sets up, which carries no client names.</li>
       </ul></div></div>
 
-    <div class="track-head"><h3>Finalise and ship</h3><p>Steps 17&ndash;19.</p></div>
+    <div class="track-head"><h3>Finalise and ship</h3><p>Steps 16&ndash;18.</p></div>
 
-    <div class="stage"><div class="stage-no">17</div><div>
+    <div class="stage"><div class="stage-no">16</div><div>
       <h3>Release notes finalised <span class="owner">PM reviews</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="gate-tag">Decision point</span> <span class="day-tag san">day 10</span></h3>
       <ul>
-        <li>Runs once the test report is OK (14), or once the decision is to ship with known issues (15).</li>
-        <li>The PM makes the final tweaks to the notes, with their screenshots (16) and any known-issue bugs (15).</li>
+        <li>Runs once the test report is OK (13), or once the decision is to ship with known issues (14).</li>
+        <li>The PM makes the final tweaks to the notes, with their screenshots (15) and any known-issue bugs (14).</li>
         <li><strong>NOK</strong> &rarr; <strong>prompt-based tweaks only</strong>: wording, ordering, or swapping an image. The test report is already approved at this point, so nothing here goes back to a ticket or to code.</li>
         <li><strong>OK</strong> &rarr; publish.</li>
       </ul></div></div>
 
-    <div class="stage"><div class="stage-no">18</div><div>
+    <div class="stage"><div class="stage-no">17</div><div>
       <h3>Release, files and notes published <span class="owner">PM + release dev</span> <span class="day-tag san">day 10 EOD</span></h3>
       <ul>
         <li>Vaibhav and Swayam send the release on day 10 by EOD. Deb covers when Swayam is out. If it slips to day 11, they finish it while Sagar starts the next release.</li>
@@ -725,7 +714,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
         <li>Plants update on their own schedule. Updating the bundle requires pulling the matching instance version from Vision.</li>
       </ul></div></div>
 
-    <div class="stage"><div class="stage-no">19</div><div>
+    <div class="stage"><div class="stage-no">18</div><div>
       <h3>Manuals updated <span class="owner">PM reviews</span> <span class="skill-tag">Claude &middot; Skill</span> <span class="day-tag ">after the release</span></h3>
       <ul>
         <li>A separate skill updates the manuals once the release is out.</li>
@@ -746,16 +735,16 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
         </thead>
         <tbody>
           <tr><td class="slot">02</td><td>ticket-creation</td><td>Exists</td><td>A PRD, run by Sagar &rarr; tickets, fix version, note text, image placeholders</td></tr>
-          <tr><td class="slot">06 &middot; 07</td><td>PR vetting + report</td><td>New</td><td>The Jira ticket + the code in the PR</td></tr>
-          <tr><td class="slot">09 &middot; 12 &middot; 13</td><td>Testing</td><td>New</td><td>Tickets, the snapshot, the approved test cases</td></tr>
-          <tr><td class="slot">15</td><td>Bug creation</td><td>New</td><td>Gaps from the test report</td></tr>
-          <tr><td class="slot">09 &middot; 16 &middot; 17</td><td>Release notes</td><td>New</td><td>Draft: ticket note text. Then screenshots from the snapshot and known-issue bugs</td></tr>
-          <tr><td class="slot">19</td><td>Manuals update</td><td>New</td><td>Ticket executionals</td></tr>
+          <tr><td class="slot">06</td><td>PR review</td><td>New</td><td>The Jira ticket + the code in the PR</td></tr>
+          <tr><td class="slot">08 &middot; 11 &middot; 12</td><td>Testing</td><td>New</td><td>Tickets, the snapshot, the approved test cases</td></tr>
+          <tr><td class="slot">14</td><td>Bug creation</td><td>New</td><td>Gaps from the test report</td></tr>
+          <tr><td class="slot">08 &middot; 15 &middot; 16</td><td>Release notes</td><td>New</td><td>Draft: ticket note text. Then screenshots from the snapshot and known-issue bugs</td></tr>
+          <tr><td class="slot">18</td><td>Manuals update</td><td>New</td><td>Ticket executionals</td></tr>
         </tbody>
       </table>
     </div>
 
-    <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:70ch;">Steps 01, 03, 04, 05, 08, 10, 11a, 11b, 14 and 18 involve no Claude skill.</p>
+    <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:70ch;">Steps 01, 03, 04, 05, 07, 09, 10a, 10b, 13 and 17 involve no Claude skill.</p>
   </section>
 
   <section>
@@ -777,8 +766,8 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
     <div class="callout">
       <h2>Decisions still needed</h2>
       <ul>
-        <li><strong>Re-vetting after a NOK at 07:</strong> does the corrected PR go back through vetting, or is the release dev's sign-off enough the second time?</li>
-        <li><strong>Migration testing against old data:</strong> PR vetting confirms the migration code exists, but nothing yet confirms it works. The release-level test cases at step 09 are the natural place for it.</li>
+        <li><strong>Re-review after a NOK at 06:</strong> does the corrected PR go back through PR review, or is the release dev's sign-off enough the second time?</li>
+        <li><strong>Migration testing against old data:</strong> PR review confirms the migration code exists, but nothing yet confirms it works. The release-level test cases at step 08 are the natural place for it.</li>
         <li><strong>Four-part version tooling check:</strong> roughly an hour for a dev to confirm that package.json, image tags, installer sort order and version-comparison libraries all accept four parts.</li>
       </ul>
     </div>
@@ -795,7 +784,7 @@ textarea{display:block; width:100%; margin-top:4px; font:400 13px/1.38 var(--bod
       <li><strong>Work belonging to several tickets must not be merged under one ticket.</strong> Each ticket's changes go in that ticket's own PR.</li>
     </ul>
 
-    <p style="margin-top:18px;max-width:70ch;color:var(--muted);">The rest of the process depends on this. PR vetting at step 06 compares one ticket against one diff. If a PR carries three tickets' worth of work, there is no single description to check it against, and vetting can't say whether the code matches the ticket. The same problem carries downstream: release notes and manuals are generated per ticket, so work merged under the wrong ticket is described as the wrong change, or not described at all.</p>
+    <p style="margin-top:18px;max-width:70ch;color:var(--muted);">The rest of the process depends on this. PR review at step 06 compares one ticket against one diff. If a PR carries three tickets' worth of work, there is no single description to check it against, and the review can't say whether the code matches the ticket. The same problem carries downstream: release notes and manuals are generated per ticket, so work merged under the wrong ticket is described as the wrong change, or not described at all.</p>
 
     <p style="margin-top:12px;max-width:70ch;color:var(--muted);">It also keeps the fix version honest. Release scope is a Jira query on the fix version, so a ticket carrying hidden extra work makes the release larger than the query shows.</p>
   </section>
